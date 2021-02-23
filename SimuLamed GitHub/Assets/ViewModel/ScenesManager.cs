@@ -2,21 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 //using SimuLamed.SimuLamed GitHub.Assets.Model.FirebaseManager;
 
 public class ScenesManager : MonoBehaviour
 {
-    public void SignUpScene()
+    private FirebaseManager firebaseManager = new FirebaseManager();
+    
+    public InputField inputUsername;
+    public InputField inputPassword;
+    public InputField inputEmail;
+
+    //then drag and drop the Username_field
+
+
+    public void OnClickNewUser()
     {
-        //User u = new User();
-        User user = new User("Nili", "1234", "myEmail");
-        FirebaseManager.PostUser(user, "1", () =>
-        {
-            Debug.Log($"{user.username} {user.password} {user.email}");
-        });
         SceneManager.LoadScene("SignUpScene");
 
+    }
 
+    public void OnClickSignUp()
+    {
+        string username = inputUsername.text.ToString();
+        string password = inputPassword.text.ToString();
+        string email = inputEmail.text.ToString();
+        User user = new User(username, password, email);
+        firebaseManager.SignUpUser(user);
+        //firebaseManager.SignUpUser(new User(username, password, email));
+        //string username  = Inpu
+        //FirebaseManager.SignUpUser();
+        //SceneManager.LoadScene("MenuScene");
     }
 
     public void SignInScene()
@@ -25,6 +41,7 @@ public class ScenesManager : MonoBehaviour
         //FirebaseManager.PostUser
     }
 }
+
 
 
 
