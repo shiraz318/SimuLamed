@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/View/Scenes/SignInScene.unity
     guid: 98bd008d5cd54ae4891ee8bc16a470c7
+  - enabled: 1
+    path: Assets/View/Scenes/ForgotPasswordScene.unity
+    guid: f82d85e48c7fd9442a8ef9be98ebf5d7
+  - enabled: 1
+    path: Assets/View/Scenes/MenuScene.unity
+    guid: 5021990dc40ba684b88f5e2054a18371
   m_configObjects: {}
