@@ -10,12 +10,14 @@ public class MenuSceneVM : MonoBehaviour
 
     public IDatabaseHandler databaseHandler;
     public Text usernameText;
+    public SceneLoader sceneLoader;
 
     public void Start()
     {
         databaseHandler = FirebaseManager.Instance;
         usernameText.text = databaseHandler.GetUsername();
     }
+
 
     public void OnClickStartSimulation()
     {
@@ -39,6 +41,7 @@ public class MenuSceneVM : MonoBehaviour
     public void OnClickLogOut()
     {
         databaseHandler.ResetCurrentUser();
-        SceneManager.LoadScene("SignInScene");
+        sceneLoader.LoadNextScene("SignInScene");
+        //SceneManager.LoadScene("SignInScene");
     }
 }

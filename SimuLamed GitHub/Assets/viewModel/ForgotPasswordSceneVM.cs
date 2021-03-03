@@ -11,9 +11,15 @@ public class ForgotPasswordSceneVM : MonoBehaviour
     public IDatabaseHandler databaseHandler;
     public InputField inputEmail;
     public Text errorText;
+    public SceneLoader sceneLoader;
+
+    //public Canvas canvas;
+
 
     public void Start()
     {
+        //DontDestroyOnLoad(canvas);
+
         databaseHandler = FirebaseManager.Instance;
         databaseHandler.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
@@ -24,8 +30,11 @@ public class ForgotPasswordSceneVM : MonoBehaviour
         };
     }
 
+
     public void OnClickResetPassword()
     {
+        errorText.text = "";
+
         string email = inputEmail.text.ToString();
         if (email.Equals(""))
         {
@@ -38,11 +47,11 @@ public class ForgotPasswordSceneVM : MonoBehaviour
     }
     public void OnSuccess()
     {
-        SceneManager.LoadScene("SignInScene");
+        sceneLoader.LoadNextScene("SignInScene");
     }
     public void OnClickBack()
     {
-        SceneManager.LoadScene("SignInScene");
+        sceneLoader.LoadNextScene("SignInScene");
     }
 
 

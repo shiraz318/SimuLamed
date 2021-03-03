@@ -16,6 +16,8 @@ namespace Assets.model
         void ResetPassword(string email, Action onSuccess);
         void ResetCurrentUser();
         string GetUsername();
+        void UploadDataset(List<Question> questions);
+        List<Question> GetQuestionsByType(QuestionType questionType);
 
     }
 }

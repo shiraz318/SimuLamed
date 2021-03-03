@@ -14,10 +14,14 @@ public class SignUpSceneVM : MonoBehaviour
     public InputField inputPassword;
     public InputField inputEmail;
     public Text errorText;
+    public SceneLoader sceneLoader;
+
+    //public Canvas canvas;
 
 
     public void Start()
     {
+        //DontDestroyOnLoad(canvas);
         databaseHandler = FirebaseManager.Instance;
         databaseHandler.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
@@ -31,12 +35,14 @@ public class SignUpSceneVM : MonoBehaviour
     // On click sign up button.
     public void OnClickSignUp()
     {
+        errorText.text = "";
+
         string username = inputUsername.text.ToString();
         string password = inputPassword.text.ToString();
         string email = inputEmail.text.ToString();
-        if (username.Equals(""))
+        if (username.Equals("") || password.Equals("") || email.Equals(""))
         {
-            errorText.text = "ENTER A USERNAME";
+            errorText.text = "PLEASE FILL ALL FIELDS";
             return;
         }
         databaseHandler.SignUpUser(username, password, email, OnSuccess);
@@ -48,11 +54,13 @@ public class SignUpSceneVM : MonoBehaviour
     }
     public void OnSuccess()
     {
-        SceneManager.LoadScene("SignInScene");
+        sceneLoader.LoadNextScene("SignInScene");
+
     }
 
     public void OnClickBack()
     {
-        SceneManager.LoadScene("SignInScene");
+        sceneLoader.LoadNextScene("SignInScene");
+
     }
 }
