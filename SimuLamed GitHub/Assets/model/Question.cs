@@ -21,6 +21,7 @@ namespace Assets.model
         Hard
     }
 
+    [Serializable]
     public class Question
     {
 
@@ -35,6 +36,7 @@ namespace Assets.model
         public string imageUrl;
         public int questionNumber;
         public string questionCategory;
+
 
 
         public Question(int questionNumber, QuestionType questionType, QuestionDifficulty questionDifficulty, string question, string[] answers, string imageUrl)

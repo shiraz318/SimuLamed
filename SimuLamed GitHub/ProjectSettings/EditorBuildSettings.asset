@@ -5,9 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Dataset/DatasetLoadScene.unity
-    guid: e6250b8b9c16d4a45a406b3132d75c13
+  - enabled: 1
+    path: Assets/View/Scenes/DatasetUploadScene.unity
+    guid: 7f46625e828a5e84f9c4269bb434d51b
   - enabled: 1
     path: Assets/View/Scenes/SignUpScene.unity
     guid: 48daad143a9e4f444a2481a53392c9ba

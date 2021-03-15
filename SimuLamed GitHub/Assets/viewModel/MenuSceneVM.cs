@@ -26,7 +26,7 @@ public class MenuSceneVM : MonoBehaviour
 
     public void OnClickLearnFromQuestions()
     {
-        Debug.Log("Learn from questions");
+        sceneLoader.LoadNextScene("LearningFromQuestionsScene");
     }
 
     public void OnClickStatisticsAndPropgress()

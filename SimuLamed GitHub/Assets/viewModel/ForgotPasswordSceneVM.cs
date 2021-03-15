@@ -10,7 +10,7 @@ public class ForgotPasswordSceneVM : MonoBehaviour
 {
     public IDatabaseHandler databaseHandler;
     public InputField inputEmail;
-    public Text errorText;
+    public static Text errorText;
     public SceneLoader sceneLoader;
 
     //public Canvas canvas;
@@ -19,6 +19,7 @@ public class ForgotPasswordSceneVM : MonoBehaviour
     public void Start()
     {
         //DontDestroyOnLoad(canvas);
+        errorText = GameObject.FindWithTag("ErrorMessage").GetComponent<Text>() as Text;
 
         databaseHandler = FirebaseManager.Instance;
         databaseHandler.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)

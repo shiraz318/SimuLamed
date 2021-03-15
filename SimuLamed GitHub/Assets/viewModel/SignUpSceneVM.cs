@@ -13,7 +13,7 @@ public class SignUpSceneVM : MonoBehaviour
     public InputField inputUsername;
     public InputField inputPassword;
     public InputField inputEmail;
-    public Text errorText;
+    public static Text errorText;
     public SceneLoader sceneLoader;
 
     //public Canvas canvas;
@@ -21,6 +21,7 @@ public class SignUpSceneVM : MonoBehaviour
 
     public void Start()
     {
+        errorText = GameObject.FindWithTag("ErrorMessage").GetComponent<Text>() as Text;
         //DontDestroyOnLoad(canvas);
         databaseHandler = FirebaseManager.Instance;
         databaseHandler.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)

@@ -11,6 +11,7 @@ public class UploadDataset : MonoBehaviour
         databaseHandler = FirebaseManager.Instance;
         List<Question> q = QuestionsCreator.GenerateQuestions();
         databaseHandler.UploadDataset(q);
+        
     }
 
 }

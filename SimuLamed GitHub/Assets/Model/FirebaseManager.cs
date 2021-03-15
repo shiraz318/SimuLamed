@@ -5,6 +5,9 @@ using UnityEngine;
 using FullSerializer;
 using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Linq;
+using Assets;
 
 // Singleton FirebaseManager.
 public sealed class FirebaseManager : IDatabaseHandler
@@ -15,6 +18,7 @@ public sealed class FirebaseManager : IDatabaseHandler
     {
         Error = new ErrorObject("", ErrorTypes.None);
         ResetCurrentUser();
+        Questions = new List<Question>();
     }
     
 
@@ -28,13 +32,16 @@ public sealed class FirebaseManager : IDatabaseHandler
     public delegate void PostUserCallback();
 
     public event PropertyChangedEventHandler PropertyChanged;
+    
     public ErrorObject Error { get; set; }
-
+    public List<Question> Questions { get; set; }
     public User currentUser;
+
 
     private static readonly object padlock = new object();
     private static FirebaseManager instance = null;
 
+    
     // Thread safety singleton using double check locking 
     public static FirebaseManager Instance
     {
@@ -70,14 +77,14 @@ public sealed class FirebaseManager : IDatabaseHandler
         currentUser = null;
     }
 
-
     // Post a given user to the database.
     private void PostUser(User user, string userId)
     {
-        RestClient.Put<User>($"{databaseURL}users/{userId}.json", user);
+        RestClient.Put<User>($"{databaseURL}users/{userId}.json?auth=" + user.idToken , user).Catch(error => {
+            SetError(ExtractErrorMessage(error), ErrorTypes.SignUp);
+
+        });
     }
-
-
 
     // Sign up a given user.
     public void SignUpUser(string username, string password, string email, Action onSuccess)
@@ -112,6 +119,7 @@ public sealed class FirebaseManager : IDatabaseHandler
         });
     }
 
+    // Set the Error propery.
     private void SetError(string message, ErrorTypes errorType)
     {
         Error.Message = message;
@@ -140,7 +148,6 @@ public sealed class FirebaseManager : IDatabaseHandler
         return exception.Response.Split(',')[1].Split(':')[1].Split('\"')[1].Replace('_', ' ');
     }
 
-
     // Sign in a given user.
     public void SignInUser(string password, string email, Action onSuccess)
     {
@@ -152,6 +159,8 @@ public sealed class FirebaseManager : IDatabaseHandler
         }
         string userData = "{\"email\":\"" + email + "\",\"password\":\"" + password + "\",\"returnSecureToken\":true}";
         
+        
+
         // Sign in with password and email.
         RestClient.Post<SignResponse>("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + authKey,
             bodyString: userData).Then(response =>
@@ -187,6 +196,8 @@ public sealed class FirebaseManager : IDatabaseHandler
                 Debug.Log("EMAIL VERIFIED");
                 SetCurrentUser(response.localId, response.idToken, email, onSuccess);
                 SetError("", ErrorTypes.None);
+                SetFromQuestionNumToType();
+
 
             }
             else
@@ -194,6 +205,26 @@ public sealed class FirebaseManager : IDatabaseHandler
                 SetError("PLEASE VERIFY YOUR EMAIL", ErrorTypes.SignIn);
             }
 
+        });
+    }
+
+
+    private void SetFromQuestionNumToType()
+    {
+        Dictionary<string, Question> questions = new Dictionary<string, Question>();
+
+        string getRequest = $"{databaseURL}questions.json?auth=" + currentUser.idToken + "&orderBy=\"questionNumber\"&startAt=0";
+
+        RestClient.Get(getRequest).Then(response =>
+        {
+            fsData questionsData = fsJsonParser.Parse(response.Text);
+            serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
+            Dictionary<int, QuestionType> dic = questions.Values.ToDictionary(x => x.questionNumber, x => Question.FromCategoryToTypeEnglish(x.questionCategory));
+
+            Utils.SetFromQuestionNumToType(dic);
+
+        }).Catch(error => {
+            Debug.Log(error.Message); 
         });
     }
 
@@ -250,7 +281,7 @@ public sealed class FirebaseManager : IDatabaseHandler
     // Get the current user's username from the database.
     private void GetUsernameFromDatabase(Action onSuccess)
     {
-        RestClient.Get<User>($"{databaseURL}users/{currentUser.localId}.json").Then(response =>
+        RestClient.Get<User>($"{databaseURL}users/{currentUser.localId}.json?auth=" + currentUser.idToken).Then(response =>
         {
             currentUser.username = response.username;
             onSuccess();
@@ -267,25 +298,47 @@ public sealed class FirebaseManager : IDatabaseHandler
     }
 
 
-    /// <summary>
-    /// Adds a user to the Firebase Database
-    /// </summary>
-    /// <param name="user"> User object that will be uploaded </param>
-    /// <param name="userId"> Id of the user that will be uploaded </param>
-    /// <param name="callback"> What to do after the user is uploaded successfully </param>
-    private void GetUser(string userId, GetUserCallback callback)
+
+    private void SetQuestions(List<Question> questions)
     {
-        RestClient.Get<User>($"{databaseURL}users/{userId}.json").Then(user => { callback(user); });
+        Questions = questions;
+        NotifyPropertyChanged("Questions");
+
     }
 
-
-    public List<Question> GetQuestionsByType(QuestionType questionType)
+    // Set Questions by a given category from the database.
+    public void SetQuestionsByCategory(string category)
     {
-        List<Question> questions = new List<Question>();
+        Dictionary<string, Question> questions = new Dictionary<string, Question>();
+
+        
+
+        string getRequest = $"{databaseURL}questions.json?auth=" + currentUser.idToken;
+
+        if (category.Equals("כל הנושאים"))
+        {
+            getRequest = getRequest + "&orderBy=\"questionNumber\"&startAt=0";
+        }
+        else
+        {
+            getRequest = getRequest + "&orderBy=\"questionCategory\"&equalTo=\"" + category + "\"";
+         
+        }
+
+        RestClient.Get(getRequest).Then( response => {
+
+            fsData questionsData = fsJsonParser.Parse(response.Text);
+            serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
+            System.Random rnd = new System.Random();
+
+            SetQuestions(questions.Values.OrderBy(x => rnd.Next()).ToList());
+
+        }).Catch(error => 
+        { 
+            Debug.Log(error);
+        });
 
 
-
-        return questions;
     }
 
     // Upload the given questions to the database reqursivly;
@@ -311,12 +364,6 @@ public sealed class FirebaseManager : IDatabaseHandler
         UploadDatasetHelper(questions, 0);
 
     }
-
-        //foreach (Question question in questions)
-        //{
-        //    RestClient.Put<Question>($"{databaseURL}questions/{question.questionNumber}.json", question).Catch(error=> { Debug.Log(error.Message); });
-        //}
-   // }
 
 
 }

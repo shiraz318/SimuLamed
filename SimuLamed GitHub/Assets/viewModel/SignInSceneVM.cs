@@ -13,14 +13,15 @@ public class SignInSceneVM : MonoBehaviour
 
     public InputField inputPassword;
     public InputField inputEmail;
-    public Text errorText;
+    public static Text errorText;
     public SceneLoader sceneLoader;
-    public Image loadingCircle;
+    public static Image loadingCircle;
     //public Canvas canvas;
 
     public void Start()
     {
-         
+        errorText = GameObject.FindWithTag("ErrorMessage").GetComponent<Text>() as Text;
+        loadingCircle = GameObject.FindWithTag("LoadingCircle").GetComponent<Image>() as Image; 
         //DontDestroyOnLoad(loadingCircle);
         databaseHandler = FirebaseManager.Instance;
         databaseHandler.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)

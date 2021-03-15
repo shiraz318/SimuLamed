@@ -4,9 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System;
-
-
+using System.Text.RegularExpressions;
 
 namespace Assets.model
 {
@@ -73,13 +71,15 @@ namespace Assets.model
                 questionDifficulty = QuestionDifficulty.Medium;
             }
 
-            string questionString = line[1];
             QuestionType questionType = GetQuestionType(line[3]);
-            answers[0] = line[4];
-            answers[1] = line[5];
-            answers[2] = line[6];
-            answers[3] = line[7];
-            answers[4] = line[8];
+            
+            string questionString = FixHebrew(line[1]);
+            answers[0] = FixHebrew(line[4]);
+            answers[1] = FixHebrew(line[5]);
+            answers[2] = FixHebrew(line[6]);
+            answers[3] = FixHebrew(line[7]);
+            answers[4] = FixHebrew(line[8]);
+
             string imageUrl = line[9];
 
 
@@ -99,6 +99,87 @@ namespace Assets.model
             }
 
             return questions;
+        }
+
+        // Replace open brackets with close brackets in the given string.
+        private static string FixOneStringBracket(string text)
+        {
+            text = text.Replace("(", "&");
+            text = text.Replace(")", "(");
+            text = text.Replace("&", ")");
+            return text;
+        }
+
+
+        // Revers a given string.
+        private static string ReversString(string text)
+        {
+            char[] charArray = text.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
+
+        // Replace a given substring of a given string with it's revers string.
+        private static string ReplaceWithRevers(string stringToReplace, string text)
+        {
+            if (!string.IsNullOrEmpty(stringToReplace))
+            {
+                return text.Replace(stringToReplace, ReversString(stringToReplace));
+            }
+            return text;
+        }
+
+
+        // Fix a given string and revers it's numbers and english letters.
+        private static string FixOneStringNumbersAndEnglishLetters(string text)
+        {
+            //"כן – מהשעה 21:00 עד לשעה 05:30 בימי חול בלבד.  "
+            string pattern = @"[\p{IsHebrew}]+";
+
+            var hebrewMatchCollection = Regex.Matches(text, pattern);
+            string hebrewPart = string.Join(" ", hebrewMatchCollection.Cast<Match>().Select(m => m.Value));
+
+            var commaNumbersMatches = Regex.Matches(text, @"(\d{0,3},)(\d{3},)?\d{3}");
+            var hourMatches = Regex.Matches(text, @"(2[0-3]|[0-1][0-9]):([0-5][0-9])");
+
+            // All substrings that are not hebrew letters.
+            string[] notHebrews = Regex.Split(text, pattern);
+
+            foreach (string notHebrew in notHebrews)
+            {
+                if (!string.IsNullOrEmpty(notHebrew))
+                {
+                    var englishPart = Regex.Replace(notHebrew, "[^a-zA-Z]", "");
+
+                    var simpleNumbersOnlyPart = Regex.Replace(notHebrew, "[^0-9]", "");
+
+
+                    text = ReplaceWithRevers(englishPart, text);
+                    text = ReplaceWithRevers(simpleNumbersOnlyPart, text);
+                }
+
+            }
+
+            foreach (Match hourMatch in hourMatches)
+            {
+                text = ReplaceWithRevers(hourMatch.Value, text);
+            }
+            foreach (Match commaMatch in commaNumbersMatches)
+            {
+                text = ReplaceWithRevers(commaMatch.Value, text);
+            }
+            return text;
+
+        }
+
+        // Fix a given string to fit hebrew presentation.
+        private static string FixHebrew(string text)
+        {
+            // Fix brackets.
+            text = FixOneStringBracket(text);
+            // Fix numbers and english letters.
+            text = FixOneStringNumbersAndEnglishLetters(text);
+            return text;
         }
     }
 }
