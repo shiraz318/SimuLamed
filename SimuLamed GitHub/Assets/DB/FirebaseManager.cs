@@ -70,9 +70,11 @@ public sealed class FirebaseManager : IDatabaseHandler
         RestClient.Post<SignResponse>("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + authKey,
             bodyString: userData).Then(response =>
         {
-            User user = new User(username, email, new List<int>());
-            user.localId = response.localId;
-            user.idToken = response.idToken;
+            User user = new User(username, email, new int[] { -1 })
+            {
+                localId = response.localId,
+                idToken = response.idToken
+            };
 
             // Post user data to the database and if post succeded - send an email to the user for verification.
             PostUser(user, response.localId, onSuccess: () => SendEmailForVerification(user.idToken, onSuccess, onFailure), onFailure);
@@ -180,9 +182,33 @@ public sealed class FirebaseManager : IDatabaseHandler
 
     private void CreateUser(string localId, string idToken, string email, Utils.OnSuccessSignInFunc onSuccess, Utils.OnFailureFunc onFailure)
     {
+        //Dictionary<string, Question> questions = new Dictionary<string, Question>();
+        //fsData questionsData = fsJsonParser.Parse(response.Text);
+        //serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
+
+        RestClient.Get($"{databaseURL}users/{localId}.json?auth=" + idToken).Then(response =>
+        {
+
+            Dictionary<int, int> dic = new Dictionary<int, int>();
+            fsData correctAnsData = fsJsonParser.Parse(response.Text);
+
+
+            //User user = new User(response.username, email, response.correctAnswers);
+            //user.localId = localId;
+            //user.idToken = idToken;
+            //onSuccess(user);
+
+        }).Catch(error => { onFailure(error.Message); });
+
+
         RestClient.Get<User>($"{databaseURL}users/{localId}.json?auth=" + idToken).Then(response =>
         {
-            User user = new User(response.username, email, response.correctAns);
+
+            Dictionary<int, int> dic = new Dictionary<int, int>();
+            //fsData correctAnsData = fsJsonParser.Parse(response.correctAnswers);
+
+
+            User user = new User(response.username, email, response.correctAnswers);
             user.localId = localId;
             user.idToken = idToken;
             onSuccess(user);
@@ -263,16 +289,21 @@ public sealed class FirebaseManager : IDatabaseHandler
 
     public void SaveUserCorrectAns(User currentUser, Utils.OnSuccessFunc onSuccess, Utils.OnFailureFunc onFailure)
     {
-        // TODO - SAVE USER CORRECT ANSWERS.
+        PostUser(currentUser, currentUser.localId, onSuccess, onFailure);
+        //JsonUtility.ToJson(currentUser.score.correctAns);
+        //RestClient.Put<User>($"{databaseURL}users/{currentUser.localId}/email.json?auth=" + currentUser.idToken, userData).
+        //    Then(response => { 
+        //        onSuccess(); }).
+        //    Catch(error => {
+        //        onFailure(ExtractErrorMessage(error));
 
-        foreach (int correctAns in currentUser.correctAns)
+        //    });
+
+        foreach (int correctAns in currentUser.correctAnswers)
         {
             Debug.Log(correctAns);
         }
 
-        onSuccess();
-
-        //onFailure(Utils.FAIL_SAVE_SCORE_MESSAGE);
     }
 }
 

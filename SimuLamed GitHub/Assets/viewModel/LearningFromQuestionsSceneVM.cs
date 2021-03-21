@@ -10,7 +10,6 @@ using UnityEngine.UI;
 public class LearningFromQuestionsSceneVM : MonoBehaviour
 {
     private IModel model;
-    //IDatabaseHandler databaseHandler;
     public SceneLoader sceneLoader;
     public static QuestionType selectedSubject;
     public static Text errorText;
@@ -30,7 +29,6 @@ public class LearningFromQuestionsSceneVM : MonoBehaviour
                 }
             }
         };
-        //databaseHandler = FirebaseManager.Instance;
     }
 
     public void OnClickSubject(Button button)

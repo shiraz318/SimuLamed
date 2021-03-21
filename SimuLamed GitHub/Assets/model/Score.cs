@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Assets.model
 {
+    [Serializable]
     public class Score
     {
         private bool[] score;
+
 
         public Score(int numOfQustions)
         {
@@ -21,10 +23,22 @@ namespace Assets.model
             score[questionNum] = isCorrect;
         }
 
-        public List<int> GetTrueScore()
+        public int[] GetTrueScore()
         {
-            return score.Select((b, i) => b == true ? i : -1).Where(i => i != -1).ToList();
+            return score.Select((b, i) => b == true ? i :-1).Where(i => i != -1).ToArray();
         }
+
+        //public void SetCorrectAns()
+        //{
+        //    correctAns = GetTrueScore();
+        //}
+        //public void InitCorrectAns()
+        //{
+        //    foreach (int correctAnsNum in correctAns)
+        //    {
+        //        SetQuestionScore(correctAnsNum, true);
+        //    }
+        //}
 
 
 

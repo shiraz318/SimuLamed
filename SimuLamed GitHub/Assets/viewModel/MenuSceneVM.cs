@@ -9,7 +9,6 @@ public class MenuSceneVM : MonoBehaviour
 {
 
     private IModel model;
-    //public IDatabaseHandler databaseHandler;
     public Text usernameText;
     public SceneLoader sceneLoader;
 
@@ -17,8 +16,6 @@ public class MenuSceneVM : MonoBehaviour
     {
         model = Model.Instance;
         usernameText.text = model.GetCurrentUsername();
-        //databaseHandler = FirebaseManager.Instance;
-        //usernameText.text = databaseHandler.GetUsername();
     }
 
 
@@ -44,8 +41,6 @@ public class MenuSceneVM : MonoBehaviour
     public void OnClickLogOut()
     {
         model.ResetCurrentUser();
-        //databaseHandler.ResetCurrentUser();
         sceneLoader.LoadNextScene("SignInScene");
-        //SceneManager.LoadScene("SignInScene");
     }
 }

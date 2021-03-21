@@ -10,7 +10,6 @@ using UnityEngine.UI;
 public class ForgotPasswordSceneVM : MonoBehaviour
 {
     private IModel model;
-    //public IDatabaseHandler databaseHandler;
     public InputField inputEmail;
     public static Text errorText;
     public SceneLoader sceneLoader;
@@ -29,14 +28,6 @@ public class ForgotPasswordSceneVM : MonoBehaviour
                 errorText.text = model.Error.Message;
             }
         };
-        //databaseHandler = FirebaseManager.Instance;
-        //databaseHandler.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
-        //{
-        //    if (databaseHandler.Error.ErrorType == ErrorTypes.ResetPassword)
-        //    {
-        //        errorText.text = databaseHandler.Error.Message;
-        //    }
-        //};
     }
 
 
@@ -52,7 +43,6 @@ public class ForgotPasswordSceneVM : MonoBehaviour
         else
         {
             model.ResetPassword(email, () => sceneLoader.LoadNextScene("SignInScene"));
-            //databaseHandler.ResetPassword(email, OnSuccess);
         }
     }
     public void OnClickBack()

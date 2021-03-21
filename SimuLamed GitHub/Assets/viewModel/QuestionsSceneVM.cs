@@ -16,13 +16,11 @@ public class QuestionsSceneVM : MonoBehaviour
     public TMP_Text subject;
     
     public TMP_Text questionText;
-    //private static TMP_Text errorText;
     public List<Button> answers;
     public Image image;
 
 
     private IModel model;
-    //IDatabaseHandler databaseHandler;
     public SceneLoader sceneLoader;
     private string selectedQuestionCategory;
     private Question[] questions;
@@ -61,26 +59,9 @@ public class QuestionsSceneVM : MonoBehaviour
             }
         };
 
-        //databaseHandler = FirebaseManager.Instance;
-
-        ////errorText = GameObject.FindWithTag("ErrorMessage").GetComponent<TMP_Text>() as TMP_Text;
-        ////errorText.alpha = 0f;
-
-        //databaseHandler.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
-        //{
-        //    if (eventArgs.PropertyName.Equals("Questions") && !isQuestionSet)
-        //    {
-        //        questionNum = 0;
-        //        questions = databaseHandler.Questions.ToArray();
-
-        //        isQuestionSet = true;
-        //        PresetQuestion();
-        //    }
-        //};
         selectedQuestionCategory = Question.FromTypeToCategory(LearningFromQuestionsSceneVM.selectedSubject);
         subject.text = selectedQuestionCategory;
         model.SetQuestionsByCategory(selectedQuestionCategory);
-        //databaseHandler.SetQuestionsByCategory(selectedQuestionCategory);
 
     }
 
@@ -159,7 +140,6 @@ public class QuestionsSceneVM : MonoBehaviour
             if (uwr.isNetworkError || uwr.isHttpError)
             {
                 Debug.Log(uwr.error);
-                //errorText.alpha = 1f;
                 
             }
             else
@@ -167,7 +147,6 @@ public class QuestionsSceneVM : MonoBehaviour
                 // Get downloaded asset bundle
                 var texture = DownloadHandlerTexture.GetContent(uwr);
                 image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0, 0));
-                //errorText.alpha = 0f;
             }
         }
     }
