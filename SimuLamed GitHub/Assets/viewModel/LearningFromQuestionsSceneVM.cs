@@ -41,7 +41,7 @@ public class LearningFromQuestionsSceneVM : MonoBehaviour
 
     public void OnClickBack()
     {
-        model.SaveUserScore(()=> sceneLoader.LoadNextScene("MenuScene"));
+        model.SaveUser(()=> sceneLoader.LoadNextScene("MenuScene"));
     }
 
 }

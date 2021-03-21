@@ -31,7 +31,7 @@ public class MenuSceneVM : MonoBehaviour
 
     public void OnClickStatisticsAndPropgress()
     {
-        Debug.Log("Statistics and progress");
+        sceneLoader.LoadNextScene("StatisticsScene");
     }
     public void OnClickOptions()
     {
@@ -43,4 +43,5 @@ public class MenuSceneVM : MonoBehaviour
         model.ResetCurrentUser();
         sceneLoader.LoadNextScene("SignInScene");
     }
+     
 }

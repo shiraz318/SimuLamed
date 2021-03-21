@@ -25,6 +25,10 @@ namespace Assets
         // Statics.
         public static Color32 greenColor = new Color32(14, 255, 0, 255);
         public static Color32 redColor = new Color32(255, 0, 0, 255);
+        public static Color32 colorProgress1 = new Color32(231, 27, 29, 255);
+        public static Color32 colorProgress2 = new Color32(241, 95, 28, 255);
+        public static Color32 colorProgress3 = new Color32(243, 237, 38, 255);
+        public static Color32 colorProgress4 = new Color32(156, 221, 0, 255);
 
         //private static Dictionary<int, QuestionType> fromQuestionNumToType;
 

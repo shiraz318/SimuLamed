@@ -22,7 +22,6 @@ namespace Assets.model
         private IDatabaseHandler databaseHandler;
         private User currentUser;
         private Dictionary<int, QuestionType> fromQuestionNumToType;
-        
 
         // Singleton related fields.
         private static readonly object padlock = new object();
@@ -99,7 +98,7 @@ namespace Assets.model
                     if (fromQuestionNumToType.Count == 0)
                     {
                         fromQuestionNumToType = questions.Values.ToDictionary(x => x.questionNumber,
-                            x => Question.FromCategoryToTypeEnglish(x.questionCategory));
+                            x => Question.FromCategoryToTypeHebrew(x.questionCategory));
                     }
                     
                     ResetError();
@@ -172,7 +171,7 @@ namespace Assets.model
             NotifyPropertyChanged("Questions");
         }
 
-        public void SaveUserScore(Utils.OnSuccessFunc onSuccess)
+        public void SaveUser(Utils.OnSuccessFunc onSuccess)
         {
             onSuccess += delegate { ResetError(); };
 
@@ -201,6 +200,21 @@ namespace Assets.model
             Error.Message = message;
             Error.ErrorType = errorType;
             NotifyPropertyChanged("Error");
+        }
+
+        public int GetNumOfQuestionsByCategory(string category)
+        {
+            int numOfQuestion = fromQuestionNumToType.Where(pair => 
+            pair.Value == Question.FromCategoryToTypeHebrew(category)).Select(pair => pair.Key).Count();
+            return numOfQuestion;
+        }
+
+        public int GetNumOfCorrectAnswersByCategory(string category)
+        {
+            int numOfCorrectAnswers = fromQuestionNumToType.Where(pair =>
+            pair.Value == Question.FromCategoryToTypeHebrew(category) &&
+            currentUser.correctAnswers.Contains(pair.Key)).Select(pair => pair.Key).Count();
+            return numOfCorrectAnswers;
         }
 
 

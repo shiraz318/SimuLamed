@@ -12,6 +12,8 @@ namespace Assets.model
         // Properties.
         Question[] Questions { get; set; }
         ErrorObject Error { get; set; }
+        int NumOfQuestions { get; }
+
 
 
         // Methods.
@@ -24,6 +26,8 @@ namespace Assets.model
 
         void SetQuestionsByCategory(string category);
         void SetUserScore(int questionNum, bool isAnsCorrect);
-        void SaveUserScore(Utils.OnSuccessFunc onSuccess);
+        void SaveUser(Utils.OnSuccessFunc onSuccess);
+        int GetNumOfQuestionsByCategory(string category);
+        int GetNumOfCorrectAnswersByCategory(string category);
     }
 }

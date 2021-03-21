@@ -12,7 +12,8 @@ namespace Assets.model
         SignIn,
         SignUp,
         ResetPassword,
-        SaveScore
+        SaveScore,
+        Statistics
     }
     public class ErrorObject
     {
