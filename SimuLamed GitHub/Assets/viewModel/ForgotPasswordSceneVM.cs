@@ -1,4 +1,5 @@
-﻿using Assets.model;
+﻿using Assets;
+using Assets.model;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,27 +9,34 @@ using UnityEngine.UI;
 
 public class ForgotPasswordSceneVM : MonoBehaviour
 {
-    public IDatabaseHandler databaseHandler;
+    private IModel model;
+    //public IDatabaseHandler databaseHandler;
     public InputField inputEmail;
     public static Text errorText;
     public SceneLoader sceneLoader;
 
-    //public Canvas canvas;
 
 
     public void Start()
     {
-        //DontDestroyOnLoad(canvas);
         errorText = GameObject.FindWithTag("ErrorMessage").GetComponent<Text>() as Text;
 
-        databaseHandler = FirebaseManager.Instance;
-        databaseHandler.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
+        model = Model.Instance;
+        model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
-            if (databaseHandler.Error.ErrorType == ErrorTypes.ResetPassword)
+            if (model.Error.ErrorType == ErrorTypes.ResetPassword)
             {
-                errorText.text = databaseHandler.Error.Message;
+                errorText.text = model.Error.Message;
             }
         };
+        //databaseHandler = FirebaseManager.Instance;
+        //databaseHandler.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
+        //{
+        //    if (databaseHandler.Error.ErrorType == ErrorTypes.ResetPassword)
+        //    {
+        //        errorText.text = databaseHandler.Error.Message;
+        //    }
+        //};
     }
 
 
@@ -39,16 +47,13 @@ public class ForgotPasswordSceneVM : MonoBehaviour
         string email = inputEmail.text.ToString();
         if (email.Equals(""))
         {
-            errorText.text = "PLEASE ENTER YOUR EMAIL";
+            errorText.text = Utils.EMPTY_EMAIL_MESSAGE;
         }
         else
         {
-            databaseHandler.ResetPassword(email, OnSuccess);
+            model.ResetPassword(email, () => sceneLoader.LoadNextScene("SignInScene"));
+            //databaseHandler.ResetPassword(email, OnSuccess);
         }
-    }
-    public void OnSuccess()
-    {
-        sceneLoader.LoadNextScene("SignInScene");
     }
     public void OnClickBack()
     {

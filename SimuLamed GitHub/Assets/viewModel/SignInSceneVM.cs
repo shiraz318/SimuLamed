@@ -1,4 +1,5 @@
-﻿using Assets.model;
+﻿using Assets;
+using Assets.model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,41 +10,39 @@ using UnityEngine.UI;
 
 public class SignInSceneVM : MonoBehaviour
 {
-    public IDatabaseHandler databaseHandler;
+    private IModel model;
 
     public InputField inputPassword;
     public InputField inputEmail;
     public static Text errorText;
     public SceneLoader sceneLoader;
     public static Image loadingCircle;
-    //public Canvas canvas;
 
     public void Start()
     {
         errorText = GameObject.FindWithTag("ErrorMessage").GetComponent<Text>() as Text;
-        loadingCircle = GameObject.FindWithTag("LoadingCircle").GetComponent<Image>() as Image; 
-        //DontDestroyOnLoad(loadingCircle);
-        databaseHandler = FirebaseManager.Instance;
-        databaseHandler.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
+        loadingCircle = GameObject.FindWithTag("LoadingCircle").GetComponent<Image>() as Image;
+
+        model = Model.Instance;
+        model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
             if (eventArgs.PropertyName.Equals("Error"))
             {
-                if (databaseHandler.Error.ErrorType == ErrorTypes.SignIn)
+                if (model.Error.ErrorType == ErrorTypes.SignIn)
                 {
-                    errorText.text = databaseHandler.Error.Message;
-                    
-                    if (!databaseHandler.Error.ErrorType.Equals(""))
+                    errorText.text = model.Error.Message;
+
+                    if (!model.Error.ErrorType.Equals(""))
                     {
                         SetLoadingCircle(false);
                     }
                 }
             }
         };
+
         SetLoadingCircle(false);
-       
 
     }
-
 
 
     // On click new user button.
@@ -63,12 +62,12 @@ public class SignInSceneVM : MonoBehaviour
         
         if (email.Equals("") || password.Equals(""))
         {
-            errorText.text = "PLEASE FILL ALL FIELDS";
+            errorText.text = Utils.EMPTY_FIELD_MESSAGE;
             return;
         }
 
         SetLoadingCircle(true);
-        databaseHandler.SignInUser(password, email, OnSuccess);
+        model.SignIn(password, email, () => sceneLoader.LoadNextScene("MenuScene"));
     }
 
     private void SetAlpha(float alpha, Image image)
@@ -91,18 +90,10 @@ public class SignInSceneVM : MonoBehaviour
         {
             SetAlpha(alpha, child);
         }
-        //SetAlpha(alpha, progress);
         SetAlpha(alpha, loadingCircle);
 
-
-
     }
 
-    public void OnSuccess()
-    {
-        sceneLoader.LoadNextScene("MenuScene");
-
-    }
 
     public void OnClickForgotPassword()
     {

@@ -1,4 +1,5 @@
-﻿using Assets.model;
+﻿using Assets;
+using Assets.model;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +9,8 @@ using UnityEngine.UI;
 
 public class SignUpSceneVM : MonoBehaviour
 {
-    private IDatabaseHandler databaseHandler;
+    //private IDatabaseHandler databaseHandler;
+    private IModel model;
 
     public InputField inputUsername;
     public InputField inputPassword;
@@ -16,21 +18,20 @@ public class SignUpSceneVM : MonoBehaviour
     public static Text errorText;
     public SceneLoader sceneLoader;
 
-    //public Canvas canvas;
 
 
     public void Start()
     {
         errorText = GameObject.FindWithTag("ErrorMessage").GetComponent<Text>() as Text;
-        //DontDestroyOnLoad(canvas);
-        databaseHandler = FirebaseManager.Instance;
-        databaseHandler.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
+        model = Model.Instance;
+        model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
-            if (databaseHandler.Error.ErrorType == ErrorTypes.SignUp)
+            if (model.Error.ErrorType == ErrorTypes.SignUp)
             {
-                errorText.text = databaseHandler.Error.Message;
+                errorText.text = model.Error.Message;
             }
         };
+
     }
 
     // On click sign up button.
@@ -43,20 +44,10 @@ public class SignUpSceneVM : MonoBehaviour
         string email = inputEmail.text.ToString();
         if (username.Equals("") || password.Equals("") || email.Equals(""))
         {
-            errorText.text = "PLEASE FILL ALL FIELDS";
+            errorText.text = Utils.EMPTY_FIELD_MESSAGE;
             return;
         }
-        databaseHandler.SignUpUser(username, password, email, OnSuccess);
-
-        //firebaseManager.SignUpUser(new User(username, password, email));
-        //string username  = Inpu
-        //FirebaseManager.SignUpUser();
-        //SceneManager.LoadScene("MenuScene");
-    }
-    public void OnSuccess()
-    {
-        sceneLoader.LoadNextScene("SignInScene");
-
+        model.SignUp(username, password, email, () => sceneLoader.LoadNextScene("SignInScene"));
     }
 
     public void OnClickBack()

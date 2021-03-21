@@ -8,14 +8,17 @@ using UnityEngine.UI;
 public class MenuSceneVM : MonoBehaviour
 {
 
-    public IDatabaseHandler databaseHandler;
+    private IModel model;
+    //public IDatabaseHandler databaseHandler;
     public Text usernameText;
     public SceneLoader sceneLoader;
 
     public void Start()
     {
-        databaseHandler = FirebaseManager.Instance;
-        usernameText.text = databaseHandler.GetUsername();
+        model = Model.Instance;
+        usernameText.text = model.GetCurrentUsername();
+        //databaseHandler = FirebaseManager.Instance;
+        //usernameText.text = databaseHandler.GetUsername();
     }
 
 
@@ -40,7 +43,8 @@ public class MenuSceneVM : MonoBehaviour
 
     public void OnClickLogOut()
     {
-        databaseHandler.ResetCurrentUser();
+        model.ResetCurrentUser();
+        //databaseHandler.ResetCurrentUser();
         sceneLoader.LoadNextScene("SignInScene");
         //SceneManager.LoadScene("SignInScene");
     }

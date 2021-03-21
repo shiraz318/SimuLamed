@@ -19,9 +19,10 @@ public class QuestionsSceneVM : MonoBehaviour
     //private static TMP_Text errorText;
     public List<Button> answers;
     public Image image;
-    
 
-    IDatabaseHandler databaseHandler;
+
+    private IModel model;
+    //IDatabaseHandler databaseHandler;
     public SceneLoader sceneLoader;
     private string selectedQuestionCategory;
     private Question[] questions;
@@ -46,25 +47,40 @@ public class QuestionsSceneVM : MonoBehaviour
 
         SetOriginalImageSize();
 
-        databaseHandler = FirebaseManager.Instance;
+        model = Model.Instance;
 
-        //errorText = GameObject.FindWithTag("ErrorMessage").GetComponent<TMP_Text>() as TMP_Text;
-        //errorText.alpha = 0f;
-
-        databaseHandler.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
+        model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
             if (eventArgs.PropertyName.Equals("Questions") && !isQuestionSet)
             {
                 questionNum = 0;
-                questions = databaseHandler.Questions.ToArray();
+                questions = model.Questions.ToArray();
 
                 isQuestionSet = true;
                 PresetQuestion();
             }
         };
+
+        //databaseHandler = FirebaseManager.Instance;
+
+        ////errorText = GameObject.FindWithTag("ErrorMessage").GetComponent<TMP_Text>() as TMP_Text;
+        ////errorText.alpha = 0f;
+
+        //databaseHandler.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
+        //{
+        //    if (eventArgs.PropertyName.Equals("Questions") && !isQuestionSet)
+        //    {
+        //        questionNum = 0;
+        //        questions = databaseHandler.Questions.ToArray();
+
+        //        isQuestionSet = true;
+        //        PresetQuestion();
+        //    }
+        //};
         selectedQuestionCategory = Question.FromTypeToCategory(LearningFromQuestionsSceneVM.selectedSubject);
         subject.text = selectedQuestionCategory;
-        databaseHandler.SetQuestionsByCategory(selectedQuestionCategory);
+        model.SetQuestionsByCategory(selectedQuestionCategory);
+        //databaseHandler.SetQuestionsByCategory(selectedQuestionCategory);
 
     }
 
@@ -205,6 +221,7 @@ public class QuestionsSceneVM : MonoBehaviour
         
         string name = button.name;
         string correctAns = questions[questionNum].correctAns;
+        bool isAnsCorrect = false;
 
         // Check if it the correct answer.
         // Mark the correct answer with green and the wrong (if exists) with red.
@@ -224,9 +241,12 @@ public class QuestionsSceneVM : MonoBehaviour
         }
         else
         {
+            isAnsCorrect = true;
             // Set the correct ans to green.
             SetButtonColor(button, 1f, Utils.greenColor);
         }
+
+        model.SetUserScore(questions[questionNum].questionNumber, isAnsCorrect);
     }
 
     // Set a given button's color and alpha.

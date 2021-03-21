@@ -11,7 +11,8 @@ namespace Assets.model
         None,
         SignIn,
         SignUp,
-        ResetPassword
+        ResetPassword,
+        SaveScore
     }
     public class ErrorObject
     {

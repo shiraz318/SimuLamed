@@ -13,6 +13,7 @@ namespace Assets.model
         public Score(int numOfQustions)
         {
             score = new bool[numOfQustions];
+
         }
 
         public void SetQuestionScore(int questionNum, bool isCorrect)
@@ -20,10 +21,12 @@ namespace Assets.model
             score[questionNum] = isCorrect;
         }
 
-        public bool[] GetScore()
+        public List<int> GetTrueScore()
         {
-            return score;
+            return score.Select((b, i) => b == true ? i : -1).Where(i => i != -1).ToList();
         }
+
+
 
     }
 }

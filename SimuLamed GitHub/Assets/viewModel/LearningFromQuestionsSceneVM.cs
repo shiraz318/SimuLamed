@@ -1,6 +1,7 @@
 ﻿using Assets.model;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,13 +9,28 @@ using UnityEngine.UI;
 
 public class LearningFromQuestionsSceneVM : MonoBehaviour
 {
-    IDatabaseHandler databaseHandler;
+    private IModel model;
+    //IDatabaseHandler databaseHandler;
     public SceneLoader sceneLoader;
     public static QuestionType selectedSubject;
+    public static Text errorText;
+
 
     void Start()
     {
-        databaseHandler = FirebaseManager.Instance;
+        errorText = GameObject.FindWithTag("ErrorMessage").GetComponent<Text>() as Text;
+        model = Model.Instance;
+        model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
+        {
+            if (eventArgs.PropertyName.Equals("Error"))
+            {
+                if (model.Error.ErrorType == ErrorTypes.SaveScore)
+                {
+                    errorText.text = model.Error.Message;
+                }
+            }
+        };
+        //databaseHandler = FirebaseManager.Instance;
     }
 
     public void OnClickSubject(Button button)
@@ -27,7 +43,7 @@ public class LearningFromQuestionsSceneVM : MonoBehaviour
 
     public void OnClickBack()
     {
-        sceneLoader.LoadNextScene("MenuScene");
+        model.SaveUserScore(()=> sceneLoader.LoadNextScene("MenuScene"));
     }
 
 }
