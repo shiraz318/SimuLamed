@@ -70,7 +70,7 @@ public sealed class FirebaseManager : IDatabaseHandler
         RestClient.Post<SignResponse>("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + authKey,
             bodyString: userData).Then(response =>
         {
-            User user = new User(username, email, new int[] { -1 })
+            User user = new User(username, email, new int[] { -1 }, Utils.INITIAL_NUMBER_OF_HINTS)
             {
                 localId = response.localId,
                 idToken = response.idToken
@@ -182,38 +182,31 @@ public sealed class FirebaseManager : IDatabaseHandler
 
     private void CreateUser(string localId, string idToken, string email, Utils.OnSuccessSignInFunc onSuccess, Utils.OnFailureFunc onFailure)
     {
-        //Dictionary<string, Question> questions = new Dictionary<string, Question>();
-        //fsData questionsData = fsJsonParser.Parse(response.Text);
-        //serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
-
-        RestClient.Get($"{databaseURL}users/{localId}.json?auth=" + idToken).Then(response =>
-        {
-
-            Dictionary<int, int> dic = new Dictionary<int, int>();
-            fsData correctAnsData = fsJsonParser.Parse(response.Text);
-
-
-            //User user = new User(response.username, email, response.correctAnswers);
-            //user.localId = localId;
-            //user.idToken = idToken;
-            //onSuccess(user);
-
-        }).Catch(error => { onFailure(error.Message); });
 
 
         RestClient.Get<User>($"{databaseURL}users/{localId}.json?auth=" + idToken).Then(response =>
         {
 
             Dictionary<int, int> dic = new Dictionary<int, int>();
-            //fsData correctAnsData = fsJsonParser.Parse(response.correctAnswers);
-
-
-            User user = new User(response.username, email, response.correctAnswers);
+            //User user = new User(response.username, email, response.correctAnswers, response.numOfHints);
+            User user = new User(response.username, email, response.state.correctAnswers, response.state.numOfHints);
             user.localId = localId;
             user.idToken = idToken;
             onSuccess(user);
 
-        }).Catch(error=> { onFailure(error.Message); });
+            //try
+            //{
+                
+
+            //}
+            //catch (Exception e)
+            //{
+            //    string a = e.Message;
+            //}
+
+        }).Catch(error=> { 
+            onFailure(error.Message); 
+        });
     }
 
     // Reset password.
@@ -299,10 +292,10 @@ public sealed class FirebaseManager : IDatabaseHandler
 
         //    });
 
-        foreach (int correctAns in currentUser.correctAnswers)
-        {
-            Debug.Log(correctAns);
-        }
+        //foreach (int correctAns in currentUser.correctAnswers)
+        //{
+        //    Debug.Log(correctAns);
+        //}
 
     }
 }

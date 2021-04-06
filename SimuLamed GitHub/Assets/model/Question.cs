@@ -58,15 +58,20 @@ namespace Assets.model
             switch (questionType)
             {
                 case QuestionType.Safety:
-                    return "בטיחות";
+                    return Utils.SAFETY_HEBREW;
+                    //return "בטיחות";
                 case QuestionType.TransactionRules:
-                    return "חוקי התנועה";
+                    return Utils.TRANSACTION_RULES_HEBREW;
+                    //return "חוקי התנועה";
                 case QuestionType.Signs:
-                    return "תמרורים";
+                    return Utils.SIGNS_HEBREW;
+                    //return "תמרורים";
                 case QuestionType.UnderstandingVehicle:
-                    return "הכרת הרכב";
+                    return Utils.UNDERSTANDING_VEHICLE_HEBREW;
+                    //return "הכרת הרכב";
                 default:
-                    return "כל הנושאים";
+                    return Utils.MIXED_HEBREW;
+                    //return "כל הנושאים";
             }
 
         }
@@ -75,13 +80,13 @@ namespace Assets.model
         {
             switch (category)
             {
-                case "בטיחות":
+                case Utils.SAFETY_HEBREW:
                     return QuestionType.Safety;
-                case "חוקי התנועה":
+                case Utils.TRANSACTION_RULES_HEBREW:
                     return QuestionType.TransactionRules;
-                case "תמרורים":
+                case Utils.SIGNS_HEBREW:
                     return QuestionType.Signs;
-                case "הכרת הרכב":
+                case Utils.UNDERSTANDING_VEHICLE_HEBREW:
                     return QuestionType.UnderstandingVehicle;
                 default:
                     return QuestionType.All;
@@ -92,13 +97,13 @@ namespace Assets.model
         {
             switch (category)
             {
-                case "Safety":
+                case Utils.SAFETY_ENGLISH:
                     return QuestionType.Safety;
-                case "TransactionRules":
+                case Utils.TRANSACTION_RULES_ENGLISH:
                     return QuestionType.TransactionRules;
-                case "Signs":
+                case Utils.SIGNS_ENGLISH:
                     return QuestionType.Signs;
-                case "UnderstandingVehicle":
+                case Utils.UNDERSTANDING_VEHICLE_ENGLISH:
                     return QuestionType.UnderstandingVehicle;
                 default:
                     return QuestionType.All;

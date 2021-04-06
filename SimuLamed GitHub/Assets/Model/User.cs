@@ -1,4 +1,6 @@
-﻿using Assets.model;
+﻿using Assets;
+using Assets.model;
+using Assets.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,43 +12,66 @@ using System.Linq;
 [Serializable] // This makes the class able to be serialized into a JSON
 public class User
 {
+
     public string username;
     public string email;
     public string localId;
     public string idToken;
+    
 
-    public Score score;
-    //public Score UserScore { get; set; }
+    public UserState state;
+
+    
+    //public int numOfHints;
+
     //public Score score;
-    public int[] correctAnswers;
-    //public CorrectAnswer[] correctAnswers;
+    ////public Score UserScore { get; set; }
+    ////public Score score;
+    //public int[] correctAnswers;
+    //private bool[] lastAnswers;
+    //private int lastAnswersIndex;
     
 
 
-    public User(string username, string email, int[] correctAnswers)
+    public User(string username, string email, int[] correctAnswers, int numOfHints)
     {
         //this.correctAns = correctAns;
-        this.correctAnswers = correctAnswers;
+       // this.correctAnswers = correctAnswers;
         this.username = username;
         this.email = email;
+        //lastAnswers = new bool[Utils.HINTS_PER_CORRECT_ANS];
+        //lastAnswersIndex = 0;
+        //this.numOfHints = numOfHints;
+        this.state = new UserState(correctAnswers, numOfHints);
     }
 
-    public void InitUserScore(int NumOfQuestions)
+    public void InitUserScore(int numOfQuestions)
     {
-        score = new Score(NumOfQuestions);
-        //score.InitCorrectAns();
-        foreach (int correctAnsNum in correctAnswers)
-        {
-            //if (correctAnsNum > -1)
-            //{
-                score.SetQuestionScore(correctAnsNum, true);
-            //}
-        }
+        state.InitScore(numOfQuestions);
+        //score = new Score(numOfQuestions);
+        ////score.InitCorrectAns();
+        //foreach (int correctAnsNum in correctAnswers)
+        //{
+        //    //if (correctAnsNum > -1)
+        //    //{
+        //        score.SetQuestionScore(correctAnsNum, true);
+        //    //}
+        //}
     }
 
     public void SetScore(int questionNum, bool isAnsCorrect)
     {
-        score.SetQuestionScore(questionNum, isAnsCorrect);
+        state.SetScore(questionNum, isAnsCorrect);
+        //if (isAnsCorrect)
+        //{
+        //    lastAnswers[lastAnswersIndex] = isAnsCorrect;
+        //    lastAnswersIndex = (lastAnswersIndex + 1) % Utils.HINTS_PER_CORRECT_ANS;
+        //} else
+        //{
+        //    lastAnswers = new bool[Utils.HINTS_PER_CORRECT_ANS];
+        //}
+        
+        //score.SetQuestionScore(questionNum, isAnsCorrect);
     }
 
     public void SetCorrectAns()
@@ -54,8 +79,25 @@ public class User
         // score.SetCorrectAns();
         //return score.Select((b, i) => b == true ? i : -1).Where(i => i != -1).ToArray();
 
-
-        correctAnswers = score.GetTrueScore();
+        state.SetCorrectAns();
+        //correctAnswers = score.GetTrueScore();
         //correctAnswers = correctAnswersIndexes.Select((a,b) => new CorrectAnswer(a)).ToArray();
+    }
+
+    public void AddHint()
+    {
+        state.numOfHints++;
+        //numOfHints++;
+    }
+    public void DecreaseHint()
+    {
+        state.numOfHints--;
+       // numOfHints--;
+    }
+    public bool IsDeserveNewHint()
+    {
+        //return lastAnswers[Utils.HINTS_PER_CORRECT_ANS - 1];
+        return state.IsDeserveNewHint();
+
     }
 }
