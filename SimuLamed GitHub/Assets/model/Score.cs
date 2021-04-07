@@ -20,7 +20,10 @@ namespace Assets.model
 
         public void SetQuestionScore(int questionNum, bool isCorrect)
         {
-            score[questionNum] = isCorrect;
+            if (questionNum >= 0)
+            {
+                score[questionNum] = isCorrect;
+            }
         }
 
         public int[] GetTrueScore()
