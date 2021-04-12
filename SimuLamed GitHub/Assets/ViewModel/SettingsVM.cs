@@ -33,7 +33,7 @@ namespace Assets.ViewModel
         //public KeyCode Forward { get { return ConvertToDigitString(ForwardInput); } }
         //public KeyCode Backwards { get { return ConvertToDigitString(BackwardsInput); } }
 
-        private string leftInput = "a";
+        private string leftInput = Utils.DEFAULT_LEFT;
         [Binding]
         public string LeftInput
         {
@@ -41,7 +41,7 @@ namespace Assets.ViewModel
             set { leftInput = value; SetPlayerKeys(Utils.LEFT, value); }
         }
 
-        private string rightInput = "d";
+        private string rightInput = Utils.DEFAULT_RIGHT;
         [Binding]
         public string RightInput
         {
@@ -49,7 +49,7 @@ namespace Assets.ViewModel
             set { rightInput = value; SetPlayerKeys(Utils.RIGHT, value); }
         }
 
-        private string forwardInput = "w";
+        private string forwardInput = Utils.DEFAULT_FORWARD;
         [Binding]
         public string ForwardInput
         {
@@ -57,7 +57,7 @@ namespace Assets.ViewModel
             set { forwardInput = value; SetPlayerKeys(Utils.FORWARD, value); }
         }
 
-        private string backwardsInput = "s";
+        private string backwardsInput = Utils.DEFAULT_BACKWARDS;
         [Binding]
         public string BackwardsInput
         {
@@ -112,13 +112,7 @@ namespace Assets.ViewModel
 
         }
 
-        private void SetPlayerKeys(string keyName, string keyValue)
-        {
-            char character = keyValue.ToLower().ToCharArray()[0];
-            int ascii = System.Convert.ToInt32(character);
-            //int alphaValue = character;
-            PlayerPrefs.SetString(keyName, ascii.ToString());
-        }
+
 
         //private string ConvertToDigitString(string input)
         //{
@@ -134,10 +128,18 @@ namespace Assets.ViewModel
         //    if(instance == null)
         //    {
         //        instance = this;
-                
+
         //    }
         //    DontDestroyOnLoad(gameObject);
         //}
+
+        private void SetPlayerKeys(string keyName, string keyValue)
+        {
+            char character = keyValue.ToLower().ToCharArray()[0];
+            int ascii = System.Convert.ToInt32(character);
+            //int alphaValue = character;
+            PlayerPrefs.SetString(keyName, ascii.ToString());
+        }
 
         // On property changed.
         public void NotifyPropertyChanged(string propName)
@@ -150,3 +152,19 @@ namespace Assets.ViewModel
     }
 
 }
+
+// TODO
+/// 
+/// CHECK THAT THE USER DID NOT CHOSE THE SAME KEY FOR MORE THEN ONE OPTION.
+/// 
+/// ADD OPTION FOR THE USER TO CHANGE THE ANGLE OF THE VIEW.
+/// 
+/// BACK - BACKWORDS.
+/// 
+/// ADD OPTION FOR PUASE AND CONTINUE KEY.
+/// 
+/// SPEED FORMULAS AND DEDIGN.
+/// 
+/// 
+/// </summary>
+

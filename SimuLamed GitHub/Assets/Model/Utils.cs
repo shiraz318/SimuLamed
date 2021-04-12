@@ -55,6 +55,13 @@ namespace Assets
         public const string LEFT = "Left";
         public const string FORWARD = "Forward";
         public const string BACKWARDS = "Backwards";
+        
+        public const string DEFAULT_FORWARD = "w";
+        public const string DEFAULT_BACKWARDS = "s";
+        public const string DEFAULT_RIGHT = "d";
+        public const string DEFAULT_LEFT = "a";
+
+
 
 
 
@@ -94,6 +101,7 @@ namespace Assets
                 action();
             }
         }
+
 
 
 

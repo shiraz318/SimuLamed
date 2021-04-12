@@ -79,19 +79,36 @@ public class IHateU : MonoBehaviour, INotifyPropertyChanged
         float v = 0f;
         Vector2 smoothedInput;
 
-        if (Input.GetKey((KeyCode)Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString(Utils.FORWARD))))
+        string key = "";
+        
+        key = PlayerPrefs.GetString(Utils.FORWARD).Equals("")? FromStringToASCII(Utils.DEFAULT_FORWARD): PlayerPrefs.GetString(Utils.FORWARD);
+        //if (key.Equals("")) 
+        //{ 
+
+        //    key = FromStringToASCII(Utils.DEFAULT_FORWARD);
+        //}
+        if (Input.GetKey((KeyCode)Enum.Parse(typeof(KeyCode), key)))
         {
             v = 1f;
         }
-        if (Input.GetKey((KeyCode)Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString(Utils.BACKWARDS))))
+
+
+        key = PlayerPrefs.GetString(Utils.BACKWARDS).Equals("") ? FromStringToASCII(Utils.DEFAULT_BACKWARDS) : PlayerPrefs.GetString(Utils.BACKWARDS);
+
+        if (Input.GetKey((KeyCode)Enum.Parse(typeof(KeyCode), key)))
         {
             v = -1f;
         }
-        if (Input.GetKey((KeyCode)Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString(Utils.LEFT))))
+
+        key = PlayerPrefs.GetString(Utils.LEFT).Equals("") ? FromStringToASCII(Utils.DEFAULT_LEFT) : PlayerPrefs.GetString(Utils.LEFT);
+        
+        if (Input.GetKey((KeyCode)Enum.Parse(typeof(KeyCode), key)))
         {
             h = -1f;
         }
-        if (Input.GetKey((KeyCode)Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString(Utils.RIGHT))))
+
+        key = PlayerPrefs.GetString(Utils.RIGHT).Equals("") ? FromStringToASCII(Utils.DEFAULT_RIGHT) : PlayerPrefs.GetString(Utils.RIGHT);
+        if (Input.GetKey((KeyCode)Enum.Parse(typeof(KeyCode), key)))
         {
             h = 1f;
         }
@@ -189,10 +206,16 @@ public class IHateU : MonoBehaviour, INotifyPropertyChanged
     {
         get { return speed; }
         set { speed = value;
-            Debug.Log(speed);
             NotifyPropertyChanged("Speed"); }
     }
 
+
+    private string FromStringToASCII(string str)
+    {
+        char character = str.ToLower().ToCharArray()[0];
+        int ascii = System.Convert.ToInt32(character);
+        return ascii.ToString();
+    }
 
     private float m_horizontalInput;
     private float m_verticalInput;

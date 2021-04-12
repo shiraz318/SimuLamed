@@ -29,7 +29,8 @@ public class FollowPlayer : MonoBehaviour
 	}
 
 	public Transform objectToFollow;
-	public Vector3 offset;
+
+	public Vector3 offset = new Vector3(0, 2, -5);
 	public float followSpeed = 10;
 	public float lookSpeed = 10;
 }
