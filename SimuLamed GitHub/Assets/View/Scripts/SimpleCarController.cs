@@ -15,12 +15,13 @@ public class SimpleCarController : MonoBehaviour
     public Transform backLeftTransform, backRightTransform;
 
     public float maxSteerAngle = 30f;
-    public float motorForce = 70f;
+    public float motorForce = 50000f;
 
     public void GetInput()
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
+
     }
 
     private void Steer()

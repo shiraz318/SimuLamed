@@ -13,6 +13,7 @@ public class OnClickMenuScript : MonoBehaviour
     // On click event handler for clicking the start simulation button.
     public void OnClickStartSimulation()
     {
+        sceneLoader.LoadNextScene(Utils.SIMULATION_SCENE);
         Debug.Log("Start simulation");
     }
 
@@ -29,8 +30,9 @@ public class OnClickMenuScript : MonoBehaviour
     }
     
     // On click event handler for clicking the options button.
-    public void OnClickOptions()
+    public void OnClickSettings()
     {
+        sceneLoader.LoadNextScene(Utils.SETTINGS_SCENE);
         Debug.Log("Options");
     }
 

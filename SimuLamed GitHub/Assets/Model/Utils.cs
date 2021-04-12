@@ -42,14 +42,21 @@ namespace Assets
         public const string STATISTICS_SCENE = "StatisticsScene";
         public const string QUESTIONS_SCENE = "QuestionsScene";
         public const string FORGOT_PASSWORD_SCENE = "ForgotPasswordScene";
-        
-        
+        public const string SETTINGS_SCENE = "SettingsScene";
+        public const string SIMULATION_SCENE = "SimulationScene";
+
+
         public const string ANS_1_NAME = "Ans1";
         public const string ANS_2_NAME = "Ans2";
         public const string ANS_3_NAME = "Ans3";
         public const string ANS_4_NAME = "Ans4";
 
-        
+        public const string RIGHT = "Right";
+        public const string LEFT = "Left";
+        public const string FORWARD = "Forward";
+        public const string BACKWARDS = "Backwards";
+
+
 
 
         public const int HINTS_PER_CORRECT_ANS = 5;
