@@ -29,8 +29,7 @@ namespace Assets.Model
         // Init the score of this user state.
         public void InitScore(int numOfQuestions)
         {
-            lastAnswers = new bool[Utils.HINTS_PER_CORRECT_ANS];
-            lastAnswersIndex = 0;
+            InitLastAns();
             score = new Score(numOfQuestions);
             foreach (int correctAnsNum in correctAnswers)
             {
@@ -87,6 +86,11 @@ namespace Assets.Model
         public void SetCorrectAns()
         {
             correctAnswers = score.GetTrueScore();
+        }
+        public void InitLastAns()
+        {
+            lastAnswers = new bool[Utils.HINTS_PER_CORRECT_ANS];
+            lastAnswersIndex = 0;
         }
     }
 }

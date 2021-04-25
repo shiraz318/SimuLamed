@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -32,5 +33,6 @@ namespace Assets.model
         int GetNumOfQuestionsByCategory(string category);
         int GetNumOfCorrectAnswersByCategory(string category);
         void DecreaseHint();
+        void InitUserLastAns();
     }
 }

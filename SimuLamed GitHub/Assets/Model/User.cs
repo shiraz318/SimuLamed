@@ -100,4 +100,8 @@ public class User
         return state.IsDeserveNewHint();
 
     }
+    public void InitLastAns()
+    {
+        state.InitLastAns();
+    }
 }

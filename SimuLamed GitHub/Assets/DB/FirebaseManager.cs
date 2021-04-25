@@ -229,7 +229,8 @@ public sealed class FirebaseManager : IDatabaseHandler
 
         string getRequest = $"{databaseURL}questions.json?auth=" + currentUserIdToken;
 
-        if (category.Equals("כל הנושאים"))
+        // כל הנושאים
+        if (category.Equals(Utils.MIXED_HEBREW))
         {
             getRequest = getRequest + "&orderBy=\"questionNumber\"&startAt=0";
         }

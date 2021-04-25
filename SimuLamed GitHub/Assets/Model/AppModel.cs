@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -160,7 +161,9 @@ namespace Assets.model
                     SetQuestions(questions);
                     ResetError();
                 },
-                onFailure:(message) => { SetError(message, ErrorTypes.SignIn); });
+                onFailure:(message) => { 
+                    SetError(message, ErrorTypes.SignIn); 
+                });
         }
 
         // Set the questions property to the given questions array and notify it.
@@ -199,6 +202,10 @@ namespace Assets.model
             //CurrentUser.score.SetQuestionScore(questionNum, isAnsCorrect);
         }
 
+        public void InitUserLastAns()
+        {
+            currentUser.InitLastAns();
+        }
 
         // Set the Error propery according to the given message and error type.
         private void SetError(string message, ErrorTypes errorType)
