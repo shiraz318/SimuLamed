@@ -14,6 +14,11 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LoadScene(sceneName));
     }
 
+    public void LoadNextScene(int sceneIndex)
+    {
+        StartCoroutine(LoadScene(sceneIndex));
+    }
+
     IEnumerator LoadScene(string sceneName)
     {
         // Play animation
@@ -24,6 +29,18 @@ public class SceneLoader : MonoBehaviour
 
         // Load scene
         SceneManager.LoadScene(sceneName);
+    }
+
+    IEnumerator LoadScene(int sceneIndex)
+    {
+        // Play animation
+        transition.SetTrigger("Start");
+
+        // Wait
+        yield return new WaitForSeconds(transitionTime);
+
+        // Load scene
+        SceneManager.LoadScene(sceneIndex);
     }
 
 }

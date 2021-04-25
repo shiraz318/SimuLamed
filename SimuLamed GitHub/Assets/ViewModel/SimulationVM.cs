@@ -16,7 +16,7 @@ public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
     public QuestionsManager questionsManager;
 
 
-    private const int NUMBER_OF_LEVELS = 3;
+    public const int NUMBER_OF_LEVELS = 3;
     private const int MAX_NUMBER_OF_ERRORS = 4;
 
     private int currentLevel;
