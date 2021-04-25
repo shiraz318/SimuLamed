@@ -34,5 +34,6 @@ namespace Assets.model
         int GetNumOfCorrectAnswersByCategory(string category);
         void DecreaseHint();
         void InitUserLastAns();
+        int GetOpenLevel();
     }
 }

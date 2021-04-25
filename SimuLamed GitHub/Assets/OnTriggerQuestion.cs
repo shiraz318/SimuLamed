@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider))]
 public class OnTriggerQuestion : MonoBehaviour
 {
     public int questionNumber;
     private static SimulationVM viewModel;
+    private BoxCollider boxCollider; 
 
     private void Start()
     {
         viewModel = GameObject.Find("View").GetComponent<SimulationVM>();
+        
     }
 
     private void OnTriggerEnter(Collider other)

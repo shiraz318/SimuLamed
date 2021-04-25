@@ -33,7 +33,7 @@ public class User
     
 
 
-    public User(string username, string email, int[] correctAnswers, int numOfHints)
+    public User(string username, string email, int[] correctAnswers, int numOfHints, int openLevel)
     {
         //this.correctAns = correctAns;
        // this.correctAnswers = correctAnswers;
@@ -42,7 +42,7 @@ public class User
         //lastAnswers = new bool[Utils.HINTS_PER_CORRECT_ANS];
         //lastAnswersIndex = 0;
         //this.numOfHints = numOfHints;
-        this.state = new UserState(correctAnswers, numOfHints);
+        this.state = new UserState(correctAnswers, numOfHints, openLevel);
     }
 
     public void InitUserScore(int numOfQuestions)
@@ -100,8 +100,16 @@ public class User
         return state.IsDeserveNewHint();
 
     }
+    public int GetOpenLevel()
+    {
+        return state.openLevel;
+    }
     public void InitLastAns()
     {
         state.InitLastAns();
+    }
+    public void AddLevel()
+    {
+        state.openLevel++;
     }
 }

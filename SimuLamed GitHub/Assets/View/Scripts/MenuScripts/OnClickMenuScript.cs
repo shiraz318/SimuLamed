@@ -13,7 +13,7 @@ public class OnClickMenuScript : MonoBehaviour
     // On click event handler for clicking the start simulation button.
     public void OnClickStartSimulation()
     {
-        sceneLoader.LoadNextScene(Utils.SIMULATION_SCENE);
+        sceneLoader.LoadNextScene(Utils.LEVELS_SCENE);
         Debug.Log("Start simulation");
     }
 

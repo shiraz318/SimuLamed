@@ -43,7 +43,10 @@ namespace Assets
         public const string QUESTIONS_SCENE = "QuestionsScene";
         public const string FORGOT_PASSWORD_SCENE = "ForgotPasswordScene";
         public const string SETTINGS_SCENE = "SettingsScene";
-        public const string SIMULATION_SCENE = "SimulationScene";
+        public const string SIMULATION_SCENE_1 = "SimulationScene_1";
+        public const string SIMULATION_SCENE_2 = "SimulationScene_2";
+        public const string SIMULATION_SCENE_3 = "SimulationScene_3";
+        public const string LEVELS_SCENE = "LevelsScene";
         //public const string SIMULATION_SCENE = "SimpleRoad";
 
 

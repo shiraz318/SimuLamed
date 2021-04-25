@@ -19,6 +19,8 @@ public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
     private const int NUMBER_OF_LEVELS = 3;
     private const int MAX_NUMBER_OF_ERRORS = 4;
 
+    private int currentLevel;
+
     private int displayedQuestionsCounter;
 
     private int lives;
@@ -41,11 +43,14 @@ public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
         
         // Get all the questions.
         model.SetQuestionsByCategory(Utils.MIXED_HEBREW);
-
         Lives = MAX_NUMBER_OF_ERRORS;
         
 
 
+    }
+    public void SetCurrentLevel(int level)
+    {
+        currentLevel = level;
     }
 
     public void DisplayQuestion(int questionNumber)
@@ -83,16 +88,19 @@ public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
 
     public void OnFinishLevel()
     {
-       
-
-        if (Level < (NUMBER_OF_LEVELS - 1))
+        if (Level <= (NUMBER_OF_LEVELS - 1))
         {
             Level++;
         }
+
+
         // Set the user score to && between the user score arrays.
         //model.UpdateUserScore(playerScore);
-        
+
         // Save the user level. 
+        NotifyPropertyChanged("LevelFinished");
+
+
     }
     public void OnExitSimulation()
     {

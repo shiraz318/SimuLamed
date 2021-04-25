@@ -70,7 +70,7 @@ public sealed class FirebaseManager : IDatabaseHandler
         RestClient.Post<SignResponse>("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + authKey,
             bodyString: userData).Then(response =>
         {
-            User user = new User(username, email, new int[] { -1 }, Utils.INITIAL_NUMBER_OF_HINTS)
+            User user = new User(username, email, new int[] { -1 }, Utils.INITIAL_NUMBER_OF_HINTS, 0)
             {
                 localId = response.localId,
                 idToken = response.idToken
@@ -183,13 +183,12 @@ public sealed class FirebaseManager : IDatabaseHandler
     private void CreateUser(string localId, string idToken, string email, Utils.OnSuccessSignInFunc onSuccess, Utils.OnFailureFunc onFailure)
     {
 
-
         RestClient.Get<User>($"{databaseURL}users/{localId}.json?auth=" + idToken).Then(response =>
         {
 
             Dictionary<int, int> dic = new Dictionary<int, int>();
             //User user = new User(response.username, email, response.correctAnswers, response.numOfHints);
-            User user = new User(response.username, email, response.state.correctAnswers, response.state.numOfHints);
+            User user = new User(response.username, email, response.state.correctAnswers, response.state.numOfHints, response.state.openLevel);
             user.localId = localId;
             user.idToken = idToken;
             onSuccess(user);

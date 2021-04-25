@@ -12,6 +12,7 @@ namespace Assets.Model
     {
         public int[] correctAnswers;
         public int numOfHints;
+        public int openLevel;
 
         private Score score;
 
@@ -19,10 +20,11 @@ namespace Assets.Model
         private int lastAnswersIndex;
 
         // Constructor.
-        public UserState(int[] correctAnswers, int numOfHints)
+        public UserState(int[] correctAnswers, int numOfHints, int openLevel)
         {
             this.correctAnswers = correctAnswers;
             this.numOfHints = numOfHints;
+            this.openLevel = openLevel;
 
         }
 

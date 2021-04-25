@@ -23,33 +23,31 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/View/Scenes/LearningFromQuestionsScene.unity
     guid: 7cc6ce62ad4fcf845883ac4f509a8cf4
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/View/Scenes/QuestionsScene.unity
-    guid: d7e02aac471d97e4092a9706dcd6ce37
+    path: Assets/View/Scenes/LevelsScene.unity
+    guid: c96b4772c0d704e4494ebc453a67d4ec
   - enabled: 1
     path: Assets/View/Scenes/StatisticsScene.unity
     guid: 7ddd1acfc35d2e8449140114e9c55857
   - enabled: 1
     path: Assets/View/Scenes/SettingsScene.unity
     guid: b6460ff417e4e0749b382e551827731d
-  - enabled: 0
-<<<<<<< Updated upstream
-    path: Assets/View/Scenes/StartSimulationScene.unity
-    guid: ff15eaea97e873c4895fd9d34d2ccc78
-=======
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/View/Scenes/QuestionsScene 1.unity
-    guid: d9b7630effcd68e438b93449d4ddc10e
->>>>>>> Stashed changes
-  - enabled: 1
-    path: Assets/View/Scenes/DraftSimulation.unity
-    guid: 4a42ea1a52f7301418740a7353ba083d
-  - enabled: 1
-    path: Assets/View/Scenes/SimpleRoad.unity
-    guid: 304e79fbf276559479896b9b0eda2a37
   - enabled: 1
     path: Assets/View/Scenes/SimulationScene.unity
     guid: 7f5a85de43b699740bd9634cce21ba3c
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/View/Scenes/SimulationScene_1.unity
+    guid: 304e79fbf276559479896b9b0eda2a37
+  - enabled: 1
+    path: Assets/View/Scenes/QuestionsScene.unity
+    guid: d9b7630effcd68e438b93449d4ddc10e
+  - enabled: 1
+    path: Assets/View/Scenes/DraftSimulation.unity
+    guid: 4a42ea1a52f7301418740a7353ba083d
   m_configObjects: {}

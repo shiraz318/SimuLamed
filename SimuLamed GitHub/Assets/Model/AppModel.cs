@@ -239,7 +239,10 @@ namespace Assets.model
             currentUser.DecreaseHint();
             NotifyPropertyChanged("HintsNumber");
         }
-
+        public int GetOpenLevel()
+        {
+            return currentUser.GetOpenLevel();
+        }
 
         // Notify property changed.
         public void NotifyPropertyChanged(string propName)
