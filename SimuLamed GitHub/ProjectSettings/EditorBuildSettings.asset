@@ -32,10 +32,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/View/Scenes/SettingsScene.unity
     guid: b6460ff417e4e0749b382e551827731d
-  - enabled: 1
+  - enabled: 0
     path: Assets/View/Scenes/StartSimulationScene.unity
     guid: ff15eaea97e873c4895fd9d34d2ccc78
   - enabled: 1
     path: Assets/View/Scenes/DraftSimulation.unity
     guid: 4a42ea1a52f7301418740a7353ba083d
+  - enabled: 1
+    path: Assets/View/Scenes/SimpleRoad.unity
+    guid: 304e79fbf276559479896b9b0eda2a37
+  - enabled: 1
+    path: Assets/View/Scenes/SimulationScene.unity
+    guid: 7f5a85de43b699740bd9634cce21ba3c
   m_configObjects: {}

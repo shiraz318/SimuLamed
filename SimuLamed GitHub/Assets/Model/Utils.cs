@@ -44,6 +44,7 @@ namespace Assets
         public const string FORGOT_PASSWORD_SCENE = "ForgotPasswordScene";
         public const string SETTINGS_SCENE = "SettingsScene";
         public const string SIMULATION_SCENE = "SimulationScene";
+        //public const string SIMULATION_SCENE = "SimpleRoad";
 
 
         public const string ANS_1_NAME = "Ans1";
@@ -55,7 +56,9 @@ namespace Assets
         public const string LEFT = "Left";
         public const string FORWARD = "Forward";
         public const string BACKWARDS = "Backwards";
-        
+        public const string ERROR_IN_KEYS = "KEY ALREADY IN USE"; 
+
+
         public const string DEFAULT_FORWARD = "w";
         public const string DEFAULT_BACKWARDS = "s";
         public const string DEFAULT_RIGHT = "d";

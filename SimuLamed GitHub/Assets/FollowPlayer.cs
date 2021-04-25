@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FollowPlayer : MonoBehaviour
 {
-
 
 	public void LookAtTarget()
 	{
@@ -30,7 +30,7 @@ public class FollowPlayer : MonoBehaviour
 
 	public Transform objectToFollow;
 
-	public Vector3 offset = new Vector3(0, 2, -5);
+	public Vector3 offset;// = new Vector3(0, 2, -5);
 	public float followSpeed = 10;
 	public float lookSpeed = 10;
 }

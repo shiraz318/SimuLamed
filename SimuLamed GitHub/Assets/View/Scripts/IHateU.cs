@@ -9,72 +9,11 @@ using UnityWeld.Binding;
 [Binding]
 public class IHateU : MonoBehaviour, INotifyPropertyChanged
 {
-    //public void GetInput()
-    //{
-    //	m_horizontalInput = Input.GetAxis("Horizontal");
-    //	m_verticalInput = Input.GetAxis("Vertical");
-    //}
-
-    //private void Steer()
-    //{
-    //	m_steeringAngle = maxSteerAngle * m_horizontalInput;
-    //	frontDriverW.steerAngle = m_steeringAngle;
-    //	frontPassengerW.steerAngle = m_steeringAngle;
-    //}
-
-    //private void Accelerate()
-    //{
-    //	frontDriverW.motorTorque = m_verticalInput * motorForce;
-    //	frontPassengerW.motorTorque = m_verticalInput * motorForce;
-    //}
-
-    //private void UpdateWheelPoses()
-    //{
-    //	UpdateWheelPose(frontDriverW, frontDriverT);
-    //	UpdateWheelPose(frontPassengerW, frontPassengerT);
-    //	UpdateWheelPose(rearDriverW, rearDriverT);
-    //	UpdateWheelPose(rearPassengerW, rearPassengerT);
-    //}
-
-    //private void UpdateWheelPose(WheelCollider _collider, Transform _transform)
-    //{
-    //	Vector3 _pos = _transform.position;
-    //	Quaternion _quat = _transform.rotation;
-
-    //	_collider.GetWorldPose(out _pos, out _quat);
-
-    //	_transform.position = _pos;
-    //	_transform.rotation = _quat;
-    //}
-
-    //private void FixedUpdate()
-    //{
-    //	GetInput();
-    //	Steer();
-    //	Accelerate();
-    //	UpdateWheelPoses();
-    //}
-
-    //private float m_horizontalInput;
-    //private float m_verticalInput;
-    //private float m_steeringAngle;
-
-    //public WheelCollider frontDriverW, frontPassengerW;
-    //public WheelCollider rearDriverW, rearPassengerW;
-    //public Transform frontDriverT, frontPassengerT;
-    //public Transform rearDriverT, rearPassengerT;
-    //public float maxSteerAngle = 30;
-    //public float motorForce = 1000;
+   
     public event PropertyChangedEventHandler PropertyChanged;
 
     public void GetInput()
     {
-        // SettingsVM sn =SettingsVM.instance;
-        //SettingsVM[] sn1 = gameObject.GetComponentsInChildren<SettingsVM>();
-       
-        //string f = gameObject.GetComponent<SettingsVM>().Forward;
-        
-
         float h = 0f;
         float v = 0f;
         Vector2 smoothedInput;
@@ -82,11 +21,7 @@ public class IHateU : MonoBehaviour, INotifyPropertyChanged
         string key = "";
         
         key = PlayerPrefs.GetString(Utils.FORWARD).Equals("")? FromStringToASCII(Utils.DEFAULT_FORWARD): PlayerPrefs.GetString(Utils.FORWARD);
-        //if (key.Equals("")) 
-        //{ 
-
-        //    key = FromStringToASCII(Utils.DEFAULT_FORWARD);
-        //}
+      
         if (Input.GetKey((KeyCode)Enum.Parse(typeof(KeyCode), key)))
         {
             v = 1f;
@@ -115,8 +50,7 @@ public class IHateU : MonoBehaviour, INotifyPropertyChanged
 
         smoothedInput = SmoothInput(h, v);
 
-        //m_horizontalInput = Input.GetAxis("Horizontal");
-        // m_verticalInput = Input.GetAxis("Vertical");
+      
     }
 
     private Vector2 SmoothInput(float targetH, float targetV)
@@ -125,10 +59,10 @@ public class IHateU : MonoBehaviour, INotifyPropertyChanged
         float deadZone = 0.001f;
 
         m_horizontalInput = Mathf.MoveTowards(m_horizontalInput,
-                      targetH, sensitivity * Time.deltaTime);
+                      targetH, sensitivity * Time.unscaledDeltaTime);
 
         m_verticalInput = Mathf.MoveTowards(m_verticalInput,
-                      targetV, sensitivity * Time.deltaTime);
+                      targetV, sensitivity * Time.unscaledDeltaTime);
 
         return new Vector2(
                (Mathf.Abs(m_horizontalInput) < deadZone) ? 0f : m_horizontalInput,
@@ -153,11 +87,8 @@ public class IHateU : MonoBehaviour, INotifyPropertyChanged
     {
         frontDriverW.motorTorque = m_verticalInput * motorForce;
         frontPassengerW.motorTorque = m_verticalInput * motorForce;
-        float drive = Mathf.PI * frontDriverW.radius * frontDriverW.rpm / 100;
-        if (drive < 0)
-        {
-            drive *= -1;
-        }
+        // calculate speed in km/h
+        drive = rigidBody.velocity.magnitude * 3.6f;
         Speed = Round(drive, 0).ToString();
     }
 
@@ -180,7 +111,7 @@ public class IHateU : MonoBehaviour, INotifyPropertyChanged
         _transform.rotation = _quat;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         GetInput();
         Steer();
@@ -190,6 +121,9 @@ public class IHateU : MonoBehaviour, INotifyPropertyChanged
         
 
     }
+   
+
+   
 
     //On property changed.
     public void NotifyPropertyChanged(string propName)
@@ -217,6 +151,8 @@ public class IHateU : MonoBehaviour, INotifyPropertyChanged
         return ascii.ToString();
     }
 
+    public Rigidbody rigidBody;
+
     private float m_horizontalInput;
     private float m_verticalInput;
     private float m_steeringAngle;
@@ -227,4 +163,5 @@ public class IHateU : MonoBehaviour, INotifyPropertyChanged
     public Transform rearDriverT, rearPassengerT;
     public float maxSteerAngle = 30;
     public float motorForce = 1000;
+    private float drive;
 }
