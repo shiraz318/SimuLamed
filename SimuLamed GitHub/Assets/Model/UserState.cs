@@ -18,6 +18,7 @@ namespace Assets.Model
 
         private bool[] lastAnswers;
         private int lastAnswersIndex;
+        
 
         // Constructor.
         public UserState(int[] correctAnswers, int numOfHints, int openLevel)

@@ -14,6 +14,7 @@ public class LivesCotroller : MonoBehaviour
     public Image live0;
 
     private SimulationVM viewModel;
+
     // Start is called before the first frame update
     void Start()
     {

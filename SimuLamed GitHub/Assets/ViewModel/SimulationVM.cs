@@ -91,6 +91,7 @@ public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
             // The player answered a question.
             if (eventArgs.PropertyName.Equals("LastAnswerResults"))
             {
+
                 Tuple<int, bool> result = questionsManager.LastAnswerResults;
                 
                 // Answer is correct.
@@ -100,6 +101,7 @@ public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
                 }
                 else
                 {
+                    Lives--;
                     playerScore[result.Item1] = Utils.QuestionOption.Wrong;
                 }
             }
