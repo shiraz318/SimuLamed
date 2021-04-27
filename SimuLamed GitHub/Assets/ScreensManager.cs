@@ -54,6 +54,8 @@ public class ScreensManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            Debug.Log("space is pressed");
+            
             if (!isQuitMenu)
             {
 
@@ -129,6 +131,7 @@ public class ScreensManager : MonoBehaviour
     // present the fail menu
     public void FailMenu()
     {
+        questionsMenuUI.SetActive(false);
         failMenuUI.SetActive(true);
         Time.timeScale = 0f;
     }

@@ -109,6 +109,7 @@ public class QuestionsManager : MonoBehaviour, INotifyPropertyChanged
         IsAnsInteractable = false;
         if (!isAnsCorrect) { NotifyPropertyChanged("WrongAnswer"); }
         LastAnswerResults = new Tuple<int, bool>(questions[currentQuestionNumber].questionNumber, isAnsCorrect);
+
     }
 
 
