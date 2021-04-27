@@ -16,6 +16,8 @@ public class ScreensManager : MonoBehaviour
     public GameObject quitMenuUI;
     public GameObject failMenuUI;
     public GameObject successMenuUI;
+    public GameObject questionsMenuUI;
+    
 
     // private SceneLoader sceneLoader;
 
@@ -24,25 +26,28 @@ public class ScreensManager : MonoBehaviour
     void Start()
     {
         //sceneLoader = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
-
+        SetViewModel();
+    }
+    private void SetViewModel()
+    {
+        simulationVM = GameObject.Find("View").GetComponent<SimulationVM>();
         simulationVM.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
             if (eventArgs.PropertyName.Equals("Lives"))
             {
-               if(simulationVM.Lives <= 0)
-               {
+                if (simulationVM.Lives <= 0)
+                {
                     FailMenu();
-               }
+                }
             }
-
-            if (eventArgs.PropertyName.Equals("LevelFinished"))
+            else if (eventArgs.PropertyName.Equals("LevelFinished"))
             {
                 SuccessMenu();
             }
 
         };
-    }
 
+    }
 
     // Check if space or esc is clicked
     void Update()
@@ -79,6 +84,12 @@ public class ScreensManager : MonoBehaviour
         gameIsPaused = true;
     }
 
+    
+    public void OnClickFinishAns()
+    {
+        questionsMenuUI.SetActive(false);
+        Time.timeScale = 1;
+    }
     // continue the game
     private void Resume()
     {
@@ -160,6 +171,8 @@ public class ScreensManager : MonoBehaviour
 
     public void DisplayQuestion(int questionNumber)
     {
+        questionsMenuUI.SetActive(true);
+        Time.timeScale = 0f;
         simulationVM.DisplayQuestion(questionNumber);
     }
 

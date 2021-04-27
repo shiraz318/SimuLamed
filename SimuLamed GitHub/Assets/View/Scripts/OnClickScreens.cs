@@ -49,6 +49,10 @@ public class OnClickScreens : MonoBehaviour
 
     }
 
+    public void OnClickFinishAnswer()
+    {
+        screenManger.OnClickFinishAns();
+    }
 
     public void OnClickNextLevel()
     {

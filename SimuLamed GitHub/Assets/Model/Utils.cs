@@ -10,6 +10,14 @@ namespace Assets
 {
     public class Utils
     {
+        public enum QuestionOption
+        {
+            NotAsked,
+            Wrong,
+            Correct
+        }
+
+
         // Delegates.
         public delegate void OnSuccessFunc();
         public delegate void OnSuccessSignInFunc(User user);

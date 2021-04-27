@@ -13,7 +13,7 @@ public class OnClickAnswer : MonoBehaviour
 
 
     //private QuestionsVM_2 viewModel;
-    public QuestionsManager questionManager;
+    private static QuestionsManager questionManager;
     private TMP_Text ansText;
     private Image ansImage;
    

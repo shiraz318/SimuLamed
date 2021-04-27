@@ -66,6 +66,7 @@ public class QuestionsManager : MonoBehaviour, INotifyPropertyChanged
 
     public void DisplayQuestion(int questionNUmber)
     {
+        IsQuestionSet = true;
         SetQuestionNumber(questionNUmber);
         DisplayCurrentQuestion();
         SetImage(CurrentQuestion.imageUrl);
@@ -94,7 +95,6 @@ public class QuestionsManager : MonoBehaviour, INotifyPropertyChanged
         Ans2Text = CurrentQuestion.ans2;
         Ans3Text = CurrentQuestion.ans3;
         Ans4Text = CurrentQuestion.ans4;
-
         IsAnsInteractable = true;
         
         // Notify that the answers color needs to be reset.

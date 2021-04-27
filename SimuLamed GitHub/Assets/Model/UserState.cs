@@ -35,11 +35,17 @@ namespace Assets.Model
             score = new Score(numOfQuestions);
             foreach (int correctAnsNum in correctAnswers)
             {
-                score.SetQuestionScore(correctAnsNum, true);
+                if (correctAnsNum >= 0)
+                {
+                    score.SetQuestionScore(correctAnsNum, true);
+                }
             }
 
         }
-
+        public void UpdateScore(Utils.QuestionOption[] playerScore)
+        {
+            score.Update(playerScore);
+        }
         // Set the score according to the given question number and whether the user was correct or not.
         public void SetScore(int questionNum, bool isAnsCorrect)
         {
@@ -93,6 +99,10 @@ namespace Assets.Model
         {
             lastAnswers = new bool[Utils.HINTS_PER_CORRECT_ANS];
             lastAnswersIndex = 0;
+        }
+        public int GetNumOfQuestions()
+        {
+            return score.GetCount();
         }
     }
 }

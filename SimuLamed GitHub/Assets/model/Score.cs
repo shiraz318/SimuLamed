@@ -30,6 +30,24 @@ namespace Assets.model
         {
             return score.Select((b, i) => b == true ? i :-1).Where(i => i != -1).ToArray();
         }
+        public void Update(Utils.QuestionOption[] playerScore)
+        {
+            for (int i = 0; i < score.Length; i++)
+            {
+                if (playerScore[i].Equals(Utils.QuestionOption.Correct))
+                {
+                    score[i] = true;
+                }
+                else if (playerScore[i].Equals(Utils.QuestionOption.Wrong))
+                {
+                    score[i] = false;
+                }
+            }
+        }
+        public int GetCount()
+        {
+            return score.Length;
+        }
 
         //public void SetCorrectAns()
         //{

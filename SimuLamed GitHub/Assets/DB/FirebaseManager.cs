@@ -243,6 +243,7 @@ public sealed class FirebaseManager : IDatabaseHandler
             Dictionary<string, Question> questions = new Dictionary<string, Question>();
             fsData questionsData = fsJsonParser.Parse(response.Text);
             serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
+            
             System.Random rnd = new System.Random();
 
             onSuccess(questions.Values.OrderBy(x => rnd.Next()).ToArray());
@@ -280,7 +281,7 @@ public sealed class FirebaseManager : IDatabaseHandler
 
     }
 
-    public void SaveUserCorrectAns(User currentUser, Utils.OnSuccessFunc onSuccess, Utils.OnFailureFunc onFailure)
+    public void SaveUser(User currentUser, Utils.OnSuccessFunc onSuccess, Utils.OnFailureFunc onFailure)
     {
         PostUser(currentUser, currentUser.localId, onSuccess, onFailure);
         //JsonUtility.ToJson(currentUser.score.correctAns);

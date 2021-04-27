@@ -30,15 +30,16 @@ public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
     public int Level { get; set; }
     private IAppModel model;
 
-    private Score playerScore;
+    private Utils.QuestionOption[] playerScore;
     
     
     
-    void Start()
+    void Awake()
     {
-
         displayedQuestionsCounter = 0;
         SetModel();
+        ResetScore();
+
         SetQuestionsManager();
         
         // Get all the questions.
@@ -48,6 +49,16 @@ public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
 
 
     }
+
+    private void ResetScore()
+    {
+        playerScore = new Utils.QuestionOption[model.GetNumOfQuestions()];
+        for (int i = 0; i < playerScore.Length; i++)
+        {
+            playerScore[i] = Utils.QuestionOption.NotAsked;
+        }
+    }
+
     public void SetCurrentLevel(int level)
     {
         currentLevel = level;
@@ -55,6 +66,7 @@ public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
 
     public void DisplayQuestion(int questionNumber)
     {
+
         displayedQuestionsCounter++;
         questionsManager.DisplayQuestion(questionNumber);
     }
@@ -80,7 +92,16 @@ public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
             if (eventArgs.PropertyName.Equals("LastAnswerResults"))
             {
                 Tuple<int, bool> result = questionsManager.LastAnswerResults;
-                playerScore.SetQuestionScore(result.Item1, result.Item2);
+                
+                // Answer is correct.
+                if (result.Item2)
+                {
+                    playerScore[result.Item1] = Utils.QuestionOption.Correct;
+                }
+                else
+                {
+                    playerScore[result.Item1] = Utils.QuestionOption.Wrong;
+                }
             }
 
         };

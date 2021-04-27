@@ -35,5 +35,8 @@ namespace Assets.model
         void DecreaseHint();
         void InitUserLastAns();
         int GetOpenLevel();
+        void UpdateUserScore(Utils.QuestionOption[] playerScore);
+        void UpdateUserOpenLevel(int openLevel);
+        int GetNumOfQuestions();
     }
 }

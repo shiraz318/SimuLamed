@@ -179,7 +179,7 @@ namespace Assets.model
             onSuccess += delegate { ResetError(); };
 
             currentUser.SetCorrectAns();
-            databaseHandler.SaveUserCorrectAns(currentUser, onSuccess , (message) => SetError(message, ErrorTypes.SaveScore)) ;
+            databaseHandler.SaveUser(currentUser, onSuccess , (message) => SetError(message, ErrorTypes.SaveScore)) ;
         }
 
         // Reset the error propery.
@@ -243,6 +243,21 @@ namespace Assets.model
         {
             return currentUser.GetOpenLevel();
         }
+        
+        public void UpdateUserScore(Utils.QuestionOption[] playerScore)
+        {
+            currentUser.state.UpdateScore(playerScore);
+        }
+        
+        public void UpdateUserOpenLevel(int openLevel)
+        {
+            currentUser.state.openLevel = openLevel;
+        }
+        public int GetNumOfQuestions()
+        {
+            return currentUser.GetNumOfQuestions();
+        }
+
 
         // Notify property changed.
         public void NotifyPropertyChanged(string propName)
