@@ -13,6 +13,8 @@ public class Video : MonoBehaviour
     public GameObject screenVideo;
     public Text speedText;
     public Text speed;
+    public Button viewButton;
+    public GameObject lives;
 
     private VideoPlayer videoPlayer;
     private VideoSource videoSource;
@@ -24,10 +26,17 @@ public class Video : MonoBehaviour
     void Start()
     {
         Application.runInBackground = true;
-        speedText.gameObject.SetActive(false);
-        speed.gameObject.SetActive(false);
+        SetComponents(false);
         StartCoroutine(playVideo());
         
+    }
+
+    private void SetComponents(bool state)
+    {
+        speedText.gameObject.SetActive(state);
+        speed.gameObject.SetActive(state);
+        viewButton.gameObject.SetActive(state);
+        lives.SetActive(state);
     }
 
 
@@ -77,8 +86,7 @@ public class Video : MonoBehaviour
 
         yield return new WaitForSeconds(5.0f);
         screenVideo.SetActive(false);
-        speedText.gameObject.SetActive(true);
-        speed.gameObject.SetActive(true);
+        SetComponents(true);
 
 
 
