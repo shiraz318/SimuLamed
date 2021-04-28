@@ -56,7 +56,7 @@ public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
 
     private void ResetScore()
     {
-        playerScore = new Utils.QuestionOption[model.GetNumOfQuestions()];
+        playerScore = new Utils.QuestionOption[model.NumOfQuestions];
         for (int i = 0; i < playerScore.Length; i++)
         {
             playerScore[i] = Utils.QuestionOption.NotAsked;

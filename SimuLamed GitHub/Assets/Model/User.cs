@@ -58,10 +58,10 @@ public class User
         //    //}
         //}
     }
-    public int GetNumOfQuestions()
-    {
-        return state.GetNumOfQuestions();
-    }
+    //public int GetNumOfQuestions()
+    //{
+    //    return state.GetNumOfQuestions();
+    //}
    
 
     public void SetScore(int questionNum, bool isAnsCorrect)

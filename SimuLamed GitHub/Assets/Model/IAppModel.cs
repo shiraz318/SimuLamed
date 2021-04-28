@@ -38,6 +38,6 @@ namespace Assets.model
         int GetOpenLevel();
         void UpdateUserScore(Utils.QuestionOption[] playerScore);
         void UpdateUserOpenLevel(int openLevel);
-        int GetNumOfQuestions();
+        //int GetNumOfQuestions();
     }
 }

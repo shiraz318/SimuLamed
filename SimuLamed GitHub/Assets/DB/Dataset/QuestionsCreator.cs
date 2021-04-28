@@ -21,7 +21,7 @@ namespace Assets.model
         // Read from the dataset.
         private static List<string[]> ReadFromDataset()
         {
-            string filePath = @"D:\unity_installation\Unity Projects\SimuLamed\SimuLamed GitHub\Assets\Dataset\Dataset.csv";
+            string filePath = @"D:\unity_installation\Unity Projects\SimuLamed\SimuLamed GitHub\Assets\DB\Dataset\Dataset.csv";
             StreamReader sr = new StreamReader(filePath, Encoding.GetEncoding("windows-1255"));
 
             var lines = new List<string[]>();

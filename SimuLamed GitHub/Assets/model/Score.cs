@@ -44,10 +44,10 @@ namespace Assets.model
                 }
             }
         }
-        public int GetCount()
-        {
-            return score.Length;
-        }
+        //public int GetCount()
+        //{
+        //    return score.Length;
+        //}
 
         //public void SetCorrectAns()
         //{

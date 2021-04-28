@@ -101,9 +101,9 @@ namespace Assets.Model
             lastAnswers = new bool[Utils.HINTS_PER_CORRECT_ANS];
             lastAnswersIndex = 0;
         }
-        public int GetNumOfQuestions()
-        {
-            return score.GetCount();
-        }
+        //public int GetNumOfQuestions()
+        //{
+        //    return score.GetCount();
+        //}
     }
 }

@@ -264,10 +264,10 @@ namespace Assets.model
         {
             currentUser.state.openLevel = openLevel;
         }
-        public int GetNumOfQuestions()
-        {
-            return currentUser.GetNumOfQuestions();
-        }
+        //public int GetNumOfQuestions()
+        //{
+        //    return NumOfQuestions;
+        //}
 
 
         // Notify property changed.
