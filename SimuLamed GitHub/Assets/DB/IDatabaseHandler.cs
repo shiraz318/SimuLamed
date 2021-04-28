@@ -16,7 +16,7 @@ namespace Assets.model
         void ResetPassword(string email, Utils.OnSuccessFunc onSuccess, Utils.OnFailureFunc onFailure);
         void UploadDataset(List<Question> questions);
         void GetQuestionsByCategory(string userIdToken, string category, Action<Question[]> onSuccess ,Utils.OnFailureFunc onFailure);
-        void GetAllQuestions(string userIdToken, Action<Dictionary<string, Question>> onSuccess, Utils.OnFailureFunc onFailure);
+       // void GetAllQuestions(string userIdToken, Action<Dictionary<string, Question>> onSuccess, Utils.OnFailureFunc onFailure);
         void SaveUser(User currentUser, Utils.OnSuccessFunc onSuccess, Utils.OnFailureFunc onFailure);
     }
 }

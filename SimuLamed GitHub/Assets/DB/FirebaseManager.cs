@@ -160,24 +160,24 @@ public sealed class FirebaseManager : IDatabaseHandler
     }
 
 
-    public void GetAllQuestions(string userIdToken, Action<Dictionary<string, Question>> onSuccess, Utils.OnFailureFunc onFailure)
-    {
-        Dictionary<string, Question> questions = new Dictionary<string, Question>();
+    //public void GetAllQuestions(string userIdToken, Action<Dictionary<string, Question>> onSuccess, Utils.OnFailureFunc onFailure)
+    //{
+    //    Dictionary<string, Question> questions = new Dictionary<string, Question>();
 
-        string getRequest = $"{databaseURL}questions.json?auth=" + userIdToken + "&orderBy=\"questionNumber\"&startAt=0";
+    //    string getRequest = $"{databaseURL}questions.json?auth=" + userIdToken + "&orderBy=\"questionNumber\"&startAt=0";
 
-        RestClient.Get(getRequest).Then(response =>
-        {
-            fsData questionsData = fsJsonParser.Parse(response.Text);
-            serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
+    //    RestClient.Get(getRequest).Then(response =>
+    //    {
+    //        fsData questionsData = fsJsonParser.Parse(response.Text);
+    //        serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
 
-            onSuccess(questions);
+    //        onSuccess(questions);
 
-        }).Catch(error => {
-            onFailure(error.Message);
-            Debug.Log(error.Message); 
-        });
-    }
+    //    }).Catch(error => {
+    //        onFailure(error.Message);
+    //        Debug.Log(error.Message); 
+    //    });
+    //}
 
 
     private void CreateUser(string localId, string idToken, string email, Utils.OnSuccessSignInFunc onSuccess, Utils.OnFailureFunc onFailure)
@@ -243,10 +243,10 @@ public sealed class FirebaseManager : IDatabaseHandler
             Dictionary<string, Question> questions = new Dictionary<string, Question>();
             fsData questionsData = fsJsonParser.Parse(response.Text);
             serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
-            
-            System.Random rnd = new System.Random();
 
-            onSuccess(questions.Values.OrderBy(x => rnd.Next()).ToArray());
+            //System.Random rnd = new System.Random();
+            onSuccess(questions.Values.ToArray());
+            //onSuccess(questions.Values.OrderBy(x => rnd.Next()).ToArray());
 
         }).Catch(error => 
         {

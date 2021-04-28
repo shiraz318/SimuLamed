@@ -20,14 +20,18 @@ public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
     private const int MAX_NUMBER_OF_ERRORS = 4;
 
     private int currentLevel;
-
     private int displayedQuestionsCounter;
+    public int DisplayedQuestionsCounter { get { return displayedQuestionsCounter; } set { displayedQuestionsCounter = value; QuestionNumberText = value.ToString(); } }
 
     private int lives;
     [Binding]
     public int Lives { get { return lives; } set { lives = value; NotifyPropertyChanged("Lives"); } }
     [Binding]
     public int Level { get; set; }
+
+    private string questionNumberText; 
+    [Binding]
+    public string QuestionNumberText { get { return DisplayedQuestionsCounter.ToString() + "/" + Utils.QUESTIONS_NUM_IN_SIM; } set {questionNumberText = value + "/" + Utils.QUESTIONS_NUM_IN_SIM; NotifyPropertyChanged("QuestionNumberText"); }  }
     private IAppModel model;
 
     private Utils.QuestionOption[] playerScore;
@@ -36,14 +40,14 @@ public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
     
     void Awake()
     {
-        displayedQuestionsCounter = 0;
+        DisplayedQuestionsCounter = 0;
         SetModel();
         ResetScore();
 
         SetQuestionsManager();
         
         // Get all the questions.
-        model.SetQuestionsByCategory(Utils.MIXED_HEBREW);
+        model.SetQuestionsByCategory(Utils.MIXED_HEBREW, toRnd:false);
         Lives = MAX_NUMBER_OF_ERRORS;
         
 
@@ -67,7 +71,7 @@ public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
     public void DisplayQuestion(int questionNumber)
     {
 
-        displayedQuestionsCounter++;
+        DisplayedQuestionsCounter++;
         questionsManager.DisplayQuestion(questionNumber);
     }
 

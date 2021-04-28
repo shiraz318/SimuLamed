@@ -66,7 +66,7 @@ public class QuestionsVM_2 : MonoBehaviour, INotifyPropertyChanged
         lastHintsNumber = model.HintsNumber;
 
         // Get the questions of the selected subject category.
-        model.SetQuestionsByCategory(SelectedSubject);
+        model.SetQuestionsByCategory(SelectedSubject, toRnd:true);
 
         IsHintButtonOn = true;
         NotifyPropertyChanged("HintsNumber");

@@ -96,11 +96,11 @@ namespace Assets.model
                 NotifyPropertyChanged("HintsNumber");
 
                 // Get all the questions from the database.
-                databaseHandler.GetAllQuestions(user.idToken, onSuccess:(questions)=> 
+                databaseHandler.GetQuestionsByCategory(user.idToken, Utils.MIXED_HEBREW, onSuccess:(questions)=> 
                 {
                     if (fromQuestionNumToType.Count == 0)
                     {
-                        fromQuestionNumToType = questions.Values.ToDictionary(x => x.questionNumber,
+                        fromQuestionNumToType = questions.ToDictionary(x => x.questionNumber,
                             x => Question.FromCategoryToTypeHebrew(x.questionCategory));
                     }
                     
@@ -152,13 +152,13 @@ namespace Assets.model
         }
 
         // Set questions property by the given category.
-        public void SetQuestionsByCategory(string category)
+        public void SetQuestionsByCategory(string category, bool toRnd)
         {
             // Get all questions of the given category from the database.
             databaseHandler.GetQuestionsByCategory(currentUser.idToken, category, 
                 onSuccess:(questions) => 
                 {
-                    SetQuestions(questions);
+                    SetQuestions(questions, toRnd);
                     ResetError();
                 },
                 onFailure:(message) => { 
@@ -167,8 +167,19 @@ namespace Assets.model
         }
 
         // Set the questions property to the given questions array and notify it.
-        private void SetQuestions(Question[] questions)
+        private void SetQuestions(Question[] questions, bool toRnd)
         {
+            if (toRnd)
+            {
+                System.Random rnd = new System.Random();
+                questions = questions.OrderBy(x => rnd.Next()).ToArray();
+
+            }
+            else
+            {
+                questions = questions.OrderBy(x => x.questionNumber).ToArray();
+
+            }
             Questions = questions;
             NotifyPropertyChanged("Questions");
         }

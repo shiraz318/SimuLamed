@@ -74,7 +74,11 @@ namespace Assets
         public const string DEFAULT_BACKWARDS = "s";
         public const string DEFAULT_RIGHT = "d";
         public const string DEFAULT_LEFT = "a";
+        
+        
+        public const string QUESTIONS_NUM_IN_SIM = "30";
 
+        
 
 
 

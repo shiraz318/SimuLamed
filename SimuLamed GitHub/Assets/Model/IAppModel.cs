@@ -27,7 +27,8 @@ namespace Assets.model
         string GetCurrentUsername();
         void ResetCurrentUser();
 
-        void SetQuestionsByCategory(string category);
+        void SetQuestionsByCategory(string category, bool toRnd);
+        //void SetQuestionsByCategory(string category);
         void SetUserScore(int questionNum, bool isAnsCorrect);
         void SaveUser(Utils.OnSuccessFunc onSuccess);
         int GetNumOfQuestionsByCategory(string category);
