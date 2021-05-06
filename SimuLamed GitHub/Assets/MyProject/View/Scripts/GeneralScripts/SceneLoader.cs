@@ -9,16 +9,35 @@ public class SceneLoader : MonoBehaviour
     private float transitionTime = 0.7f;
 
 
+    public void LoadLevel(string levelName)
+    {
+        StartCoroutine(LoadLevelAnync(levelName));
+    }
+
+
+    IEnumerator LoadLevelAnync(string levelName)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(levelName);
+
+        while (operation.progress < 1)
+        {
+            Debug.Log(operation.progress);
+            yield return new WaitForEndOfFrame();
+        }
+
+    }
+
+
     public void LoadNextScene(string sceneName)
     {
         StartCoroutine(LoadScene(sceneName));
     }
 
+
     public void LoadNextScene(int sceneIndex)
     {
         StartCoroutine(LoadScene(sceneIndex));
     }
-
     IEnumerator LoadScene(string sceneName)
     {
         // Play animation

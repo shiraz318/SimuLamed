@@ -61,6 +61,7 @@ public sealed class FirebaseManager : IDatabaseHandler
             });
     }
 
+
     // Sign up a given user.
     public void SignUpUser(string username, string password, string email, Utils.OnSuccessFunc onSuccess, Utils.OnFailureFunc onFailure)
     {
@@ -95,6 +96,7 @@ public sealed class FirebaseManager : IDatabaseHandler
             Catch(error => { onFailure(ExtractErrorMessage(error));});
     }
 
+
     // Create a new Error Object and set the Error property.
     private string ExtractErrorMessage(Exception error)
     {
@@ -103,11 +105,13 @@ public sealed class FirebaseManager : IDatabaseHandler
         return errorMessage;
     }
 
+
     // Extract the response message from a given RequestExcetion.
     private string GetResponseError(RequestException exception)
     {
         return exception.Response.Split(',')[1].Split(':')[1].Split('\"')[1].Replace('_', ' ');
     }
+
 
     // Sign in a given user.
     public void SignInUser(string password, string email, Utils.OnSuccessSignInFunc onSuccess, Utils.OnFailureFunc onFailure)
@@ -128,6 +132,7 @@ public sealed class FirebaseManager : IDatabaseHandler
                 onFailure(ExtractErrorMessage(error));
             });
     }
+
 
     // Check if the given email has been verified.
     private void CheckEmailVerification(SignResponse response, string email, Utils.OnSuccessSignInFunc onSuccess, Utils.OnFailureFunc onFailure)
@@ -160,26 +165,6 @@ public sealed class FirebaseManager : IDatabaseHandler
     }
 
 
-    //public void GetAllQuestions(string userIdToken, Action<Dictionary<string, Question>> onSuccess, Utils.OnFailureFunc onFailure)
-    //{
-    //    Dictionary<string, Question> questions = new Dictionary<string, Question>();
-
-    //    string getRequest = $"{databaseURL}questions.json?auth=" + userIdToken + "&orderBy=\"questionNumber\"&startAt=0";
-
-    //    RestClient.Get(getRequest).Then(response =>
-    //    {
-    //        fsData questionsData = fsJsonParser.Parse(response.Text);
-    //        serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
-
-    //        onSuccess(questions);
-
-    //    }).Catch(error => {
-    //        onFailure(error.Message);
-    //        Debug.Log(error.Message); 
-    //    });
-    //}
-
-
     private void CreateUser(string localId, string idToken, string email, Utils.OnSuccessSignInFunc onSuccess, Utils.OnFailureFunc onFailure)
     {
 
@@ -208,13 +193,14 @@ public sealed class FirebaseManager : IDatabaseHandler
         });
     }
 
+
     // Reset password.
     public void ResetPassword(string email, Utils.OnSuccessFunc onSuccess, Utils.OnFailureFunc onFailure)
     {
 
         string payload = "{\"email\":\"" + email + "\",\"requestType\":\"PASSWORD_RESET\"}";
         
-        // Send to the user a mail to reset his password.
+        // Send to the user an email to reset his password.
         RestClient.Post("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=" + authKey, bodyString: payload).
             Then(response => { onSuccess(); }).
             Catch(error => { onFailure(ExtractErrorMessage(error));});
@@ -257,6 +243,7 @@ public sealed class FirebaseManager : IDatabaseHandler
 
     }
 
+
     // Upload the given questions to the database reqursivly;
     private void UploadDatasetHelper(List<Question> questions, int num)
     {
@@ -273,6 +260,7 @@ public sealed class FirebaseManager : IDatabaseHandler
         }).Catch(error => { Debug.Log(error.Message); });
 
     }
+
 
     // Upload the given question to the database.
     public void UploadDataset(List<Question> questions)

@@ -63,8 +63,15 @@ namespace Assets.ViewModel
             get { return backwardsInput; }
             set { backwardsInput = value;  }
         }
+        private static bool toShowQuestions = Utils.DEFAULT_TO_SHOW_QUESTIONS;
+        [Binding]
+        public bool ToShowQuestions
+        {
+            get { return toShowQuestions; }
+            set { toShowQuestions = value; }
+        }
 
-       
+
 
 
         private void Start()
@@ -107,6 +114,7 @@ namespace Assets.ViewModel
                 SetPlayerKeys(Utils.RIGHT, RightInput);
                 SetPlayerKeys(Utils.FORWARD, ForwardInput);
                 SetPlayerKeys(Utils.BACKWARDS, BackwardsInput);
+                PlayerPrefs.SetString(Utils.SHOW_QUESTIONS, ToShowQuestions ? "show":string.Empty);
                 onSuccess();
             }
         }

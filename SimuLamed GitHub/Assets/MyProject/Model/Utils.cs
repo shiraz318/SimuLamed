@@ -67,6 +67,7 @@ namespace Assets
         public const string LEFT = "Left";
         public const string FORWARD = "Forward";
         public const string BACKWARDS = "Backwards";
+        public const string SHOW_QUESTIONS = "ShowQuestions";
         public const string ERROR_IN_KEYS = "KEY ALREADY IN USE"; 
 
 
@@ -74,6 +75,7 @@ namespace Assets
         public const string DEFAULT_BACKWARDS = "s";
         public const string DEFAULT_RIGHT = "d";
         public const string DEFAULT_LEFT = "a";
+        public const bool DEFAULT_TO_SHOW_QUESTIONS = true;
         
         
         public const string QUESTIONS_NUM_IN_SIM = "30";
