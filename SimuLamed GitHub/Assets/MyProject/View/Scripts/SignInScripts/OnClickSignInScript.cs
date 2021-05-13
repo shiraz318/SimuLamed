@@ -9,6 +9,7 @@ public class OnClickSignInScript : MonoBehaviour
     {
         sceneLoader = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
     }
+
     // On click forgot password button.
     public void OnClickForgotPassword()
     {

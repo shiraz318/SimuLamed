@@ -2,6 +2,7 @@
 using Assets.model;
 using Assets.ViewModel;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using UnityWeld.Binding;
@@ -9,8 +10,28 @@ using UnityWeld.Binding;
 [Binding]
 public class MyCarController : MonoBehaviour, INotifyPropertyChanged
 {
-   
+    public List<Transform> optionalStartPositions;
+
+    private Vector3 carStartPosition;
+    private Vector3 carStartRotation;
+    [Binding]
+    public Vector3 CarStartPosition { get { return carStartPosition; } set { carStartPosition = value; NotifyPropertyChanged("CarStartPosition"); } }
+    [Binding]
+    public Vector3 CarStartRotation { get { return carStartRotation; } set { carStartRotation = value; NotifyPropertyChanged("CarStartRotation"); } }
+
+
     public event PropertyChangedEventHandler PropertyChanged;
+
+
+    private void Start()
+    {
+        System.Random rd = new System.Random();
+        int randIndex = rd.Next(0, optionalStartPositions.Count - 1);
+
+        CarStartPosition = optionalStartPositions[randIndex].position;
+        CarStartRotation = optionalStartPositions[randIndex].eulerAngles;
+        Debug.Log("POSITION NUMBER" + randIndex.ToString());
+    }
 
     public void GetInput()
     {

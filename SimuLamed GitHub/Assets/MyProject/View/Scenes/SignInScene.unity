@@ -364,7 +364,6 @@ GameObject:
   - component: {fileID: 458460128}
   - component: {fileID: 458460127}
   - component: {fileID: 458460126}
-  - component: {fileID: 458460129}
   m_Layer: 5
   m_Name: SignInButton
   m_TagString: Untagged
@@ -435,8 +434,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 458460129}
+      - m_Target: {fileID: 1435805529}
         m_MethodName: OnClickSignIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2016752012}
+        m_MethodName: OnClickButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -483,18 +493,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 458460124}
   m_CullTransparentMesh: 0
---- !u!114 &458460129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 458460124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 893d7aded8478d74f89d07462d9e1994, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &480495514
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,7 +665,7 @@ RectTransform:
   - {fileID: 928203222}
   - {fileID: 1757113194}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -698,7 +696,6 @@ GameObject:
   - component: {fileID: 611796750}
   - component: {fileID: 611796749}
   - component: {fileID: 611796748}
-  - component: {fileID: 611796747}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -726,18 +723,6 @@ RectTransform:
   m_AnchoredPosition: {x: 346.22, y: 154.95}
   m_SizeDelta: {x: 23.393105, y: 22.150906}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &611796747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 611796745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 893d7aded8478d74f89d07462d9e1994, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &611796748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -781,8 +766,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 611796747}
+      - m_Target: {fileID: 1435805529}
         m_MethodName: OnClickQuit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2016752012}
+        m_MethodName: OnClickButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1166,7 +1162,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &785858704
 GameObject:
@@ -1333,7 +1329,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963457842
 GameObject:
@@ -1425,7 +1421,6 @@ GameObject:
   - component: {fileID: 965063635}
   - component: {fileID: 965063634}
   - component: {fileID: 965063633}
-  - component: {fileID: 965063636}
   m_Layer: 5
   m_Name: SignUpButton
   m_TagString: Untagged
@@ -1496,7 +1491,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 965063636}
+      - m_Target: {fileID: 1435805529}
         m_MethodName: OnClickNewUser
         m_Mode: 1
         m_Arguments:
@@ -1507,6 +1502,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+      - m_Target: {fileID: 2016752012}
+        m_MethodName: OnClickButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &965063634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1544,18 +1550,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 965063631}
   m_CullTransparentMesh: 0
---- !u!114 &965063636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 965063631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 893d7aded8478d74f89d07462d9e1994, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1071348919
 GameObject:
   m_ObjectHideFlags: 0
@@ -1724,7 +1718,6 @@ GameObject:
   - component: {fileID: 1171253511}
   - component: {fileID: 1171253510}
   - component: {fileID: 1171253509}
-  - component: {fileID: 1171253512}
   m_Layer: 5
   m_Name: ForgotPasswordButton
   m_TagString: Untagged
@@ -1795,8 +1788,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1171253512}
+      - m_Target: {fileID: 1435805529}
         m_MethodName: OnClickForgotPassword
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2016752012}
+        m_MethodName: OnClickButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1843,18 +1847,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1171253507}
   m_CullTransparentMesh: 0
---- !u!114 &1171253512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1171253507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 893d7aded8478d74f89d07462d9e1994, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1242285245
 GameObject:
   m_ObjectHideFlags: 0
@@ -2457,7 +2449,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1757113193
 GameObject:
@@ -2632,6 +2624,18 @@ MonoBehaviour:
   viewAdapterOptions: {fileID: 0}
   viewModelPropertyName: SignInVM.ErrorMessage
   viewPropertyName: UnityEngine.UI.Text.text
+--- !u!114 &2016752012 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7074783411281034384, guid: bfc87eeabf2b2804f9f208f906d4a33e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7074783410338549020}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 849aa43646ecd904398908a2ada7d0a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2065207883
 GameObject:
   m_ObjectHideFlags: 0
@@ -2951,5 +2955,110 @@ PrefabInstance:
       propertyPath: password
       value: 
       objectReference: {fileID: 1563412427}
+    - target: {fileID: 4285318637791864314, guid: 01333ea2884a0914e9e54a4940174b8e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4285318637791864314, guid: 01333ea2884a0914e9e54a4940174b8e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4285318637791864314, guid: 01333ea2884a0914e9e54a4940174b8e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2016752012}
+    - target: {fileID: 4285318637791864314, guid: 01333ea2884a0914e9e54a4940174b8e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4285318637791864314, guid: 01333ea2884a0914e9e54a4940174b8e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnClickButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4285318637791864314, guid: 01333ea2884a0914e9e54a4940174b8e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01333ea2884a0914e9e54a4940174b8e, type: 3}
+--- !u!1001 &7074783410338549020
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7074783411281034384, guid: bfc87eeabf2b2804f9f208f906d4a33e,
+        type: 3}
+      propertyPath: wrongAnswerClicked
+      value: 
+      objectReference: {fileID: 4553808742123837075, guid: f02777f862dc4a441b8f4311676be9b8,
+        type: 3}
+    - target: {fileID: 7074783411281034385, guid: bfc87eeabf2b2804f9f208f906d4a33e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074783411281034385, guid: bfc87eeabf2b2804f9f208f906d4a33e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 855.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074783411281034385, guid: bfc87eeabf2b2804f9f208f906d4a33e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.0777892
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074783411281034385, guid: bfc87eeabf2b2804f9f208f906d4a33e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 624.39996
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074783411281034385, guid: bfc87eeabf2b2804f9f208f906d4a33e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074783411281034385, guid: bfc87eeabf2b2804f9f208f906d4a33e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074783411281034385, guid: bfc87eeabf2b2804f9f208f906d4a33e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074783411281034385, guid: bfc87eeabf2b2804f9f208f906d4a33e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074783411281034385, guid: bfc87eeabf2b2804f9f208f906d4a33e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074783411281034385, guid: bfc87eeabf2b2804f9f208f906d4a33e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074783411281034385, guid: bfc87eeabf2b2804f9f208f906d4a33e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074783411281034391, guid: bfc87eeabf2b2804f9f208f906d4a33e,
+        type: 3}
+      propertyPath: m_Name
+      value: SoundManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bfc87eeabf2b2804f9f208f906d4a33e, type: 3}

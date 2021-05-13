@@ -70,6 +70,13 @@ namespace Assets.ViewModel
             get { return toShowQuestions; }
             set { toShowQuestions = value; }
         }
+        private static bool toMuteSound = Utils.DEFAULT_TO_MUTE_SOUND;
+        [Binding]
+        public bool ToMuteSound
+        {
+            get { return toMuteSound; }
+            set { toMuteSound = value; }
+        }
 
 
 
@@ -115,6 +122,7 @@ namespace Assets.ViewModel
                 SetPlayerKeys(Utils.FORWARD, ForwardInput);
                 SetPlayerKeys(Utils.BACKWARDS, BackwardsInput);
                 PlayerPrefs.SetString(Utils.SHOW_QUESTIONS, ToShowQuestions ? "show":string.Empty);
+                PlayerPrefs.SetInt(Utils.MUTE_SOUND, ToMuteSound ? 1 : 0);
                 onSuccess();
             }
         }

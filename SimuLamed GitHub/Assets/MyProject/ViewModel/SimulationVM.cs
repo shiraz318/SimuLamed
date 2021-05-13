@@ -3,6 +3,7 @@ using Assets.model;
 using Assets.Model;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
@@ -22,6 +23,8 @@ public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
     private int currentLevel;
     private int displayedQuestionsCounter;
     public int DisplayedQuestionsCounter { get { return displayedQuestionsCounter; } set { displayedQuestionsCounter = value; QuestionNumberText = value.ToString(); } }
+
+
 
     private int lives;
     [Binding]
