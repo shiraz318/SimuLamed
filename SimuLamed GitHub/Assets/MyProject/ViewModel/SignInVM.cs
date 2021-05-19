@@ -5,30 +5,9 @@ using UnityEngine;
 using UnityWeld.Binding;
 
 [Binding]
-public class SignInVM : MonoBehaviour, INotifyPropertyChanged
+public class SignInVM : RegisterViewModel
 {
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    private IAppModel model;
-    private string errorMessage;
-
-    [Binding]
-    public string ErrorMessage
-    {
-        get { return errorMessage; }
-        set { errorMessage = value;
-            if (value != "") { IsLoadingCircleOn = false; }
-            NotifyPropertyChanged("ErrorMessage"); }
-    }
-    
-    private string email = "";
-    [Binding]
-    public string Email
-    {
-        get { return email; }
-        set { email = value; }
-    }
-
+   
     private string password = "";
     [Binding]
     public string Password
@@ -36,55 +15,20 @@ public class SignInVM : MonoBehaviour, INotifyPropertyChanged
         get { return password; }
         set { password = value; }
     }
-
-    private bool isLoadingCircleOn = false;
-    [Binding]
-    public bool IsLoadingCircleOn
+    
+    protected override ErrorTypes GetErrorType()
     {
-        get { return isLoadingCircleOn; }
-        set { isLoadingCircleOn = value; NotifyPropertyChanged("IsLoadingCircleOn"); }
+        return ErrorTypes.SignIn;
     }
 
-
-    private void Start()
+    protected override string[] GetFields()
     {
-        IsLoadingCircleOn = false;
-        model = AppModel.Instance;
-        model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
-        {
-            if (eventArgs.PropertyName.Equals("Error"))
-            {
-                if (model.Error.ErrorType == ErrorTypes.SignIn)
-                {
-                    ErrorMessage = model.Error.Message;
-                }
-            }
-        };
+        return new string[] { Email, Password};
     }
 
-    // Sign in.
-    public void SignIn(Utils.OnSuccessFunc onSuccess)
+    protected override void RegisterAction(Utils.OnSuccessFunc onSuccess)
     {
-        IsLoadingCircleOn = true;
-        ErrorMessage = "";
-
-        // Empty fields.
-        if (Email.Equals("") || Password.Equals(""))
-        {
-            ErrorMessage = Utils.EMPTY_FIELD_MESSAGE;
-        }
-        else
-        {
-            model.SignIn(Password, Email, onSuccess);
-        }
-    }
-
-    // On property changed.
-    public void NotifyPropertyChanged(string propName)
-    {
-        if (this.PropertyChanged != null)
-        {
-            this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
+        onSuccess += delegate () { PlayerPrefs.SetString(Utils.SHOW_QUESTIONS, Utils.DEFAULT_TO_SHOW_QUESTIONS == true ? "show" : string.Empty); };
+        model.SignIn(Password, Email, onSuccess);
     }
 }

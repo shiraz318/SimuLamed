@@ -7,9 +7,8 @@ using Assets;
 using Assets.model;
 
 [Binding]
-public class LevelsVM : MonoBehaviour, INotifyPropertyChanged
+public class LevelsVM : BaseViewModel
 {
-    public event PropertyChangedEventHandler PropertyChanged;
 
     [Binding]
     public bool IsLevel1Open { get { return openLevel >= 0; } }
@@ -19,32 +18,16 @@ public class LevelsVM : MonoBehaviour, INotifyPropertyChanged
     public bool IsLevel3Open { get { return openLevel >= 2; } }
 
     private int openLevel;
-    private IAppModel model;
 
     // Start is called before the first frame update
     void Awake()
-    {
-        SetModel();
-    }
-
-    private void SetModel()
     {
         model = AppModel.Instance;
         openLevel = model.GetOpenLevel();
         NotifyPropertyChanged("IsLevel1Open");
         NotifyPropertyChanged("IsLevel2Open");
         NotifyPropertyChanged("IsLevel3Open");
-
     }
 
 
-
-    // On property changed.
-    public void NotifyPropertyChanged(string propName)
-    {
-        if (this.PropertyChanged != null)
-        {
-            this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
-    }
 }

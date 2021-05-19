@@ -11,9 +11,8 @@ using UnityEngine.Networking;
 using UnityWeld.Binding;
 
 [Binding]
-public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
+public class SimulationVM : BaseViewModel
 {
-    public event PropertyChangedEventHandler PropertyChanged;
     public QuestionsManager questionsManager;
 
 
@@ -35,7 +34,6 @@ public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
     private string questionNumberText; 
     [Binding]
     public string QuestionNumberText { get { return DisplayedQuestionsCounter.ToString() + "/" + Utils.QUESTIONS_NUM_IN_SIM; } set {questionNumberText = value + "/" + Utils.QUESTIONS_NUM_IN_SIM; NotifyPropertyChanged("QuestionNumberText"); }  }
-    private IAppModel model;
 
     private Utils.QuestionOption[] playerScore;
     
@@ -79,7 +77,7 @@ public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
     }
 
     // Set the model.
-    private void SetModel()
+    protected override void SetModel()
     {
         model = AppModel.Instance;
         model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
@@ -132,19 +130,10 @@ public class SimulationVM : MonoBehaviour, INotifyPropertyChanged
 
 
     }
-    public void OnExitSimulation()
+    public void OnExitSimulation(Utils.OnSuccessFunc onSuccess)
     {
-
+        model.UpdateUserScore(playerScore);
+        model.SaveUser(onSuccess) ;
     }
 
-
-
-    // On property changed.
-    public void NotifyPropertyChanged(string propName)
-    {
-        if (this.PropertyChanged != null)
-        {
-            this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
-    }
 }

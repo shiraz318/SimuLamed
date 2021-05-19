@@ -62,7 +62,7 @@ namespace Assets.model
         // Get the username of the current user.
         public string GetCurrentUsername()
         {
-            return currentUser != null ? currentUser.username : "";
+            return currentUser != null ? currentUser.details.username : "";
         }
 
         // Reset the current user.
@@ -82,7 +82,7 @@ namespace Assets.model
             }
             else
             {
-                SetError(Utils.INAVLID_EMAIL_MESSAGE, ErrorTypes.ResetPassword);
+                SetError(Utils.INAVLID_EMAIL_MESSAGE_H, ErrorTypes.ResetPassword);
             }
         }
         
@@ -96,7 +96,7 @@ namespace Assets.model
                 NotifyPropertyChanged("HintsNumber");
 
                 // Get all the questions from the database.
-                databaseHandler.GetQuestionsByCategory(user.idToken, Utils.MIXED_HEBREW, onSuccess:(questions)=> 
+                databaseHandler.GetQuestionsByCategory(user.details.idToken, Utils.MIXED_HEBREW, onSuccess:(questions)=> 
                 {
                     if (fromQuestionNumToType.Count == 0)
                     {
@@ -116,7 +116,7 @@ namespace Assets.model
             }
             else
             {
-                SetError(Utils.INAVLID_EMAIL_MESSAGE, ErrorTypes.SignIn);
+                SetError(Utils.INAVLID_EMAIL_MESSAGE_H, ErrorTypes.SignIn);
             }
 
         }
@@ -132,7 +132,7 @@ namespace Assets.model
             }
             else
             {
-                SetError(Utils.INAVLID_EMAIL_MESSAGE, ErrorTypes.SignUp);
+                SetError(Utils.INAVLID_EMAIL_MESSAGE_H, ErrorTypes.SignUp);
             }
         }
 
@@ -155,7 +155,7 @@ namespace Assets.model
         public void SetQuestionsByCategory(string category, bool toRnd)
         {
             // Get all questions of the given category from the database.
-            databaseHandler.GetQuestionsByCategory(currentUser.idToken, category, 
+            databaseHandler.GetQuestionsByCategory(currentUser.details.idToken, category, 
                 onSuccess:(questions) => 
                 {
                     SetQuestions(questions, toRnd);
@@ -190,6 +190,7 @@ namespace Assets.model
             onSuccess += delegate { ResetError(); };
 
             currentUser.SetCorrectAns();
+            if (currentUser.state.correctAnswers.Length == 0) { currentUser.state.correctAnswers = new int[] { -1 }; }
             databaseHandler.SaveUser(currentUser, onSuccess , (message) => SetError(message, ErrorTypes.SaveScore)) ;
         }
 
@@ -221,6 +222,22 @@ namespace Assets.model
         // Set the Error propery according to the given message and error type.
         private void SetError(string message, ErrorTypes errorType)
         {
+            if (message.Equals("EMAIL EXISTS"))
+            {
+                message = "כתובת אימייל נמצאת בשימוש";
+            }
+            else if (message.Equals("EMAIL NOT FOUND")) 
+            {
+                message = "כתובת אימייל לא קיימת";
+            }
+            else if (message.Equals("INVALID PASSWORD"))
+            {
+                message = "סיסמא שגויה";
+            }
+            else if (message.Equals("WEAK PASSWORD "))
+            {
+                message = "סיסמא חלשה. אנא הזן לפחות 6 תווים";
+            }
             Error.Message = message;
             Error.ErrorType = errorType;
             NotifyPropertyChanged("Error");
@@ -264,6 +281,8 @@ namespace Assets.model
         {
             currentUser.state.openLevel = openLevel;
         }
+
+
         //public int GetNumOfQuestions()
         //{
         //    return NumOfQuestions;

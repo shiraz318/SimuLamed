@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4084233016121190203}
   m_Layer: 0
   m_Name: TrafficLight_Right2
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -212,6 +212,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TrafficLight_Pipe
+      objectReference: {fileID: 0}
+    - target: {fileID: 4084233016121293595, guid: cc4c7de4056ad9148a790d5392d7c297,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc4c7de4056ad9148a790d5392d7c297, type: 3}

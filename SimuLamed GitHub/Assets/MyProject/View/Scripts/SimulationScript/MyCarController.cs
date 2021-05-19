@@ -132,6 +132,37 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
         _transform.rotation = _quat;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        
+        if (other.gameObject.CompareTag("Metal"))
+        {
+            //soundManager.OnCollisionMetal();
+            Debug.Log("METAL COLLISION");
+            Debug.Log("1");
+        }
+        else if (other.gameObject.CompareTag("Sidewalk"))
+        {
+            //soundManager.OnCollisionSidewalk();
+            Debug.Log("SIDEWALK COLLISION");
+
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        if (collision.collider.gameObject.CompareTag("Metal"))
+        {
+            //soundManager.OnCollisionMetal();
+            Debug.Log("METAL COLLISION");
+        }
+        else if (collision.collider.gameObject.CompareTag("Sidewalk"))
+        {
+            //soundManager.OnCollisionSidewalk();
+            Debug.Log("SIDEWALK COLLISION");
+
+        }
+    }
     private void Update()
     {
         GetInput();

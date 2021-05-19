@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -71,21 +72,28 @@ public class Video : MonoBehaviour
 
         Debug.Log("Done Preparing Video");
 
-        //Set Audio Output to AudioSource
-        videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
-
-        //Assign the Audio from Video to AudioSource to be played
-        videoPlayer.EnableAudioTrack(0, true);
-        videoPlayer.SetTargetAudioSource(0, audioSource);
 
         //Assign the Texture from Video to RawImage to be displayed
         //image.texture = videoPlayer.texture;
 
+
+        if (PlayerPrefs.GetInt(Utils.MUTE_SOUND) == 0)
+        {
+            //Set Audio Output to AudioSource
+            videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
+
+            //Assign the Audio from Video to AudioSource to be played
+            videoPlayer.EnableAudioTrack(0, true);
+            videoPlayer.SetTargetAudioSource(0, audioSource);
+
+
+            //Play Sound
+            audioSource.Play();
+        }
         //Play Video
         videoPlayer.Play();
 
-        //Play Sound
-        audioSource.Play();
+
 
         yield return new WaitForSeconds(5.0f);
         screenVideo.SetActive(false);

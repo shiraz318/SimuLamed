@@ -25,10 +25,14 @@ namespace Assets
 
         // Constants.
         public const string INAVLID_EMAIL_MESSAGE = "INVALID EMAIL ADDRESS";
+        public const string INAVLID_EMAIL_MESSAGE_H = "כתובת אימייל לא חוקית";
         public const string UNVERIFIED_EMAIL_MESSAGE = "PLEASE VERIFY YOUR EMAIL";
+        public const string UNVERIFIED_EMAIL_MESSAGE_H = "אנא אמת את המייל שלך";
         public const string EMPTY_FIELD_MESSAGE = "PLEASE FILL ALL FIELDS";
+        public const string EMPTY_FIELD_MESSAGE_H = "אנא מלא את כל השדות";
         public const string EMPTY_EMAIL_MESSAGE = "PLEASE ENTER YOUR EMAIL";
         public const string FAIL_SAVE_SCORE_MESSAGE = "WE COULD NOT SAVE YOUR PROGRESS";
+        public const string FAIL_SAVE_SCORE_MESSAGE_H = "קרתה תקלה! לא הצלחנו לשמור את ההתקדמות שלך";
         
         public const string SAFETY_HEBREW = "בטיחות";
         public const string TRANSACTION_RULES_HEBREW = "חוקי התנועה";
@@ -67,9 +71,11 @@ namespace Assets
         public const string LEFT = "Left";
         public const string FORWARD = "Forward";
         public const string BACKWARDS = "Backwards";
+
         public const string SHOW_QUESTIONS = "ShowQuestions";
         public const string MUTE_SOUND = "MuteSound";
         public const string ERROR_IN_KEYS = "KEY ALREADY IN USE"; 
+        public const string ERROR_IN_KEYS_H =" מקש נמצא בשימוש יותר מפעם אחת"; 
 
 
         public const string DEFAULT_FORWARD = "w";

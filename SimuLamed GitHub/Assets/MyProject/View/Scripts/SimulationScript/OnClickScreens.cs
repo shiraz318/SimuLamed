@@ -9,10 +9,13 @@ public class OnClickScreens : MonoBehaviour
     private static ScreensManager screenManger;
     private SceneLoader sceneLoader;
 
+    private SimulationVM viewModel;
+
     private void Start()
     {
         sceneLoader = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
         screenManger = GameObject.Find("Screens").GetComponent<ScreensManager>();
+        viewModel = GameObject.Find("View").GetComponent<SimulationVM>();
     }
     // stay in game - dont quit the game
     public void OnClickNoButton()
@@ -25,8 +28,8 @@ public class OnClickScreens : MonoBehaviour
     public void OnClickYesButton()
     {
         CheckTime();
-        // or menu
-        sceneLoader.LoadNextScene(Utils.LEVELS_SCENE);
+        //soundManager.QuitSimulation();
+        viewModel.OnExitSimulation(()=> sceneLoader.LoadNextScene(Utils.LEVELS_SCENE));
 
     }
 
@@ -34,7 +37,7 @@ public class OnClickScreens : MonoBehaviour
     public void OnClickLearningFromQ()
     {
         CheckTime();
-        sceneLoader.LoadNextScene(Utils.LEARNING_FROM_Q_SCENE);
+        viewModel.OnExitSimulation(()=> sceneLoader.LoadNextScene(Utils.LEARNING_FROM_Q_SCENE));
     }
 
     // reapet scene
@@ -49,7 +52,7 @@ public class OnClickScreens : MonoBehaviour
     public void OnClickBack()
     {
         CheckTime();
-        sceneLoader.LoadNextScene(Utils.LEVELS_SCENE);
+        viewModel.OnExitSimulation(()=> sceneLoader.LoadNextScene(Utils.LEVELS_SCENE));
 
     }
 
@@ -61,8 +64,9 @@ public class OnClickScreens : MonoBehaviour
     public void OnClickNextLevel()
     {
         CheckTime();
-        sceneLoader.LoadNextScene(SceneManager.GetActiveScene().buildIndex + 1);
+        viewModel.OnExitSimulation(()=>sceneLoader.LoadNextScene(SceneManager.GetActiveScene().buildIndex + 1));
     }
+
 
     private void CheckTime()
     {

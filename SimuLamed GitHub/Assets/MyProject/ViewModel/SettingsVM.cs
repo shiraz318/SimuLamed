@@ -9,28 +9,10 @@ using UnityWeld.Binding;
 namespace Assets.ViewModel
 {
     [Binding]
-    public class SettingsVM : MonoBehaviour, INotifyPropertyChanged
+    public class SettingsVM : BaseViewModel
     {
-        //public static SettingsVM instance;
-        
-        public event PropertyChangedEventHandler PropertyChanged;
 
-        private IAppModel model;
-        private string errorMessage;
-
-       
         HashSet<string> keys = new HashSet<string>();
-        [Binding]
-        public string ErrorMessage
-        {
-            get { return errorMessage; }
-            set
-            {
-                errorMessage = value;
-                NotifyPropertyChanged("ErrorMessage");
-            }
-        }
-
        
         private static string leftInput = Utils.DEFAULT_LEFT;
         [Binding]
@@ -79,39 +61,11 @@ namespace Assets.ViewModel
         }
 
 
-
-
-        private void Start()
-        {
-            model = AppModel.Instance;
-            model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
-            {
-                if (eventArgs.PropertyName.Equals("Error"))
-                {
-                    if (model.Error.ErrorType == ErrorTypes.SignUp)
-                    {
-                        ErrorMessage = model.Error.Message;
-                    }
-                }
-
-            };
-            
-            // map
-           
-        }
-
-        // Sign up.
-        public void SignUp(Utils.OnSuccessFunc onSuccess)
-        {
-            ErrorMessage = "";
-
-        }
-
         public void Back(Utils.OnSuccessFunc onSuccess)
         {
             if (!CheckValidityOfKeys())
             {
-                ErrorMessage = Utils.ERROR_IN_KEYS;
+                ErrorMessage = Utils.ERROR_IN_KEYS_H;
 
             }
             else
@@ -170,15 +124,6 @@ namespace Assets.ViewModel
             PlayerPrefs.SetString(keyName, ascii.ToString());
         }
 
-       
-        // On property changed.
-        public void NotifyPropertyChanged(string propName)
-        {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-            }
-        }
     }
 
 }

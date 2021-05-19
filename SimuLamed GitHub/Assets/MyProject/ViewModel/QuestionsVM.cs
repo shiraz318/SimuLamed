@@ -9,9 +9,8 @@ using UnityEngine.Networking;
 using UnityWeld.Binding;
 
 [Binding]
-public class QuestionsVM : MonoBehaviour, INotifyPropertyChanged
+public class QuestionsVM : BaseViewModel
 {
-    public event PropertyChangedEventHandler PropertyChanged;
 
     private int lastHintsNumber;
     [Binding]
@@ -47,8 +46,6 @@ public class QuestionsVM : MonoBehaviour, INotifyPropertyChanged
    // public string QuestionNumText { get { if (!IsQuestionSet) { return "0 / 0"; } return (questionNum + 1).ToString() + " / " + numberOfQuestions.ToString(); } }
 
 
-    private IAppModel model;
-
 
     private static int questionNum;
     private bool isQuestionSet;
@@ -57,42 +54,11 @@ public class QuestionsVM : MonoBehaviour, INotifyPropertyChanged
     private int numberOfQuestions;
     public QuestionsManager questionsManager;
 
-    void Start()
+    protected override void OnStart()
     {
         IsQuestionSet = false;
-
-        SetModel();
-
-        lastHintsNumber = model.HintsNumber;
-
-        // Get the questions of the selected subject category.
-        model.SetQuestionsByCategory(SelectedSubject, toRnd:true);
-
-        IsHintButtonOn = true;
-        NotifyPropertyChanged("HintsNumber");
-
-        SetQuestionsManager();
     }
-
-    private void SetQuestionsManager()
-    {
-        
-        questionsManager.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
-        {
-            if (eventArgs.PropertyName.Equals("LastAnswerResults"))
-            {
-                // questionNumber, isCorrect.
-                Tuple<int, bool> result = questionsManager.LastAnswerResults;
-                model.SetUserScore(result.Item1, result.Item2);
-            }
-
-        };
-
-            
-    }
-
-    // Set the model.
-    private void SetModel()
+    protected override void SetModel()
     {
         model = AppModel.Instance;
         model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
@@ -117,6 +83,45 @@ public class QuestionsVM : MonoBehaviour, INotifyPropertyChanged
             }
         };
 
+
+
+        lastHintsNumber = model.HintsNumber;
+
+        // Get the questions of the selected subject category.
+        model.SetQuestionsByCategory(SelectedSubject, toRnd: true);
+
+        IsHintButtonOn = true;
+        NotifyPropertyChanged("HintsNumber");
+
+        SetQuestionsManager();
+
+    }
+
+
+    private void SetQuestionsManager()
+    {
+        
+        questionsManager.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
+        {
+            if (eventArgs.PropertyName.Equals("LastAnswerResults"))
+            {
+                // questionNumber, isCorrect.
+                Tuple<int, bool> result = questionsManager.LastAnswerResults;
+                model.SetUserScore(result.Item1, result.Item2);
+                
+                if (result.Item2)
+                {
+                    NotifyPropertyChanged("CorrectAnswer");
+                }
+                else
+                {
+                    NotifyPropertyChanged("WrongAnswer");
+                }
+            }
+
+        };
+
+            
     }
 
     // Present a question.
@@ -181,16 +186,5 @@ public class QuestionsVM : MonoBehaviour, INotifyPropertyChanged
         IsHintButtonOn = false;
     }
 
-
-
-
-    // On property changed.
-    public void NotifyPropertyChanged(string propName)
-    {
-        if (this.PropertyChanged != null)
-        {
-            this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
-    }
 }
 

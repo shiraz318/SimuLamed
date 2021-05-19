@@ -5,22 +5,11 @@ using UnityEngine;
 using UnityWeld.Binding;
 
 [Binding]
-public class StatisticsVM : MonoBehaviour, INotifyPropertyChanged
+public class StatisticsVM : BaseViewModel
 {
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    private IAppModel model;
     private int totalCorrectAns = 0;
     private int totalAns = 0;
-    private string errorMessage;
 
-
-    [Binding]
-    public string ErrorMessage
-    {
-        get { return errorMessage; }
-        set { errorMessage = value; NotifyPropertyChanged("ErrorMessage"); }
-    }
 
     [Binding]
     public float SafetyValue
@@ -58,26 +47,22 @@ public class StatisticsVM : MonoBehaviour, INotifyPropertyChanged
     }
 
 
-    private void Start()
+    protected override void SetModel()
     {
 
-        model = AppModel.Instance;
-        model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
-        {
-            if (eventArgs.PropertyName.Equals("Error"))
-            {
-                if (model.Error.ErrorType == ErrorTypes.Statistics)
-                {
-                    ErrorMessage = model.Error.Message;
-                }
-            }
-        };
+        base.SetModel();
         // Notify that the values changed - model is set now.
         NotifyPropertyChanged("UnderstandingVehicleValue");
         NotifyPropertyChanged("SignsValue");
         NotifyPropertyChanged("MixedValue");
         NotifyPropertyChanged("TransactionRulesValue");
         NotifyPropertyChanged("SafetyValue");
+
+    }
+
+    protected override ErrorTypes GetErrorType()
+    {
+        return ErrorTypes.Statistics;
 
     }
 
@@ -93,16 +78,7 @@ public class StatisticsVM : MonoBehaviour, INotifyPropertyChanged
         totalAns += numOfQuestions;
         totalCorrectAns += correctAnswers;
 
-        return (float)correctAnswers / (float)numOfQuestions;
+        return numOfQuestions != 0? (float)correctAnswers / (float)numOfQuestions : 0f;
     }
 
-
-    // On propery changed.
-    public void NotifyPropertyChanged(string propName)
-    {
-        if (this.PropertyChanged != null)
-        {
-            this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
-    }
 }

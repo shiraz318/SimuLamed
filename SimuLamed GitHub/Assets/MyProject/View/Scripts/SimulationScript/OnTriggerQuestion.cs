@@ -18,27 +18,16 @@ public class OnTriggerQuestion : MonoBehaviour
 
     private BoxCollider boxCollider; 
 
-    private void Start()
+    private void Awake()
     {
         
 
         screensManager = GameObject.Find("Screens").GetComponent<ScreensManager>();
         boxCollider = GetComponent<BoxCollider>();
         string toShowQuestions = PlayerPrefs.GetString(Utils.SHOW_QUESTIONS);
-        bool setToShowQuestions = Utils.DEFAULT_TO_SHOW_QUESTIONS;
-        
-        // User set to false.
-        if (toShowQuestions.Equals(string.Empty))
-        {
-            setToShowQuestions = false;
-        }
-        // User set to true.
-        else if (!toShowQuestions.Equals(""))
-        {
-            setToShowQuestions = true;
-        }
 
-        questionMark.SetActive(setToShowQuestions);
+       
+        questionMark.SetActive(toShowQuestions.Equals(string.Empty)? false:true);
         
 
 
@@ -53,6 +42,7 @@ public class OnTriggerQuestion : MonoBehaviour
             Physics.IgnoreCollision(GameObject.Find("Car").GetComponent<BoxCollider>(), boxCollider);
 
             Debug.Log("QUESTION NUMBER" + questionNumber.ToString());
+            
             boxCollider.isTrigger = false;
 
             questionMark.SetActive(false);

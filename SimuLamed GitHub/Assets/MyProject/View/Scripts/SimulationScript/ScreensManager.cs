@@ -12,6 +12,8 @@ public class ScreensManager : MonoBehaviour
     public static bool gameIsPaused = false;
     public static bool isQuitMenu = false;
 
+    public SoundManager soundManager;
+
     public GameObject pauseMenuUI;
     public GameObject quitMenuUI;
     public GameObject failMenuUI;
@@ -45,6 +47,17 @@ public class ScreensManager : MonoBehaviour
                 SuccessMenu();
             }
 
+        };
+        simulationVM.questionsManager.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
+        {
+            if (eventArgs.PropertyName.Equals("CorrectAnswer"))
+            {
+                soundManager.OnClickCorrectAns();
+            }
+            else if (eventArgs.PropertyName.Equals("WrongAnswer"))
+            {
+                soundManager.OnClickWrongAns();
+            }
         };
 
     }
@@ -81,6 +94,7 @@ public class ScreensManager : MonoBehaviour
     // pause the game
     private void Pause()
     {
+        soundManager.PauseSimulation();
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameIsPaused = true;
@@ -89,12 +103,14 @@ public class ScreensManager : MonoBehaviour
     
     public void OnClickFinishAns()
     {
+        soundManager.OnClickButton();
         questionsMenuUI.SetActive(false);
         Time.timeScale = 1;
     }
     // continue the game
     private void Resume()
     {
+        soundManager.PauseSimulation();
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1;
         gameIsPaused = false;
@@ -103,6 +119,7 @@ public class ScreensManager : MonoBehaviour
     // present the quit menu
     private void QuitMenu()
     {
+        soundManager.QuitSimulation();
         if (gameIsPaused)
         {
             pauseMenuUI.SetActive(false);
@@ -116,6 +133,7 @@ public class ScreensManager : MonoBehaviour
     // stay in game - dont quit the game
     public void OnClickNoButton()
     {
+        soundManager.OnClickButton();
         quitMenuUI.SetActive(false);
         Time.timeScale = 1;
         gameIsPaused = false;
@@ -131,6 +149,7 @@ public class ScreensManager : MonoBehaviour
     // present the fail menu
     public void FailMenu()
     {
+        soundManager.FailLevel();
         questionsMenuUI.SetActive(false);
         failMenuUI.SetActive(true);
         Time.timeScale = 0f;
@@ -162,6 +181,7 @@ public class ScreensManager : MonoBehaviour
     // present the success menu
     public void SuccessMenu()
     {
+        soundManager.PassLevel();
         successMenuUI.SetActive(true);
         Time.timeScale = 0f;
     }
@@ -174,6 +194,7 @@ public class ScreensManager : MonoBehaviour
 
     public void DisplayQuestion(int questionNumber)
     {
+        soundManager.DisplayQuestion();
         questionsMenuUI.SetActive(true);
         Time.timeScale = 0f;
         simulationVM.DisplayQuestion(questionNumber);

@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 8050683919433450087}
   m_Layer: 0
   m_Name: prefab_Sign_Stop
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 124
@@ -184,7 +184,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7883292445168096547}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.65999997, y: 0.65999997, z: 0.024999999}

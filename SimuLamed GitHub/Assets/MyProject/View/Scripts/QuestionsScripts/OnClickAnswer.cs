@@ -11,7 +11,6 @@ using UnityWeld.Binding;
 public class OnClickAnswer : MonoBehaviour
 {
 
-
     //private QuestionsVM_2 viewModel;
     private static QuestionsManager questionManager;
     private TMP_Text ansText;

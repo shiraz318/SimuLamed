@@ -9,7 +9,7 @@ using UnityEngine.Networking;
 using UnityWeld.Binding;
 
 [Binding]
-public class QuestionsManager : MonoBehaviour, INotifyPropertyChanged
+public class QuestionsManager : BaseViewModel
 {
     private string questionText;
     private string ans1Text;
@@ -21,10 +21,6 @@ public class QuestionsManager : MonoBehaviour, INotifyPropertyChanged
     private Tuple<int, bool> lastAnswerResults;
     private Question[] questions;
     private static int currentQuestionNumber;
-
-
-
-    public event PropertyChangedEventHandler PropertyChanged;
 
     public Tuple<int, bool> LastAnswerResults { get { return lastAnswerResults; } set { lastAnswerResults = value; NotifyPropertyChanged("LastAnswerResults"); } }
 
@@ -107,7 +103,14 @@ public class QuestionsManager : MonoBehaviour, INotifyPropertyChanged
 
         // Set the answer buttons to be not clickable.
         IsAnsInteractable = false;
-        if (!isAnsCorrect) { NotifyPropertyChanged("WrongAnswer"); }
+        if (isAnsCorrect)
+        {
+            NotifyPropertyChanged("CorrectAnswer");
+        }
+        else
+        {
+            NotifyPropertyChanged("WrongAnswer");
+        }        
         LastAnswerResults = new Tuple<int, bool>(questions[currentQuestionNumber].questionNumber, isAnsCorrect);
 
     }
@@ -155,14 +158,6 @@ public class QuestionsManager : MonoBehaviour, INotifyPropertyChanged
         }
     }
 
+    protected override void SetModel() {  }
 
-
-    // On property changed.
-    public void NotifyPropertyChanged(string propName)
-    {
-        if (this.PropertyChanged != null)
-        {
-            this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
-    }
 }

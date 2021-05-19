@@ -9,6 +9,7 @@ using System.Text;
 using System.Linq;
 using Assets;
 using System.Threading.Tasks;
+using Assets.Model;
 
 // Singleton FirebaseManager.
 public sealed class FirebaseManager : IDatabaseHandler
@@ -54,13 +55,12 @@ public sealed class FirebaseManager : IDatabaseHandler
     // Post a given user to the database.
     private void PostUser(User user, string userId, Utils.OnSuccessFunc onSuccess, Utils.OnFailureFunc onFailure)
     {
-        RestClient.Put<User>($"{databaseURL}users/{userId}.json?auth=" + user.idToken , user).
+        RestClient.Put<User>($"{databaseURL}users/{userId}.json?auth=" + user.details.idToken , user).
             Then(response => { onSuccess();}).
             Catch(error => { onFailure(ExtractErrorMessage(error));
 
             });
     }
-
 
     // Sign up a given user.
     public void SignUpUser(string username, string password, string email, Utils.OnSuccessFunc onSuccess, Utils.OnFailureFunc onFailure)
@@ -71,14 +71,17 @@ public sealed class FirebaseManager : IDatabaseHandler
         RestClient.Post<SignResponse>("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + authKey,
             bodyString: userData).Then(response =>
         {
-            User user = new User(username, email, new int[] { -1 }, Utils.INITIAL_NUMBER_OF_HINTS, 0)
-            {
-                localId = response.localId,
-                idToken = response.idToken
-            };
+            UserDetails userDetails = new UserDetails(username, email, response.localId, response.idToken);
+            UserState userState = new UserState(new int[] { -1 }, Utils.INITIAL_NUMBER_OF_HINTS, 0);
+            User user = new User(userDetails, userState);
+            //User user = new User(username, email, new int[] { -1 }, Utils.INITIAL_NUMBER_OF_HINTS, 0)
+            //{
+            //    localId = response.localId,
+            //    idToken = response.idToken
+            //};
 
             // Post user data to the database and if post succeded - send an email to the user for verification.
-            PostUser(user, response.localId, onSuccess: () => SendEmailForVerification(user.idToken, onSuccess, onFailure), onFailure);
+            PostUser(user, response.localId, onSuccess: () => SendEmailForVerification(user.details.idToken, onSuccess, onFailure), onFailure);
 
         }).Catch(error => 
         {
@@ -158,7 +161,7 @@ public sealed class FirebaseManager : IDatabaseHandler
             }
             else
             {
-                onFailure(Utils.UNVERIFIED_EMAIL_MESSAGE);
+                onFailure(Utils.UNVERIFIED_EMAIL_MESSAGE_H);
             }
 
         }).Catch(error => { onFailure(ExtractErrorMessage(error)); });
@@ -172,22 +175,13 @@ public sealed class FirebaseManager : IDatabaseHandler
         {
 
             Dictionary<int, int> dic = new Dictionary<int, int>();
-            //User user = new User(response.username, email, response.correctAnswers, response.numOfHints);
-            User user = new User(response.username, email, response.state.correctAnswers, response.state.numOfHints, response.state.openLevel);
-            user.localId = localId;
-            user.idToken = idToken;
+            UserDetails userDetails = new UserDetails(response.details.username, email, localId, idToken);
+            UserState userState = new UserState(response.state.correctAnswers, response.state.numOfHints, response.state.openLevel);
+            User user = new User(userDetails, userState);
+            //User user = new User(response.details.username, email, response.state.correctAnswers, response.state.numOfHints, response.state.openLevel);
+            //user.localId = localId;
+            //user.idToken = idToken;
             onSuccess(user);
-
-            //try
-            //{
-                
-
-            //}
-            //catch (Exception e)
-            //{
-            //    string a = e.Message;
-            //}
-
         }).Catch(error=> { 
             onFailure(error.Message); 
         });
@@ -201,7 +195,7 @@ public sealed class FirebaseManager : IDatabaseHandler
         string payload = "{\"email\":\"" + email + "\",\"requestType\":\"PASSWORD_RESET\"}";
         
         // Send to the user an email to reset his password.
-        RestClient.Post("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=" + authKey, bodyString: payload).
+        RestClient.Post("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=" + authKey, payload).
             Then(response => { onSuccess(); }).
             Catch(error => { onFailure(ExtractErrorMessage(error));});
 
@@ -271,32 +265,8 @@ public sealed class FirebaseManager : IDatabaseHandler
 
     public void SaveUser(User currentUser, Utils.OnSuccessFunc onSuccess, Utils.OnFailureFunc onFailure)
     {
-        PostUser(currentUser, currentUser.localId, onSuccess, onFailure);
-        //JsonUtility.ToJson(currentUser.score.correctAns);
-        //RestClient.Put<User>($"{databaseURL}users/{currentUser.localId}/email.json?auth=" + currentUser.idToken, userData).
-        //    Then(response => { 
-        //        onSuccess(); }).
-        //    Catch(error => {
-        //        onFailure(ExtractErrorMessage(error));
-
-        //    });
-
-        //foreach (int correctAns in currentUser.correctAnswers)
-        //{
-        //    Debug.Log(correctAns);
-        //}
+        PostUser(currentUser, currentUser.details.localId, onSuccess, onFailure);
 
     }
 }
 
-
-
-//User user2 = new User("Shiraz", "9876", "Email");
-//FirebaseManager.PostUser(user2, user2.email, () =>
-//{
-//    Debug.Log($"{user2.username} {user2.password} {user2.email}");
-//});
-//FirebaseManager.GetUser("1", user =>
-//{
-//    Debug.Log($"{user.username} {user.password} {user.email}");
-//});

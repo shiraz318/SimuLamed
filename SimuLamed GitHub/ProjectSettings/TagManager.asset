@@ -13,6 +13,8 @@ TagManager:
   - HintsText
   - HintsButton
   - ViewModel
+  - Metal
+  - Sidewalk
   layers:
   - Default
   - TransparentFX

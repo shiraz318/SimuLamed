@@ -6,43 +6,13 @@ using UnityWeld.Binding;
 
 
 [Binding]
-public class LearnFromQVM : MonoBehaviour, INotifyPropertyChanged
+public class LearnFromQVM : BaseViewModel
 {
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    private IAppModel model;
-    private string errorMessage;
-
-    [Binding]
-    public string ErrorMessage
-    {
-        get { return errorMessage; }
-        set { errorMessage = value; NotifyPropertyChanged("ErrorMessage"); }
-    }
-
     private string selectedSubject;
     public string SelectedSubject
     {
         get { return selectedSubject; }
         set { selectedSubject = value; model.SelectedSubject = Question.FromCategoryToTypeEnglish(value); }
-    }
-
-
-    
-    private void Start()
-    {
-        model = AppModel.Instance;
-        model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
-        {
-            if (eventArgs.PropertyName.Equals("Error"))
-            {
-                if (model.Error.ErrorType == ErrorTypes.SaveScore)
-                {
-                    ErrorMessage = model.Error.Message;
-                }
-            }
-        };
     }
 
     // Save current user.
@@ -51,13 +21,8 @@ public class LearnFromQVM : MonoBehaviour, INotifyPropertyChanged
         model.SaveUser(onSuccess);
     }
 
-    // On property changed.
-    public void NotifyPropertyChanged(string propName)
+    protected override ErrorTypes GetErrorType()
     {
-        if (this.PropertyChanged != null)
-        {
-            this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
+        return ErrorTypes.SaveScore;
     }
-
 }
