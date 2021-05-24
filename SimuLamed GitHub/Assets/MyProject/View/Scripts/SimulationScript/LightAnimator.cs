@@ -40,25 +40,20 @@ public class LightAnimator : MonoBehaviour
     private const int NUMBER_OF_BLINKS = 4;
 
     private Material myMat;
-
-
-    // Duration of one cycle.
-    private float oneDuration = 8f;
-
+  
+    private float oneDuration = 8f; // duration of one cycle.
     private float yellowDuration;
     private float yellowRedDuration;
     private float redDuration;
     private float greenDuration;
-    private float emptyDuration;
-    // Counts number of blinking in the green light.
-    private int greenCounter = 0;
-
-    // The current light that is lit.
-    private Lights currentLight;
+    private float emptyDuration;  
+    private int greenCounter = 0; // counts number of blinking in the green light.
+    private Dictionary<Lights, Tuple<float, float>> lightsOffsetAndDuration = new Dictionary<Lights, Tuple<float, float>>();  // light, offset, duration.
     public Light[] lights;
 
-    // Light, offset, duration.
-    private Dictionary<Lights, Tuple<float, float>> lightsOffsetAndDuration = new Dictionary<Lights, Tuple<float, float>>();
+    private Lights currentLight;  // the current light that is lit.
+
+   
 
     void Start()
     {
@@ -164,7 +159,6 @@ public class LightAnimator : MonoBehaviour
     // Set the color - change the texture and offset if needed.
     private void SetColor()
     {
-        
         switch (currentLight)
         {
             case Lights.Red:

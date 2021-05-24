@@ -7,66 +7,67 @@ using System.Linq;
 
 
 [Serializable] 
-public class User
+public struct User
 {
-    //public string username;
-    //public string email;
-    //public string localId;
-    //public string idToken;
-    public UserDetails details;
-    public UserState state;
+    public bool IsAssigned { get; set; }
+    public UserDetails details; // contains the user details.
+    public UserState state; // contains the user state.
     
-    //public User(string username, string email, int[] correctAnswers, int numOfHints, int openLevel)
-    //{
-    //    this.username = username;
-    //    this.email = email;
-    //    this.state = new UserState(correctAnswers, numOfHints, openLevel);
-    //}
     public User (UserDetails details, UserState state)
     {
+        IsAssigned = true;
         this.details = details;
         this.state = state;
     }
-
-    public void InitUserScore(int numOfQuestions)
+    public void ResetUser()
     {
-        state.InitScore(numOfQuestions);
+        IsAssigned = false;
+        state = null;
+        details.ResetDetails();
     }
+
+
+    //// Init the user score.
+    //public void InitUserScore(int numOfQuestions)
+    //{
+    //    state.InitScore(numOfQuestions);
+    //}
    
+    //// Set the user score according to the given question number and whether the user answered correctly on it or not.
+    //public void SetScore(int questionNum, bool isAnsCorrect)
+    //{
+    //    state.SetScore(questionNum, isAnsCorrect);
+    //}
 
-    public void SetScore(int questionNum, bool isAnsCorrect)
-    {
-        state.SetScore(questionNum, isAnsCorrect);
-    }
+    //// Set the correct answers of the user
+    //public void SetCorrectAns()
+    //{
+    //    state.SetCorrectAns();
+    //}
 
-    public void SetCorrectAns()
-    {
-        state.SetCorrectAns();
-    }
+    //public void AddHint()
+    //{
+    //    state.numOfHints++;
+    //}
+    //public void DecreaseHint()
+    //{
+    //    state.numOfHints--;
+    //}
+    //public bool IsDeserveNewHint()
+    //{
+    //    return state.IsDeserveNewHint();
 
-    public void AddHint()
-    {
-        state.numOfHints++;
-    }
-    public void DecreaseHint()
-    {
-        state.numOfHints--;
-    }
-    public bool IsDeserveNewHint()
-    {
-        return state.IsDeserveNewHint();
-
-    }
-    public int GetOpenLevel()
-    {
-        return state.openLevel;
-    }
-    public void InitLastAns()
-    {
-        state.InitLastAns();
-    }
-    public void AddLevel()
-    {
-        state.openLevel++;
-    }
+    //}
+    //public int GetOpenLevel()
+    //{
+    //    return state.openLevel;
+    //}
+    //public void InitCorrectAnsInARowCounter()
+    //{
+    //    state.InitCorrectAnsInARowCounter();
+    //}
+    //public void AddLevel()
+    //{
+    //    state.openLevel++;
+    //}
 }

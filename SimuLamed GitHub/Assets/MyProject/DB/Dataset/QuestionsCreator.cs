@@ -21,7 +21,8 @@ namespace Assets.model
         // Read from the dataset.
         private static List<string[]> ReadFromDataset()
         {
-            string filePath = @"D:\unity_installation\Unity Projects\SimuLamed\SimuLamed GitHub\Assets\DB\Dataset\Dataset.csv";
+        
+            string filePath = @"D:\unity_installation\Unity Projects\SimuLamed\SimuLamed GitHub\Assets\MyProject\DB\Dataset\Dataset.csv";
             StreamReader sr = new StreamReader(filePath, Encoding.GetEncoding("windows-1255"));
 
             var lines = new List<string[]>();
@@ -81,9 +82,10 @@ namespace Assets.model
             answers[4] = FixHebrew(line[8]);
 
             string imageUrl = line[9];
+            string simulationLevel = line[10];
 
 
-            return new Question(rowNumber, questionType, questionDifficulty, questionString, answers, imageUrl);
+            return new Question(rowNumber, questionType, questionDifficulty, questionString, answers, imageUrl,simulationLevel);
         }
 
         // Create questions from the given list.

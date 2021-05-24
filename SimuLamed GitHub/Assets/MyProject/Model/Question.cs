@@ -36,10 +36,11 @@ namespace Assets.model
         public string imageUrl;
         public int questionNumber;
         public string questionCategory;
+        public string simulationLevel;
 
 
 
-        public Question(int questionNumber, QuestionType questionType, QuestionDifficulty questionDifficulty, string question, string[] answers, string imageUrl)
+        public Question(int questionNumber, QuestionType questionType, QuestionDifficulty questionDifficulty, string question, string[] answers, string imageUrl, string simulationLevel)
         {
             this.questionNumber = questionNumber;
             this.questionCategory = FromTypeToCategory(questionType);
@@ -51,6 +52,7 @@ namespace Assets.model
             this.ans4 = answers[3];
             this.correctAns = answers[4];
             this.imageUrl = imageUrl;
+            this.simulationLevel = simulationLevel;
         }
 
         public static string FromTypeToCategory(QuestionType questionType)
@@ -59,19 +61,14 @@ namespace Assets.model
             {
                 case QuestionType.Safety:
                     return Utils.SAFETY_HEBREW;
-                    //return "בטיחות";
                 case QuestionType.TransactionRules:
                     return Utils.TRANSACTION_RULES_HEBREW;
-                    //return "חוקי התנועה";
                 case QuestionType.Signs:
                     return Utils.SIGNS_HEBREW;
-                    //return "תמרורים";
                 case QuestionType.UnderstandingVehicle:
                     return Utils.UNDERSTANDING_VEHICLE_HEBREW;
-                    //return "הכרת הרכב";
                 default:
                     return Utils.MIXED_HEBREW;
-                    //return "כל הנושאים";
             }
 
         }

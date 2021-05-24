@@ -5,10 +5,8 @@ using UnityEngine;
 public class OnClickInfo : MonoBehaviour
 {
     public GameObject infoScreen;
-    void Start()
-    {
-        //infoScreen.SetActive(false);
-    }
+
+    // On click the information button event handler.
     public void OnClickInfoButton()
     {
         if (infoScreen.activeSelf)

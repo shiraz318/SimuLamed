@@ -16,9 +16,9 @@ public class SignInVM : RegisterViewModel
         set { password = value; }
     }
     
-    protected override ErrorTypes GetErrorType()
+    protected override ErrorTypes[] GetErrorTypes()
     {
-        return ErrorTypes.SignIn;
+        return new ErrorTypes[] { ErrorTypes.SignIn };
     }
 
     protected override string[] GetFields()
@@ -26,9 +26,12 @@ public class SignInVM : RegisterViewModel
         return new string[] { Email, Password};
     }
 
-    protected override void RegisterAction(Utils.OnSuccessFunc onSuccess)
+    public override string GetOnFinishActionPropertyName()
     {
-        onSuccess += delegate () { PlayerPrefs.SetString(Utils.SHOW_QUESTIONS, Utils.DEFAULT_TO_SHOW_QUESTIONS == true ? "show" : string.Empty); };
-        model.SignIn(Password, Email, onSuccess);
+        return "IsSignedIn";
+    }
+    protected override void RegisterAction()
+    {
+        model.SignIn(Password, Email);
     }
 }

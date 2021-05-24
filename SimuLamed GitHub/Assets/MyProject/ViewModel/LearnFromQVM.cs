@@ -8,21 +8,50 @@ using UnityWeld.Binding;
 [Binding]
 public class LearnFromQVM : BaseViewModel
 {
+    // Private fields.
     private string selectedSubject;
+
+    // Properties.
+    [Binding]
     public string SelectedSubject
     {
         get { return selectedSubject; }
-        set { selectedSubject = value; model.SelectedSubject = Question.FromCategoryToTypeEnglish(value); }
+        set { selectedSubject = value; model.SelectedSubject = Question.FromCategoryToTypeEnglish(value); NotifyPropertyChanged("SelectedSubject"); }
     }
+
+    private new void Start()
+    {
+        base.Start();
+
+    }
+    // Methods.
 
     // Save current user.
-    public void Back(Utils.OnSuccessFunc onSuccess)
+    public void SaveUser() 
     {
-        model.SaveUser(onSuccess);
+        
+        model.SaveUser(); 
     }
 
-    protected override ErrorTypes GetErrorType()
+    protected override ErrorTypes[] GetErrorTypes() { return new ErrorTypes[] { ErrorTypes.SaveScore }; }
+
+    public string GetPropertyName() { return "IsUserSaved"; }
+
+    protected override void SetModel()
     {
-        return ErrorTypes.SaveScore;
+        base.SetModel();
+        model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
+        {
+            if (this == null) { return; }
+
+            Debug.Log(eventArgs.PropertyName);
+            string propertyName = GetPropertyName();
+            if (eventArgs.PropertyName.Equals(propertyName))
+            {
+                Debug.Log("NOTIFY");
+                NotifyPropertyChanged(propertyName);
+            }
+
+        };
     }
 }

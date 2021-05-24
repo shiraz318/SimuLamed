@@ -14,25 +14,20 @@ using Assets.Model;
 // Singleton FirebaseManager.
 public sealed class FirebaseManager : IDatabaseHandler
 {
-    
+    private const string PROJECT_ID = "simulamed-49311-default-rtdb";
+    private const string AUTH_KEY = "AIzaSyBS5WVLpACpe5AbRrZ2KmWcw92FFR65Vs0";
+    private static readonly string databaseURL = $"https://{PROJECT_ID}.firebaseio.com/";
+    private const string SIGN_UP_API= "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + AUTH_KEY;
+    private const string SEND_EMAIL_VER_API = "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=" + AUTH_KEY;
+    private const string SIGN_IN_API = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + AUTH_KEY;
+    private const string RESET_PASSWORD_API = "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=" + AUTH_KEY;
+    private const string CHECK_EMAIL_VER_API = "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=" + AUTH_KEY;
 
-    private const string projectId = "simulamed-49311-default-rtdb";
-    private const string authKey = "AIzaSyBS5WVLpACpe5AbRrZ2KmWcw92FFR65Vs0";
-    private static readonly string databaseURL = $"https://{projectId}.firebaseio.com/";
-    
     private static fsSerializer serializer = new fsSerializer();
 
-
-    public delegate void GetUserCallback(User user);
-    public delegate void PostUserCallback();
-
-
-
+    // Thread safety singleton using double check locking 
     private static readonly object padlock = new object();
     private static FirebaseManager instance = null;
-
-    
-    // Thread safety singleton using double check locking 
     public static FirebaseManager Instance
     {
         get
@@ -53,50 +48,39 @@ public sealed class FirebaseManager : IDatabaseHandler
     
 
     // Post a given user to the database.
-    private void PostUser(User user, string userId, Utils.OnSuccessFunc onSuccess, Utils.OnFailureFunc onFailure)
+    public void PostUser(User user, Action onSuccess, Action<string> onFailure)
     {
-        RestClient.Put<User>($"{databaseURL}users/{userId}.json?auth=" + user.details.idToken , user).
+        RestClient.Put<User>($"{databaseURL}users/{user.details.localId}.json?auth=" + user.details.idToken, user).
             Then(response => { onSuccess();}).
-            Catch(error => { onFailure(ExtractErrorMessage(error));
-
-            });
+            Catch(error => { onFailure(ExtractErrorMessage(error)); });
     }
 
-    // Sign up a given user.
-    public void SignUpUser(string username, string password, string email, Utils.OnSuccessFunc onSuccess, Utils.OnFailureFunc onFailure)
+    // A general method for Post a given body to a given url while the response is of SignResponse type.
+    public void SignResponsePost(string url, string body, Action<SignResponse> onSuccess, Action<string> onFailure)
+    {
+        RestClient.Post<SignResponse>(url, body).Then(response => onSuccess(response)).
+            Catch(error => { onFailure(ExtractErrorMessage(error)); });
+    }
+
+    // Sign up.
+    public void SignUp(string email, string password, Action<string,string> onSuccess, Action<string> onFailure)
     {
         string userData = "{\"email\":\"" + email + "\",\"password\":\"" + password + "\",\"returnSecureToken\":true}";
-        
-        // Sign up as a user.
-        RestClient.Post<SignResponse>("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + authKey,
-            bodyString: userData).Then(response =>
-        {
-            UserDetails userDetails = new UserDetails(username, email, response.localId, response.idToken);
-            UserState userState = new UserState(new int[] { -1 }, Utils.INITIAL_NUMBER_OF_HINTS, 0);
-            User user = new User(userDetails, userState);
-            //User user = new User(username, email, new int[] { -1 }, Utils.INITIAL_NUMBER_OF_HINTS, 0)
-            //{
-            //    localId = response.localId,
-            //    idToken = response.idToken
-            //};
-
-            // Post user data to the database and if post succeded - send an email to the user for verification.
-            PostUser(user, response.localId, onSuccess: () => SendEmailForVerification(user.details.idToken, onSuccess, onFailure), onFailure);
-
-        }).Catch(error => 
-        {
-            onFailure(ExtractErrorMessage(error));
-        });
+        SignResponsePost(SIGN_UP_API, userData, (response) => onSuccess(response.idToken, response.localId), onFailure);   
     }
 
+    // Save a new user to the database.
+    public void SaveNewUser(User newUser, Action onSuccess, Action<string> onFailure)
+    {
+        // If Posting the user is done successfully, send an email for verification.
+        PostUser(newUser, () => SendEmailForVerification(newUser.details.idToken, onSuccess, onFailure), onFailure);
+    }
 
     // Send an email for verification.
-    private void SendEmailForVerification(string idToken, Utils.OnSuccessFunc onSuccess, Utils.OnFailureFunc onFailure)
+    private void SendEmailForVerification(string idToken, Action onSuccess, Action<string> onFailure)
     {
         string emailData = "{\"requestType\":\"VERIFY_EMAIL\",\"idToken\":\"" + idToken + "\"}";
-        RestClient.Post<SignResponse>("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=" + authKey, emailData).
-            Then( response => { onSuccess();}).
-            Catch(error => { onFailure(ExtractErrorMessage(error));});
+        SignResponsePost(SEND_EMAIL_VER_API, emailData, response => onSuccess(), onFailure);
     }
 
 
@@ -105,6 +89,7 @@ public sealed class FirebaseManager : IDatabaseHandler
     {
         RequestException exception = (RequestException)error;
         string errorMessage = GetResponseError(exception);
+        Debug.Log(errorMessage);
         return errorMessage;
     }
 
@@ -117,37 +102,27 @@ public sealed class FirebaseManager : IDatabaseHandler
 
 
     // Sign in a given user.
-    public void SignInUser(string password, string email, Utils.OnSuccessSignInFunc onSuccess, Utils.OnFailureFunc onFailure)
+    public void SignInUser(string password, string email, Action<User> onSuccess, Action<string> onFailure)
     {
-        Debug.Log("IN SIGN IN FIREBASE MANAGER");
         string userData = "{\"email\":\"" + email + "\",\"password\":\"" + password + "\",\"returnSecureToken\":true}";
         
-
-        // Sign in with password and email.
-        RestClient.Post<SignResponse>("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + authKey,
-            bodyString: userData).Then(response =>
-            {
-                Debug.Log("BEFORE CHECK EMAIL VERIFICATION");
-                // Check for email verification.
-                CheckEmailVerification(response, email, onSuccess, onFailure);
-
-            }).Catch(error => {
-                onFailure(ExtractErrorMessage(error));
-            });
+        // If Signing in is done successfully, check if the user verified his email.
+        SignResponsePost(SIGN_IN_API, userData, response =>
+        {
+            CheckEmailVerification(response, email, onSuccess, onFailure);
+        }, onFailure);
     }
 
 
     // Check if the given email has been verified.
-    private void CheckEmailVerification(SignResponse response, string email, Utils.OnSuccessSignInFunc onSuccess, Utils.OnFailureFunc onFailure)
+    private void CheckEmailVerification(SignResponse response, string email, Action<User> onSuccess, Action<string> onFailure)
     {
-        Debug.Log("IN CHECK EMAIL VERIFICATION");
         string emailVerification = "{\"idToken\":\"" + response.idToken + "\"}";
         
         // Check if the user verified his email.
-        RestClient.Post("https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=" + authKey, emailVerification)
+        RestClient.Post(CHECK_EMAIL_VER_API, emailVerification)
         .Then(emailResponse =>
         {
-            Debug.Log("INSIDE CHECK EMAIL VERIFICATION RESPONSE");
             fsData emailVerificationData = fsJsonParser.Parse(emailResponse.Text);
             EmailConfirmationInfo emailConfirmationInfo = new EmailConfirmationInfo();
             serializer.TryDeserialize(emailVerificationData, ref emailConfirmationInfo).AssertSuccessWithoutWarnings();
@@ -155,9 +130,7 @@ public sealed class FirebaseManager : IDatabaseHandler
             // If the user verified his email he can sign in.
             if (emailConfirmationInfo.users[0].emailVerified)
             {
-                Debug.Log("EMAIL VERIFIED");
-                CreateUser(response.localId, response.idToken, email, onSuccess, onFailure);
-
+                GetUser(response.localId, response.idToken, onSuccess, onFailure);
             }
             else
             {
@@ -167,76 +140,142 @@ public sealed class FirebaseManager : IDatabaseHandler
         }).Catch(error => { onFailure(ExtractErrorMessage(error)); });
     }
 
-
-    private void CreateUser(string localId, string idToken, string email, Utils.OnSuccessSignInFunc onSuccess, Utils.OnFailureFunc onFailure)
+    // Get a user from the database according to the given localId and idToken.
+    private void GetUser(string localId, string idToken, Action<User> onSuccess, Action<string> onFailure)
     {
-
-        RestClient.Get<User>($"{databaseURL}users/{localId}.json?auth=" + idToken).Then(response =>
-        {
-
-            Dictionary<int, int> dic = new Dictionary<int, int>();
-            UserDetails userDetails = new UserDetails(response.details.username, email, localId, idToken);
-            UserState userState = new UserState(response.state.correctAnswers, response.state.numOfHints, response.state.openLevel);
-            User user = new User(userDetails, userState);
-            //User user = new User(response.details.username, email, response.state.correctAnswers, response.state.numOfHints, response.state.openLevel);
-            //user.localId = localId;
-            //user.idToken = idToken;
-            onSuccess(user);
-        }).Catch(error=> { 
-            onFailure(error.Message); 
-        });
+        RestClient.Get<User>($"{databaseURL}users/{localId}.json?auth=" + idToken).
+            Then(response => {
+                response.details.SetIdToken(idToken); response.details.SetLocalId(localId);
+                onSuccess(response); }).Catch(error=> { onFailure(error.Message); });
     }
 
-
     // Reset password.
-    public void ResetPassword(string email, Utils.OnSuccessFunc onSuccess, Utils.OnFailureFunc onFailure)
+    public void ResetPassword(string email, Action onSuccess, Action<string> onFailure)
     {
-
         string payload = "{\"email\":\"" + email + "\",\"requestType\":\"PASSWORD_RESET\"}";
         
         // Send to the user an email to reset his password.
-        RestClient.Post("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=" + authKey, payload).
-            Then(response => { onSuccess(); }).
-            Catch(error => { onFailure(ExtractErrorMessage(error));});
-
+        RestClient.Post(RESET_PASSWORD_API, payload).
+            Then(response => { onSuccess(); }).Catch(error => { onFailure(ExtractErrorMessage(error));});
     }
 
+    private void GetRequest(string url, Action<ResponseHelper> onResponse, Action<string> onFailure)
+    {
+        RestClient.Get(url).Then(response => { onResponse(response); }).
+        Catch(error => { onFailure(error.Message); });
+    }
+
+    public void GetNumberOfQuestions(string idToken, Action<int> onSuccess, Action<string> onFailure)
+    {
+        string getRequest = $"{databaseURL}questions.json?auth=" + idToken + "&shallow=true";
+        GetRequest(getRequest, response =>
+        {
+            Dictionary<string, bool> questions = new Dictionary<string, bool>();
+            fsData questionsData = fsJsonParser.Parse(response.Text);
+            serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
+            onSuccess(questions.Count());
+        }, onFailure);
+        //RestClient.Get(getRequest).Then(response =>
+        //{
+        //    Dictionary<string, bool>questions = new Dictionary<string, bool>();
+        //    fsData questionsData = fsJsonParser.Parse(response.Text);
+        //    serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
+        //    onSuccess(questions.Count());
+
+        //}).
+        //Catch(error =>
+        //{
+        //    onFailure(error.Message);
+
+        //});
+    }
+    public void GetAllQuestions(string idToken, Action<Question[]> onSuccess, Action<string> onFailure)
+    {
+        string getRequest = $"{databaseURL}questions.json?auth=" + idToken + "&orderBy=\"questionNumber\"&startAt=0";
+        GetQuestions(getRequest, onSuccess, onFailure);
+        //RestClient.Get(getRequest).Then(response =>
+        //{
+        //    Dictionary<string, Question> questions = new Dictionary<string, Question>();
+        //    fsData questionsData = fsJsonParser.Parse(response.Text);
+        //    serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
+
+        //    onSuccess(questions.Values.ToArray());
+        //}).
+        //Catch(error =>
+        //{
+        //    onFailure(error.Message);
+
+        //});
+    }
 
     // Set Questions by a given category from the database.
-    public void GetQuestionsByCategory(string currentUserIdToken, string category, Action<Question[]> onSuccess, Utils.OnFailureFunc onFailure)
+    public void GetQuestionsByCategory(string currentUserIdToken, string category, Action<Question[]> onSuccess, Action<string> onFailure)
     {
-
-        string getRequest = $"{databaseURL}questions.json?auth=" + currentUserIdToken;
-
-        // כל הנושאים
         if (category.Equals(Utils.MIXED_HEBREW))
         {
-            getRequest = getRequest + "&orderBy=\"questionNumber\"&startAt=0";
+            GetAllQuestions(currentUserIdToken, onSuccess, onFailure);
         }
         else
         {
-            getRequest = getRequest + "&orderBy=\"questionCategory\"&equalTo=\"" + category + "\"";
-        }
+            string getRequest = $"{databaseURL}questions.json?auth=" + currentUserIdToken + "&orderBy=\"questionCategory\"&equalTo=\"" + category + "\"";
 
-        RestClient.Get(getRequest).Then( response => {
+            //// כל הנושאים
+            //if (category.Equals(Utils.MIXED_HEBREW))
+            //{
+            //    getRequest = getRequest + "&orderBy=\"questionNumber\"&startAt=0";
+            //}
+            //else
+            //{
+            //getRequest = getRequest + "&orderBy=\"questionCategory\"&equalTo=\"" + category + "\"";
+            //}
+            GetQuestions(getRequest, onSuccess, onFailure);
+        }
+        //RestClient.Get(getRequest).Then( response => {
             
+        //    Dictionary<string, Question> questions = new Dictionary<string, Question>();
+        //    fsData questionsData = fsJsonParser.Parse(response.Text);
+        //    serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
+
+        //    onSuccess(questions.Values.ToArray());
+
+        //}).Catch(error => 
+        //{
+        //    onFailure(error.Message);
+        //    Debug.Log(error);
+        //});
+    }
+
+    private void GetQuestions(string url, Action<Question[]> onSuccess, Action<string> onFailure)
+    {
+        GetRequest(url, response =>
+        {
             Dictionary<string, Question> questions = new Dictionary<string, Question>();
             fsData questionsData = fsJsonParser.Parse(response.Text);
             serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
-
-            //System.Random rnd = new System.Random();
             onSuccess(questions.Values.ToArray());
-            //onSuccess(questions.Values.OrderBy(x => rnd.Next()).ToArray());
-
-        }).Catch(error => 
-        {
-            onFailure(error.Message);
-            Debug.Log(error);
-        });
-
+        }, onFailure);
 
     }
 
+    public void GetQuestionsInLevel(string idToekn, string level, Action<Question[]> onSuccess, Action<string> onFailure)
+    {
+        string getRequest = $"{databaseURL}questions.json?auth=" + idToekn + "&orderBy=\"simulationLevel\"&equalTo=\"" + level + "\"";
+        GetQuestions(getRequest, onSuccess, onFailure);
+        //RestClient.Get(getRequest).Then(response => {
+
+        //    Dictionary<string, Question> questions = new Dictionary<string, Question>();
+        //    fsData questionsData = fsJsonParser.Parse(response.Text);
+        //    serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
+
+        //    onSuccess(questions.Values.ToArray());
+
+        //}).Catch(error =>
+        //{
+        //    onFailure(error.Message);
+        //    Debug.Log(error);
+        //});
+
+    }
 
     // Upload the given questions to the database reqursivly;
     private void UploadDatasetHelper(List<Question> questions, int num)
@@ -255,7 +294,6 @@ public sealed class FirebaseManager : IDatabaseHandler
 
     }
 
-
     // Upload the given question to the database.
     public void UploadDataset(List<Question> questions)
     {
@@ -263,10 +301,5 @@ public sealed class FirebaseManager : IDatabaseHandler
 
     }
 
-    public void SaveUser(User currentUser, Utils.OnSuccessFunc onSuccess, Utils.OnFailureFunc onFailure)
-    {
-        PostUser(currentUser, currentUser.details.localId, onSuccess, onFailure);
-
-    }
 }
 

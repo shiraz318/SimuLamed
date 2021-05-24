@@ -12,19 +12,20 @@ public class LoadingCircle : MonoBehaviour
         rectComponent = GetComponent<RectTransform>();
     }
 
-
+    // Rotate the circle each time update is called.
     private void Update()
     {
          rectComponent.Rotate(0f, 0f, rotateSpeed * Time.deltaTime);
     }
+
+    // Set the visability of the loading circle according to the given toShow.
     public static void SetLoadingCircleVisability(bool toShow, Image loadingCircle)
     {
-        float alpha = 0f;
-        if (toShow)
-        {
-            alpha = 1f;
-        }
-
+        float alpha = toShow? 1f: 0f;
+        //if (toShow)
+        //{
+        //    alpha = 1f;
+        //}
 
         Image[] children = loadingCircle.GetComponentsInChildren<Image>();
         foreach (Image child in children)

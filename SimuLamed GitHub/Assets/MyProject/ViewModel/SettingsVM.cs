@@ -11,62 +11,42 @@ namespace Assets.ViewModel
     [Binding]
     public class SettingsVM : BaseViewModel
     {
-
-        HashSet<string> keys = new HashSet<string>();
-       
+        // Private fields.
+        private HashSet<string> keys = new HashSet<string>();
         private static string leftInput = Utils.DEFAULT_LEFT;
-        [Binding]
-        public string LeftInput
-        {
-            get { return leftInput; }
-            set { leftInput = value;  }
-        }
-
         private static string rightInput = Utils.DEFAULT_RIGHT;
-        [Binding]
-        public string RightInput
-        {
-            get { return rightInput; }
-            set { rightInput = value; }
-        }
-
         private static string forwardInput = Utils.DEFAULT_FORWARD;
-        [Binding]
-        public string ForwardInput
-        {
-            get { return forwardInput; }
-            set { forwardInput = value; }
-        }
-
         private static string backwardsInput = Utils.DEFAULT_BACKWARDS;
-        [Binding]
-        public string BackwardsInput
-        {
-            get { return backwardsInput; }
-            set { backwardsInput = value;  }
-        }
         private static bool toShowQuestions = Utils.DEFAULT_TO_SHOW_QUESTIONS;
-        [Binding]
-        public bool ToShowQuestions
-        {
-            get { return toShowQuestions; }
-            set { toShowQuestions = value; }
-        }
         private static bool toMuteSound = Utils.DEFAULT_TO_MUTE_SOUND;
+
+        // Properties.
         [Binding]
-        public bool ToMuteSound
-        {
-            get { return toMuteSound; }
-            set { toMuteSound = value; }
+        public string LeftInput { get { return leftInput; } set { leftInput = value;  }
+        }
+        [Binding]
+        public string RightInput { get { return rightInput; }set { rightInput = value; }
+        }
+        [Binding]
+        public string ForwardInput { get { return forwardInput; } set { forwardInput = value; }
+        }
+        [Binding]
+        public string BackwardsInput { get { return backwardsInput; } set { backwardsInput = value;  }
+        }
+        [Binding]
+        public bool ToShowQuestions { get { return toShowQuestions; } set { toShowQuestions = value; }
+        }
+        [Binding]
+        public bool ToMuteSound { get { return toMuteSound; } set { toMuteSound = value; }
         }
 
 
-        public void Back(Utils.OnSuccessFunc onSuccess)
+        // Save the chosen settings.
+        public void SaveSettings()
         {
             if (!CheckValidityOfKeys())
             {
                 ErrorMessage = Utils.ERROR_IN_KEYS_H;
-
             }
             else
             {
@@ -77,27 +57,23 @@ namespace Assets.ViewModel
                 SetPlayerKeys(Utils.BACKWARDS, BackwardsInput);
                 PlayerPrefs.SetString(Utils.SHOW_QUESTIONS, ToShowQuestions ? "show":string.Empty);
                 PlayerPrefs.SetInt(Utils.MUTE_SOUND, ToMuteSound ? 1 : 0);
-                onSuccess();
+                
+                NotifyPropertyChanged(GetPropertyName());
             }
         }
 
+        public string GetPropertyName() {  return "SavedSettings"; }
+
+        // Checks if the player chose a key more than once.
         private bool CheckValidityOfKeys()
         {
-            
-            bool valid = true;
-
-            // hash set
+            // Hash set - contains every key only once.
+            //Therefore if there are more than one key value - the length will be less than 4.
             keys.Add(LeftInput);
             keys.Add(RightInput);
             keys.Add(ForwardInput);
             keys.Add(BackwardsInput);
-
-            if (keys.Count != 4)
-            {
-                valid = false;
-            }
-            return valid;
-
+            return keys.Count == 4;
         }
 
         //private bool CheckAndSetMapKeys(string keyName, string value)
@@ -115,22 +91,14 @@ namespace Assets.ViewModel
         //    return true;
         //}
 
-
+        // Set the given key to it's matching ascii character.
         private void SetPlayerKeys(string keyName, string keyValue)
         {
             char character = keyValue.ToLower().ToCharArray()[0];
             int ascii = System.Convert.ToInt32(character);
-            //int alphaValue = character;
             PlayerPrefs.SetString(keyName, ascii.ToString());
         }
 
     }
 
 }
-
-// TODO
-/// 
-/// ADD OPTION FOR THE USER TO CHANGE THE ANGLE OF THE VIEW.
-/// 
-/// </summary>
-

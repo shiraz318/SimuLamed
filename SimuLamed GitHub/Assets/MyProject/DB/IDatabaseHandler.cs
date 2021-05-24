@@ -10,13 +10,15 @@ namespace Assets.model
 {
     public interface IDatabaseHandler 
     {
-        void SignUpUser(string username, string password, string email, Utils.OnSuccessFunc onSuccess, Utils.OnFailureFunc onFailure);
-        void SignInUser(string password, string email, Utils.OnSuccessSignInFunc onSuccess, Utils.OnFailureFunc onFailure);
-
-        void ResetPassword(string email, Utils.OnSuccessFunc onSuccess, Utils.OnFailureFunc onFailure);
+        void SignInUser(string password, string email, Action<User> onSuccess, Action<string> onFailure);
+        void ResetPassword(string email, Action onSuccess, Action<string> onFailure);
         void UploadDataset(List<Question> questions);
-        void GetQuestionsByCategory(string userIdToken, string category, Action<Question[]> onSuccess ,Utils.OnFailureFunc onFailure);
-       // void GetAllQuestions(string userIdToken, Action<Dictionary<string, Question>> onSuccess, Utils.OnFailureFunc onFailure);
-        void SaveUser(User currentUser, Utils.OnSuccessFunc onSuccess, Utils.OnFailureFunc onFailure);
+        void GetQuestionsByCategory(string userIdToken, string category, Action<Question[]> onSuccess , Action<string> onFailure);
+        void PostUser(User user, Action onSuccess, Action<string> onFailure);
+        void SignUp(string email, string password, Action<string,string> onSuccess, Action<string> onFailure);
+        void SaveNewUser(User newUser, Action onSuccess, Action<string> onFailure);
+        void GetNumberOfQuestions(string idToken, Action<int> onSuccess, Action<string> onFailure);
+        void GetAllQuestions(string idToken, Action<Question[]> onSuccess, Action<string> onFailure);
+        void GetQuestionsInLevel(string idToekn, string level, Action<Question[]> onSuccess, Action<string> onFailure);
     }
 }

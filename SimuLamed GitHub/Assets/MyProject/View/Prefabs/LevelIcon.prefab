@@ -83,7 +83,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6503744437508645784}
-  - component: {fileID: 6503744437508645785}
+  - component: {fileID: 5071451904504140364}
   m_Layer: 0
   m_Name: LevelIcon
   m_TagString: Untagged
@@ -107,7 +107,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6503744437508645785
+--- !u!114 &5071451904504140364
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,9 +116,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6503744437508645787}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6d454a2630a4fe4aa18fa44ea226b25, type: 3}
+  m_Script: {fileID: 11500000, guid: fc059d27476fe084cacf543e861898f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 6503744439193309571}
+  backOpenImage: {fileID: 6503744437902699120}
+  openLevelImage: {fileID: 6503744438501083649}
+  levelIdx: 1
 --- !u!1 &6503744437902699122
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +134,6 @@ GameObject:
   - component: {fileID: 6503744437902699123}
   - component: {fileID: 6503744437902699121}
   - component: {fileID: 6503744437902699120}
-  - component: {fileID: 5355225191801866219}
   m_Layer: 5
   m_Name: backOpenImage
   m_TagString: Untagged
@@ -194,22 +197,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5355225191801866219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6503744437902699122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a205e6ced4bc924f9725c1f6020bb02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewAdapterTypeName: 
-  viewAdapterOptions: {fileID: 0}
-  viewModelPropertyName: LevelsVM.IsLevel1Open
-  viewPropertyName: UnityEngine.UI.Image.enabled
 --- !u!1 &6503744438093835194
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,7 +282,6 @@ GameObject:
   - component: {fileID: 6503744438501083651}
   - component: {fileID: 6503744438501083902}
   - component: {fileID: 6503744438501083649}
-  - component: {fileID: 6503744438501083648}
   m_Layer: 5
   m_Name: openLevelImage
   m_TagString: Untagged
@@ -359,22 +345,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6503744438501083648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6503744438501083650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a205e6ced4bc924f9725c1f6020bb02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewAdapterTypeName: 
-  viewAdapterOptions: {fileID: 0}
-  viewModelPropertyName: LevelsVM.IsLevel1Open
-  viewPropertyName: UnityEngine.UI.Image.enabled
 --- !u!1 &6503744439009151179
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,7 +491,6 @@ GameObject:
   - component: {fileID: 6503744439193309569}
   - component: {fileID: 6503744439193309568}
   - component: {fileID: 6503744439193309571}
-  - component: {fileID: 6503744439193309310}
   m_Layer: 0
   m_Name: LevelButton
   m_TagString: Untagged
@@ -643,19 +612,3 @@ MonoBehaviour:
           m_StringArgument: 1
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &6503744439193309310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6503744439193309573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a205e6ced4bc924f9725c1f6020bb02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewAdapterTypeName: 
-  viewAdapterOptions: {fileID: 0}
-  viewModelPropertyName: LevelsVM.IsLevel1Open
-  viewPropertyName: UnityEngine.UI.Button.enabled

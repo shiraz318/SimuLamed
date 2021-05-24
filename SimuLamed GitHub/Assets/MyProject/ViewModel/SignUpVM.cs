@@ -24,17 +24,21 @@ public class SignUpVM : RegisterViewModel
     }
 
 
-    protected override ErrorTypes GetErrorType()
+    protected override ErrorTypes[] GetErrorTypes()
     {
-        return ErrorTypes.SignUp;
+        return new ErrorTypes[] { ErrorTypes.SignUp };
     }
     protected override string[] GetFields()
     {
         return new string[] { Email, Password, Username};
     }
-    protected override void RegisterAction(Utils.OnSuccessFunc onSuccess)
+    public override string GetOnFinishActionPropertyName()
     {
-        model.SignUp(Username, Password, Email, onSuccess);
+        return "IsSignedUp";
+    }
+    protected override void RegisterAction()
+    {
+        model.SignUp(Username, Password, Email);
     }
 
 }

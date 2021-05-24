@@ -10,13 +10,16 @@ public class OnClickEye : MonoBehaviour
     public Sprite hideImage;
     public Image eyeImage;
 
+    // On click event handler for clicking the eye icon.
     public void MyOnClickEye()
     {
+        // The password is hidden - need to show it and replace the eye icon.
         if (password.contentType == InputField.ContentType.Password)
         {
             password.contentType = InputField.ContentType.Standard;
             eyeImage.sprite = showImage;
         }
+        // The password is shown - need to hide it and replace the eye icon.
         else
         {
             password.contentType = InputField.ContentType.Password;

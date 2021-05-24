@@ -12,22 +12,21 @@ public class ScreensManager : MonoBehaviour
     public static bool gameIsPaused = false;
     public static bool isQuitMenu = false;
 
-    public SoundManager soundManager;
+    public static SoundManager soundManager;
 
     public GameObject pauseMenuUI;
     public GameObject quitMenuUI;
     public GameObject failMenuUI;
     public GameObject successMenuUI;
     public GameObject questionsMenuUI;
+    public GameObject lastSuccessMenuUI;
     
-
-    // private SceneLoader sceneLoader;
 
     private SimulationVM simulationVM;
 
     void Start()
     {
-        //sceneLoader = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         SetViewModel();
     }
     private void SetViewModel()
@@ -35,6 +34,7 @@ public class ScreensManager : MonoBehaviour
         simulationVM = GameObject.Find("View").GetComponent<SimulationVM>();
         simulationVM.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
+            if (this == null) { return; }
             if (eventArgs.PropertyName.Equals("Lives"))
             {
                 if (simulationVM.Lives <= 0)
@@ -42,36 +42,18 @@ public class ScreensManager : MonoBehaviour
                     FailMenu();
                 }
             }
-            else if (eventArgs.PropertyName.Equals("LevelFinished"))
-            {
-                SuccessMenu();
-            }
 
-        };
-        simulationVM.questionsManager.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
-        {
-            if (eventArgs.PropertyName.Equals("CorrectAnswer"))
-            {
-                soundManager.OnClickCorrectAns();
-            }
-            else if (eventArgs.PropertyName.Equals("WrongAnswer"))
-            {
-                soundManager.OnClickWrongAns();
-            }
         };
 
     }
 
-    // Check if space or esc is clicked
+    // Check if space or esc is clicked.
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("space is pressed");
-            
             if (!isQuitMenu)
             {
-
                 if (gameIsPaused)
                 {
 
@@ -91,52 +73,76 @@ public class ScreensManager : MonoBehaviour
         }
     }
 
-    // pause the game
-    private void Pause()
+
+    private void ActivateMenu(Action soundAction, GameObject menuUI, bool toActivate)
     {
-        soundManager.PauseSimulation();
-        pauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
-        gameIsPaused = true;
+        soundAction();
+        menuUI.SetActive(toActivate);
+        Time.timeScale = toActivate? 0f: 1f;
+        gameIsPaused = toActivate? true: false;
     }
 
-    
+    // Pause the game.
+    private void Pause()
+    {
+        ActivateMenu(() => { soundManager.PauseSimulation(); }, pauseMenuUI, true);
+        
+        //pauseMenuUI.SetActive(true);
+        //Time.timeScale = 0f;
+        //gameIsPaused = true;
+    }
+
+    public void OnClickLevel(bool isLastLevel)
+    {
+        if (isLastLevel)
+        {
+            LastSuccessMenu();
+        }
+        else
+        {
+            SuccessMenu();
+        }
+    }
+
     public void OnClickFinishAns()
     {
-        soundManager.OnClickButton();
-        questionsMenuUI.SetActive(false);
-        Time.timeScale = 1;
+        ActivateMenu(() => { soundManager.OnClickButton(); }, questionsMenuUI, false);
+        
+        //questionsMenuUI.SetActive(false);
+        //Time.timeScale = 1;
     }
     // continue the game
     private void Resume()
     {
-        soundManager.PauseSimulation();
-        pauseMenuUI.SetActive(false);
-        Time.timeScale = 1;
+        ActivateMenu(() => { soundManager.PauseSimulation(); }, pauseMenuUI, false);
+        //pauseMenuUI.SetActive(false);
+        //Time.timeScale = 1;
         gameIsPaused = false;
     }
 
     // present the quit menu
     private void QuitMenu()
     {
-        soundManager.QuitSimulation();
+        ActivateMenu(()=> { soundManager.QuitSimulation(); }, quitMenuUI, true);
+        
         if (gameIsPaused)
         {
             pauseMenuUI.SetActive(false);
         }
-        quitMenuUI.SetActive(true);
-        Time.timeScale = 0f;
-        gameIsPaused = true;
+        //quitMenuUI.SetActive(true);
+        //Time.timeScale = 0f;
+        //gameIsPaused = true;
         isQuitMenu = true;
     }
 
     // stay in game - dont quit the game
     public void OnClickNoButton()
     {
-        soundManager.OnClickButton();
-        quitMenuUI.SetActive(false);
-        Time.timeScale = 1;
-        gameIsPaused = false;
+        ActivateMenu(() => { soundManager.OnClickButton(); }, quitMenuUI, false);
+       
+        //quitMenuUI.SetActive(false);
+        //Time.timeScale = 1;
+        //gameIsPaused = false;
         isQuitMenu = false;
     }
 
@@ -149,10 +155,11 @@ public class ScreensManager : MonoBehaviour
     // present the fail menu
     public void FailMenu()
     {
-        soundManager.FailLevel();
+        ActivateMenu(() => { soundManager.FailLevel(); }, failMenuUI, true);
+        
         questionsMenuUI.SetActive(false);
-        failMenuUI.SetActive(true);
-        Time.timeScale = 0f;
+        //failMenuUI.SetActive(true);
+        //Time.timeScale = 0f;
     }
 
     //// move to learning from questions scene
@@ -181,9 +188,22 @@ public class ScreensManager : MonoBehaviour
     // present the success menu
     public void SuccessMenu()
     {
-        soundManager.PassLevel();
-        successMenuUI.SetActive(true);
-        Time.timeScale = 0f;
+        ActivateMenu(() => { soundManager.PassLevel(); }, successMenuUI, true);
+        questionsMenuUI.SetActive(false);
+        //soundManager.PassLevel();
+        //successMenuUI.SetActive(true);
+        //Time.timeScale = 0f;
+    }
+    public void LastSuccessMenu()
+    {
+
+        ActivateMenu(() => { soundManager.PassLevel(); }, lastSuccessMenuUI, true);
+        
+        questionsMenuUI.SetActive(false);
+        
+        //lastSuccessMenuUI.SetActive(true);
+        //Time.timeScale = 0f;
+
     }
 
     //public void OnClickNextLevel()
@@ -194,9 +214,10 @@ public class ScreensManager : MonoBehaviour
 
     public void DisplayQuestion(int questionNumber)
     {
-        soundManager.DisplayQuestion();
-        questionsMenuUI.SetActive(true);
-        Time.timeScale = 0f;
+        ActivateMenu(() => { soundManager.DisplayQuestion(); }, questionsMenuUI, true);
+        
+        //questionsMenuUI.SetActive(true);
+        //Time.timeScale = 0f;
         simulationVM.DisplayQuestion(questionNumber);
     }
 

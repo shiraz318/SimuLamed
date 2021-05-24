@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1254254931890644826}
   - component: {fileID: 1254254931890644825}
   m_Layer: 0
-  m_Name: view
+  m_Name: oldMyCar_White
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,6 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1314d3b59ccb9940842d96cf4eeee0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  optionalStartPositions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  rigidBody: {fileID: 0}
   frontDriverW: {fileID: 1254254931613098331}
   frontPassengerW: {fileID: 2449534817424709908}
   rearDriverW: {fileID: 2684782866786859085}
@@ -84,6 +91,38 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.0723574, y: 1.2132287, z: 4.50346}
   m_Center: {x: 0.26454294, y: 0.6940448, z: -0.15077305}
+--- !u!114 &4076329301495373664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254254932084345508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a205e6ced4bc924f9725c1f6020bb02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewAdapterTypeName: 
+  viewAdapterOptions: {fileID: 0}
+  viewModelPropertyName: MyCarController.CarStartRotation
+  viewPropertyName: UnityEngine.Transform.eulerAngles
+--- !u!114 &3145727415906109584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254254932084345508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a205e6ced4bc924f9725c1f6020bb02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewAdapterTypeName: 
+  viewAdapterOptions: {fileID: 0}
+  viewModelPropertyName: MyCarController.CarStartPosition
+  viewPropertyName: UnityEngine.Transform.position
 --- !u!1 &1254254932395525585
 GameObject:
   m_ObjectHideFlags: 0

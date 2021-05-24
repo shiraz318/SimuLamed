@@ -11,41 +11,51 @@ using UnityWeld.Binding;
 public class OnClickAnswer : MonoBehaviour
 {
 
-    //private QuestionsVM_2 viewModel;
     private static QuestionsManager questionManager;
+    private static SoundManager soundManager;
     private TMP_Text ansText;
     private Image ansImage;
    
    public string CorrectAns { get { if (questionManager.IsQuestionSet) { return questionManager.CurrentQuestion.correctAns; } return ""; } }
 
-    // Start is called before the first frame update
     void Start()
     {
         ansText = GetComponentInChildren<TMP_Text>();
         ansImage = GetComponent<Image>();
-
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         SetQuestionManager();
 
         gameObject.GetComponent<Button>().onClick.AddListener(delegate { OnClickAns(); });
     }
 
-    // Set the view model.
+    // Set the question manager.
     private void SetQuestionManager()
     {
         questionManager = GameObject.Find("QuestionsManager").GetComponent<QuestionsManager>();
         questionManager.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
+            if (this == null) { return; }
             if (eventArgs.PropertyName.Equals("ResetAnsColor"))
             {
                 ResetAnsColor();
             }
-            else if (eventArgs.PropertyName.Equals("WrongAnswer"))
+            else if (eventArgs.PropertyName.Equals("LastAnswerResults"))
             {
                 // If this button contains the correct answer - change it's color.
                 if (ansText.text.Equals(CorrectAns))
                 {
                     ansImage.color = Utils.greenColor;
                 }
+
+                // User answered the wrong answer.
+                //if (!questionManager.LastAnswerResults.Item2)
+                //{
+                //    // If this button contains the correct answer - change it's color.
+                //    if (ansText.text.Equals(CorrectAns))
+                //    {
+                //        ansImage.color = Utils.greenColor;
+                //    }
+                //}
             }
 
         };
@@ -65,14 +75,17 @@ public class OnClickAnswer : MonoBehaviour
         // This is the correct answer.
         if (ansText.text.Equals(CorrectAns))
         {
+            soundManager.OnClickCorrectAns();
             isAnsCorrect = true;
             ansImage.color = Utils.greenColor;
         }
         // This is a wrong answer.
         else
         {
+            soundManager.OnClickWrongAns();
             ansImage.color = Utils.redColor;
         }
+        
         questionManager.OnClickAnswer(isAnsCorrect);
     }
 

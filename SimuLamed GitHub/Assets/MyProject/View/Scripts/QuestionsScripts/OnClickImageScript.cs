@@ -13,7 +13,6 @@ public class OnClickImageScript : MonoBehaviour
     private float originalImageWidth;
     private bool isImageBigger;
 
-    // Start is called before the first frame update
     void Start()
     {
         image = GetComponent<Image>();
@@ -47,6 +46,8 @@ public class OnClickImageScript : MonoBehaviour
     {
         questionManager.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
+            if (this == null) { return; }
+
             if (eventArgs.PropertyName.Equals("ResetImage"))
             {
                 ResetImageSize();

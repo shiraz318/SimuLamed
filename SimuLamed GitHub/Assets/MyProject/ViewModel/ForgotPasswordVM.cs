@@ -7,17 +7,23 @@ using UnityWeld.Binding;
 [Binding]
 public class ForgotPasswordVM : RegisterViewModel { 
     
-    protected override ErrorTypes GetErrorType()
+    protected override ErrorTypes[] GetErrorTypes()
     {
-        return ErrorTypes.ResetPassword;
+        return new ErrorTypes[] { ErrorTypes.ResetPassword };
     }
+
     protected override string[] GetFields()
     {
         return new string[] { Email };
     }
-    protected override void RegisterAction(Utils.OnSuccessFunc onSuccess)
+
+    protected override void RegisterAction()
     {
-        model.ResetPassword(Email, onSuccess);
+        model.ResetPassword(Email);
     }
 
+    public override string GetOnFinishActionPropertyName()
+    {
+        return "IsResetPassword";
+    }
 }

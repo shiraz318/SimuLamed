@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityWeld.Binding;
 
 [Binding]
-public abstract class BaseViewModel : MonoBehaviour, INotifyPropertyChanged
+public class BaseViewModel : MonoBehaviour, INotifyPropertyChanged
 {
 
     // Fields.
@@ -31,18 +31,25 @@ public abstract class BaseViewModel : MonoBehaviour, INotifyPropertyChanged
     protected virtual void SetModel() { 
         
         model = AppModel.Instance;
-        ErrorTypes errorType = GetErrorType();
-
-        if (!errorType.Equals(ErrorTypes.None))
+        ErrorTypes[] errorTypes = GetErrorTypes();
+        if (!errorTypes[0].Equals(ErrorTypes.None))
         {
             model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
             {
+                if (this == null) { return; }
+
+                Debug.Log(eventArgs.PropertyName);
                 if (eventArgs.PropertyName.Equals("Error"))
                 {
-                    if (model.Error.ErrorType == errorType)
+                    foreach (ErrorTypes errorType in errorTypes)
                     {
-                        ErrorMessage = model.Error.Message;
+                        if (model.Error.ErrorType == errorType)
+                        {
+                            ErrorMessage = model.Error.Message;
+                            Debug.Log(ErrorMessage);
+                        }
                     }
+                    Debug.Log(model.Error.Message);
                 }
 
             };
@@ -52,7 +59,7 @@ public abstract class BaseViewModel : MonoBehaviour, INotifyPropertyChanged
 
     }
     protected virtual void OnStart() { }
-    protected virtual ErrorTypes GetErrorType() { return ErrorTypes.None; }
+    protected virtual ErrorTypes[] GetErrorTypes() { return new ErrorTypes[] { ErrorTypes.None }; }
 
     public void Start()
     {

@@ -11,22 +11,25 @@ using UnityWeld.Binding;
 [Binding]
 public class QuestionsVM : BaseViewModel
 {
-
+    // Private fields.
     private int lastHintsNumber;
+    private bool isNewHint;
+    private bool isHintButtonOn;
+    private string questionNumText = "0 / 0";
+    private static int questionNum;
+    private bool isQuestionSet;
+    private int numberOfQuestions;
+
+    // Properties.
     [Binding]
     public int HintsNumber { get { lastHintsNumber = AppModel.Instance.HintsNumber; return lastHintsNumber; } }
 
-    private bool isNewHint;
     [Binding]
     public bool IsNewHint { get { return isNewHint; } set { isNewHint = value; NotifyPropertyChanged("IsNewHint"); } }
 
     [Binding]
-    public string SelectedSubject
-    {
-        get { return Question.FromTypeToCategory(AppModel.Instance.SelectedSubject); }
-    }
+    public string SelectedSubject { get { return Question.FromTypeToCategory(AppModel.Instance.SelectedSubject); }}
 
-    private bool isHintButtonOn;
     [Binding]
     public bool IsHintButtonOn
     {
@@ -40,18 +43,14 @@ public class QuestionsVM : BaseViewModel
             NotifyPropertyChanged("IsHintButtonOn");
         }
     }
-    private string questionNumText = "0 / 0";
     [Binding]
     public string QuestionNumText { get { return questionNumText; } set { questionNumText = value + " / " + numberOfQuestions.ToString(); NotifyPropertyChanged("QuestionNumText"); } }
-   // public string QuestionNumText { get { if (!IsQuestionSet) { return "0 / 0"; } return (questionNum + 1).ToString() + " / " + numberOfQuestions.ToString(); } }
-
-
-
-    private static int questionNum;
-    private bool isQuestionSet;
     public bool IsQuestionSet { get { return isQuestionSet; } set { isQuestionSet = value; NotifyPropertyChanged("QuestionNumText"); } }
 
-    private int numberOfQuestions;
+    protected override ErrorTypes[] GetErrorTypes()
+    {
+        return new ErrorTypes[] { ErrorTypes.LoadQuestions };
+    }
     public QuestionsManager questionsManager;
 
     protected override void OnStart()
@@ -60,19 +59,19 @@ public class QuestionsVM : BaseViewModel
     }
     protected override void SetModel()
     {
-        model = AppModel.Instance;
+        base.SetModel();
         model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
-            // The model got the questions from the database.
-            if (eventArgs.PropertyName.Equals("Questions") && !IsQuestionSet)
-            {
+            if (this == null) { return; }
 
+            // The model got the questions from the database.
+            if (eventArgs.PropertyName.Equals("Questions") && !IsQuestionSet && model.Questions.Length > 0)
+            {
                 questionNum = 0;
                 numberOfQuestions = model.Questions.Length;
                 questionsManager.SetQuestions(model.Questions.ToArray());
                 IsQuestionSet = true;
                 model.InitUserLastAns();
-
 
                 DisplayQuestion();
             }
@@ -83,12 +82,10 @@ public class QuestionsVM : BaseViewModel
             }
         };
 
-
-
         lastHintsNumber = model.HintsNumber;
 
         // Get the questions of the selected subject category.
-        model.SetQuestionsByCategory(SelectedSubject, toRnd: true);
+        model.SetQuestionsByCategory(SelectedSubject, true);
 
         IsHintButtonOn = true;
         NotifyPropertyChanged("HintsNumber");
@@ -97,26 +94,18 @@ public class QuestionsVM : BaseViewModel
 
     }
 
-
+    // Set the propertychanged property of the question manager.
     private void SetQuestionsManager()
     {
-        
         questionsManager.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
+            if (this == null) { return; }
+
             if (eventArgs.PropertyName.Equals("LastAnswerResults"))
             {
-                // questionNumber, isCorrect.
-                Tuple<int, bool> result = questionsManager.LastAnswerResults;
+                Tuple<int, bool> result = questionsManager.LastAnswerResults;  // questionNumber, isCorrect.
                 model.SetUserScore(result.Item1, result.Item2);
-                
-                if (result.Item2)
-                {
-                    NotifyPropertyChanged("CorrectAnswer");
-                }
-                else
-                {
-                    NotifyPropertyChanged("WrongAnswer");
-                }
+                IsHintButtonOn = false;
             }
 
         };
@@ -132,25 +121,23 @@ public class QuestionsVM : BaseViewModel
 
         // New question - update the question number.
         QuestionNumText = (questionNum + 1).ToString();
-        //NotifyPropertyChanged("QuestionNumText");
-
         IsHintButtonOn = true;
     }
 
 
-    // NO ONE IS CALLING THIS!!!!!
-    // On click event handler for clicking an answer.
-    public void OnClickAnswer(bool isAnsCorrect)
-    {
+    //// NO ONE IS CALLING THIS!!!!!
+    //// On click event handler for clicking an answer.
+    //public void OnClickAnswer(bool isAnsCorrect)
+    //{
 
-        // Set the answer buttons to be not clickable.
-        // IsAnsInteractable = false;
+    //    // Set the answer buttons to be not clickable.
+    //    // IsAnsInteractable = false;
 
-        IsHintButtonOn = false;
-        //questionsManager.OnClickAnswer(isAnsCorrect);
-        //if (!isAnsCorrect) { NotifyPropertyChanged("WrongAnswer"); }
-        // model.SetUserScore(questions[questionNum].questionNumber, isAnsCorrect);
-    }
+    //    IsHintButtonOn = false;
+    //    //questionsManager.OnClickAnswer(isAnsCorrect);
+    //    //if (!isAnsCorrect) { NotifyPropertyChanged("WrongAnswer"); }
+    //    // model.SetUserScore(questions[questionNum].questionNumber, isAnsCorrect);
+    //}
 
     // On click event handler for clicking next question button.
     public void OnClickNextQuestion()

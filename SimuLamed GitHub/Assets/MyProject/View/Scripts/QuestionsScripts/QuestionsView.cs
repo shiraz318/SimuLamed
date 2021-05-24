@@ -13,18 +13,19 @@ public class QuestionsView : BaseView
     private QuestionsVM viewModel;
     
     private static Image image;
-    private static Animator animator;
+   // private static Animator animator;
     private static List<GameObject> answers;
+    public Animation anim;
 
     //private float positionYImage;
     //private float originalImageHeight;
     //private float originalImageWidth;
     //private bool isImageBigger;
 
-    private void Start()
+    private void Awake()
     {
         image = GameObject.Find("ImageButton").GetComponentInChildren<Image>();
-        animator = GameObject.Find("PopStar").GetComponent<Animator>();
+        //animator = GameObject.Find("PopStar").GetComponentInChildren<Animator>();
         SetViewModel();
         //SetOriginalImageSize();
         //isImageBigger = false;
@@ -39,15 +40,54 @@ public class QuestionsView : BaseView
         viewModel = GameObject.Find("View").GetComponent<QuestionsVM>();
         viewModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
-            if (eventArgs.PropertyName.Equals("CorrectAnswer"))
+            if (this == null) { return; }
+            if (eventArgs.PropertyName.Equals("IsNewHint"))
             {
-                soundManager.OnClickCorrectAns();
-            }
-            else if (eventArgs.PropertyName.Equals("WrongAnswer"))
-            {
-                soundManager.OnClickWrongAns();
+                if (viewModel.IsNewHint)
+                {
+                    soundManager.GotNewHint();
+                    
+                    //animator.SetTrigger("Start");
+                    //animator.ResetTrigger("Start");
+                    
+                    //animator.Play("Base Layer.PopStar");
+                    //anim.Play();
+                    
+                }
             }
         };
+        //viewModel.questionsManager.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
+        //{
+        //    if (eventArgs.PropertyName.Equals("LastAnswerResults"))
+        //    {
+        //        // Correct answer.
+        //        if (viewModel.questionsManager.LastAnswerResults.Item2)
+        //        {
+        //            soundManager.OnClickCorrectAns();
+        //        }
+        //        else
+        //        {
+        //            soundManager.OnClickWrongAns();
+        //        }
+        //    }
+        //};
+
+        //viewModel.questionsManager.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
+        //{
+        //    if (eventArgs.PropertyName.Equals("LastAnswerResults"))
+        //    {
+        //        // Correct answer.
+        //        if (viewModel.questionsManager.LastAnswerResults.Item2)
+        //        {
+        //            soundManager.OnClickCorrectAns();
+        //        }
+        //        else
+        //        {
+        //            soundManager.OnClickWrongAns();
+        //        }
+        //    }
+
+        //};
     }
 
     //// Set the original size of the image.
@@ -135,19 +175,18 @@ public class QuestionsView : BaseView
         viewModel.OnClickHint();
     }
 
-    // On click event handler for clicking last question button.
-    public void OnClickLastQuestion()
-    {
-        viewModel.OnClickLastQuestion();
-    }
+    //// On click event handler for clicking last question button.
+    //public void OnClickLastQuestion()
+    //{
+    //    viewModel.OnClickLastQuestion();
+    //}
 
     // On click event handler for clicking next question button.
-    public void OnClickNextQuestion()
-    {
-        soundManager.OnClickButton();
-        viewModel.OnClickNextQuestion();
-
-    }
+    //public void OnClickNextQuestion()
+    //{
+    //    soundManager.OnClickButton();
+    //    viewModel.OnClickNextQuestion();
+    //}
 
 
 }

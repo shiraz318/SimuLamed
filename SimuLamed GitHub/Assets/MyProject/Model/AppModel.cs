@@ -11,26 +11,41 @@ namespace Assets.model
 {
     public sealed class AppModel : IAppModel
     {
-        // Properties.
-        public Question[] Questions { get ; set ; }
-        public ErrorObject Error { get ; set ; }
-        public int NumOfQuestions { get { return fromQuestionNumToType.Count; } }
-        public int HintsNumber { get { return currentUser != null ? currentUser.state.numOfHints : 0; } }
-        public QuestionType SelectedSubject { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        
-        // Private members.
+        // Private fields.
+        private bool isSignedUp;
+        private bool isSignedIn;
+        private bool isResetPassword;
+        private bool isUserSaved;
+        private Question[] questions;
         private IDatabaseHandler databaseHandler;
         private User currentUser;
         private Dictionary<int, QuestionType> fromQuestionNumToType;
 
-        // Singleton related fields.
-        private static readonly object padlock = new object();
-        private static AppModel instance = null;
-        
+        // Properties.
+        public Question[] Questions { get { return questions; } 
+            set { questions = value; NotifyPropertyChanged("Questions"); } }
+        public ErrorObject Error { get ; set ; }
+        public int NumOfQuestions { get; set; }
+        public int HintsNumber { get { return currentUser.IsAssigned ? currentUser.state.numOfHints : 0; } 
+            set{ currentUser.state.numOfHints = value; NotifyPropertyChanged("HintsNumber"); } }
+        public int OpenLevel { get { return currentUser.state.openLevel; } 
+            set { currentUser.state.openLevel = value; } }
+        public QuestionType SelectedSubject { get; set; }
+        public string CurrentUsername { get { return currentUser.IsAssigned ? currentUser.details.username : ""; } }
+        public bool IsSignedUp { get { return isSignedUp; } 
+            set { isSignedUp = value; NotifyPropertyChanged("IsSignedUp"); } }
+        public bool IsSignedIn { get { return isSignedIn; } 
+            set { isSignedIn = value; NotifyPropertyChanged("IsSignedIn"); } }
+        public bool IsResetPassword { get { return isResetPassword; } 
+            set { isResetPassword = value; NotifyPropertyChanged("IsResetPassword"); } }
+        public bool IsUserSaved { get { return isUserSaved; } 
+            set { isUserSaved = value; NotifyPropertyChanged("IsUserSaved"); } }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         // Thread safety singleton using double check locking 
+        private static readonly object padlock = new object();
+        private static AppModel instance = null;
         public static AppModel Instance
         {
             get
@@ -52,87 +67,128 @@ namespace Assets.model
         // Private Constructor.
         private AppModel()
         {
+            // Initialization.
             databaseHandler = FirebaseManager.Instance;
             Error = new ErrorObject("", ErrorTypes.None);
-            ResetCurrentUser();
+
+            currentUser.ResetUser();
             Questions = new Question[0];
             fromQuestionNumToType = new Dictionary<int, QuestionType>();
         }
 
-        // Get the username of the current user.
-        public string GetCurrentUsername()
-        {
-            return currentUser != null ? currentUser.details.username : "";
-        }
-
-        // Reset the current user.
-        public void ResetCurrentUser()
-        {
-            currentUser = null;
-        }
 
         // Reset password.
-        public void ResetPassword(string email, Utils.OnSuccessFunc onSuccess)
+        public void ResetPassword(string email)
         {
-            onSuccess += delegate { ResetError(); };
-
-            if (IsVaildEmailAddress(email))
-            {
-                databaseHandler.ResetPassword(email, onSuccess, (message) => SetError(message, ErrorTypes.ResetPassword));
-            }
-            else
-            {
-                SetError(Utils.INAVLID_EMAIL_MESSAGE_H, ErrorTypes.ResetPassword);
-            }
+            // If email is valid - reset password.
+            ActionIfEmailIsValid(email,
+                () => databaseHandler.ResetPassword(email,
+                    () => { ResetError(); IsResetPassword = true; },
+                    (message) => SetError(message, ErrorTypes.ResetPassword)
+                    ),
+                ErrorTypes.ResetPassword);
         }
         
-        // Sign in.
-        public void SignIn(string password, string email, Utils.OnSuccessFunc onSuccess)
+        public void SetFromNumToType(ErrorTypes errorType)
         {
-            Utils.OnSuccessSignInFunc newOnSuccess = delegate (User user) 
-            { 
-                onSuccess(); 
-                currentUser = user;
-                NotifyPropertyChanged("HintsNumber");
-
-                // Get all the questions from the database.
-                databaseHandler.GetQuestionsByCategory(user.details.idToken, Utils.MIXED_HEBREW, onSuccess:(questions)=> 
+            databaseHandler.GetAllQuestions(currentUser.details.idToken, onSuccess: (questions) =>
                 {
                     if (fromQuestionNumToType.Count == 0)
                     {
+                        questions = questions.OrderBy(x => x.questionNumber).ToArray();
+
                         fromQuestionNumToType = questions.ToDictionary(x => x.questionNumber,
                             x => Question.FromCategoryToTypeHebrew(x.questionCategory));
                     }
-                    
+
                     ResetError();
-                    currentUser.InitUserScore(NumOfQuestions);
+                    NotifyPropertyChanged("FromQuestionNumToType");
                 },
-                onFailure:(message) => { SetError(message, ErrorTypes.SignIn); }); 
+                onFailure: (message) => { SetError(message, errorType); });
+        }
+
+        // Sign in.
+        public void SignIn(string password, string email)
+        {
+            Action<User> newOnSuccess = delegate (User user)
+            {
+                IsSignedIn = true;
+                currentUser = user;
+                currentUser.IsAssigned = true;
+                NotifyPropertyChanged("HintsNumber");
+
+            // I THINK THIS SHOULD MOVE TO STATISTICS SECTION. NOT SIGN IN.
+            // MAY BE FOR INITSCORE - ONLY GET NUMBER OF QUESTIONS.
+
+
+            databaseHandler.GetNumberOfQuestions(user.details.idToken, (numOfQuestions) =>
+            {
+                NumOfQuestions = numOfQuestions;
+                ResetError();
+                currentUser.state.InitScore(numOfQuestions);
+            },
+            (error) => { SetError(error, ErrorTypes.SignIn); });
+
+            //    // Get all the questions from the database.
+            //    databaseHandler.GetAllQuestions(user.details.idToken, onSuccess:(questions)=> 
+            //    {
+            //        if (fromQuestionNumToType.Count == 0)
+            //        {
+            //            fromQuestionNumToType = questions.ToDictionary(x => x.questionNumber,
+            //                x => Question.FromCategoryToTypeHebrew(x.questionCategory));
+            //        }
+                    
+            //        ResetError();
+            //        currentUser.state.InitScore(NumOfQuestions);
+            //    },
+            //    onFailure:(message) => { SetError(message, ErrorTypes.SignIn); }); 
             };
+            
+            // If email is valid - sign in.
+            ActionIfEmailIsValid(email, 
+                () => databaseHandler.SignInUser(password, email, newOnSuccess,
+                    (message) => SetError(message, ErrorTypes.SignIn)), 
+                ErrorTypes.SignIn);
+        }
 
-            if (IsVaildEmailAddress(email))
-            {
-                databaseHandler.SignInUser(password, email, newOnSuccess, (message) => SetError(message, ErrorTypes.SignIn));
-            }
-            else
-            {
-                SetError(Utils.INAVLID_EMAIL_MESSAGE_H, ErrorTypes.SignIn);
-            }
-
+        // Create a new user.
+        private User CreateUser(string username, string email, string idToken, string localId)
+        {
+            UserDetails details = new UserDetails(username, email, localId, idToken);
+            UserState state = new UserState(new int[] { -1 }, Utils.INITIAL_NUMBER_OF_HINTS, 0);
+            return new User(details, state);
         }
 
         // Sign up.
-        public void SignUp(string username, string password, string email, Utils.OnSuccessFunc onSuccess)
+        public void SignUp(string username, string password, string email)
         {
-            onSuccess += delegate { ResetError(); };
+            Action<string> onFailure = (message) => SetError(message, ErrorTypes.SignUp);
 
-            if (IsVaildEmailAddress(email))
+            // If signing up is done successfully, save the new user to the database.
+            Action<string,string> onSuccessSignUp = (string idToken, string localId) =>
             {
-                databaseHandler.SignUpUser(username, password, email, onSuccess, (message) => SetError(message, ErrorTypes.SignUp));
+                // If saving the new user is done successfully, reset the error object and set IsSignedUp to true.
+                databaseHandler.SaveNewUser(CreateUser(username, email, idToken, localId),
+                    ()=> { ResetError(); IsSignedUp = true; },
+                    onFailure);
+            };
+            
+            // If email is valid - sign up.
+            ActionIfEmailIsValid(email,
+                () => databaseHandler.SignUp(password, email, onSuccessSignUp, onFailure),
+                ErrorTypes.SignUp);
+        }
+
+        // Activate onSuccess action if the given email is valid.
+        private void ActionIfEmailIsValid(string email, Action onSuccess, ErrorTypes errorType)
+        {
+            if (IsVaildEmailAddress(email)) 
+            {
+                onSuccess(); 
             }
-            else
-            {
-                SetError(Utils.INAVLID_EMAIL_MESSAGE_H, ErrorTypes.SignUp);
+            else 
+            { 
+                SetError(Utils.INAVLID_EMAIL_MESSAGE_H, errorType);
             }
         }
 
@@ -151,47 +207,48 @@ namespace Assets.model
             }
         }
 
+        public void SetQuestionsByLevel(string level)
+        {
+            databaseHandler.GetQuestionsInLevel(currentUser.details.idToken, level, 
+                (questions) => { SetQuestions(questions, false); ResetError(); },
+                (message) => { SetError(message, ErrorTypes.LoadQuestions); });
+        }
+
         // Set questions property by the given category.
         public void SetQuestionsByCategory(string category, bool toRnd)
         {
             // Get all questions of the given category from the database.
             databaseHandler.GetQuestionsByCategory(currentUser.details.idToken, category, 
-                onSuccess:(questions) => 
-                {
-                    SetQuestions(questions, toRnd);
-                    ResetError();
-                },
-                onFailure:(message) => { 
-                    SetError(message, ErrorTypes.SignIn); 
-                });
+                // If getting the questions is done successfully, set the questions property and reset the error object.
+                (questions) => { SetQuestions(questions, toRnd); ResetError(); },
+                (message) => { SetError(message, ErrorTypes.LoadQuestions); });
         }
 
-        // Set the questions property to the given questions array and notify it.
-        private void SetQuestions(Question[] questions, bool toRnd)
+        // Set the questions property to the given questions array and randomize it accornding to toRnd.
+        private void SetQuestions(Question[] inputQuestions, bool toRnd)
         {
             if (toRnd)
             {
                 System.Random rnd = new System.Random();
-                questions = questions.OrderBy(x => rnd.Next()).ToArray();
-
+                inputQuestions = inputQuestions.OrderBy(x => rnd.Next()).ToArray();
             }
             else
             {
-                questions = questions.OrderBy(x => x.questionNumber).ToArray();
-
+                inputQuestions = inputQuestions.OrderBy(x => x.questionNumber).ToArray();
             }
-            Questions = questions;
-            NotifyPropertyChanged("Questions");
+            Questions = inputQuestions;
         }
 
         // Save current user to the database.
-        public void SaveUser(Utils.OnSuccessFunc onSuccess)
-        {
-            onSuccess += delegate { ResetError(); };
+        public void SaveUser()
+        {            
+            // Set the correct answers of the current user.
+            currentUser.state.SetCorrectAns();
 
-            currentUser.SetCorrectAns();
-            if (currentUser.state.correctAnswers.Length == 0) { currentUser.state.correctAnswers = new int[] { -1 }; }
-            databaseHandler.SaveUser(currentUser, onSuccess , (message) => SetError(message, ErrorTypes.SaveScore)) ;
+            // If posting the user is done successfully, reset the error object and set IsUserSaved to true.
+            databaseHandler.PostUser(currentUser,
+                ()=> { ResetError(); IsUserSaved = true; },
+                (message) => SetError(message, ErrorTypes.SaveScore)) ;
         }
 
         // Reset the error propery.
@@ -203,43 +260,27 @@ namespace Assets.model
         // Set the current user score according to the given question number and wether the user was correct or not.
         public void SetUserScore(int questionNum, bool isAnsCorrect)
         {
-            currentUser.SetScore(questionNum, isAnsCorrect);
+            // Set the current user score.
+            currentUser.state.SetScore(questionNum, isAnsCorrect);
             
             // The user deserve a new hint.
-            if (currentUser.IsDeserveNewHint())
+            if (currentUser.state.IsDeserveNewHint())
             {
-                currentUser.AddHint();
-                NotifyPropertyChanged("HintsNumber");
+                HintsNumber = HintsNumber + 1;
             }
-            //CurrentUser.score.SetQuestionScore(questionNum, isAnsCorrect);
         }
 
+        // Initialize the user count of correct answers in a row.
         public void InitUserLastAns()
         {
-            currentUser.InitLastAns();
+            currentUser.state.InitCorrectAnsInARowCounter();
         }
 
         // Set the Error propery according to the given message and error type.
         private void SetError(string message, ErrorTypes errorType)
         {
-            if (message.Equals("EMAIL EXISTS"))
-            {
-                message = "כתובת אימייל נמצאת בשימוש";
-            }
-            else if (message.Equals("EMAIL NOT FOUND")) 
-            {
-                message = "כתובת אימייל לא קיימת";
-            }
-            else if (message.Equals("INVALID PASSWORD"))
-            {
-                message = "סיסמא שגויה";
-            }
-            else if (message.Equals("WEAK PASSWORD "))
-            {
-                message = "סיסמא חלשה. אנא הזן לפחות 6 תווים";
-            }
-            Error.Message = message;
             Error.ErrorType = errorType;
+            Error.Message = message;
             NotifyPropertyChanged("Error");
         }
 
@@ -257,37 +298,34 @@ namespace Assets.model
             int numOfCorrectAnswers = fromQuestionNumToType.Where(pair =>
             pair.Value == Question.FromCategoryToTypeHebrew(category) &&
             currentUser.state.correctAnswers.Contains(pair.Key)).Select(pair => pair.Key).Count();
-            //currentUser.correctAnswers.Contains(pair.Key)).Select(pair => pair.Key).Count();
             return numOfCorrectAnswers;
         }
 
         // Decrease a hint to the current user.
         public void DecreaseHint()
         {
-            currentUser.DecreaseHint();
-            NotifyPropertyChanged("HintsNumber");
-        }
-        public int GetOpenLevel()
-        {
-            return currentUser.GetOpenLevel();
+            HintsNumber = HintsNumber - 1;
         }
         
+        public void UpdateUserLevel(int level)
+        {
+            if (currentUser.state.openLevel < level)
+            {
+                currentUser.state.openLevel = level;
+            }
+        }
+
+        // Update current user score according to the given player score.
         public void UpdateUserScore(Utils.QuestionOption[] playerScore)
         {
             currentUser.state.UpdateScore(playerScore);
         }
-        
-        public void UpdateUserOpenLevel(int openLevel)
+
+        // Reset the current user.
+        public void ResetCurrentUser()
         {
-            currentUser.state.openLevel = openLevel;
+            currentUser.ResetUser();
         }
-
-
-        //public int GetNumOfQuestions()
-        //{
-        //    return NumOfQuestions;
-        //}
-
 
         // Notify property changed.
         public void NotifyPropertyChanged(string propName)
@@ -297,6 +335,7 @@ namespace Assets.model
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
         }
+
 
     }
 

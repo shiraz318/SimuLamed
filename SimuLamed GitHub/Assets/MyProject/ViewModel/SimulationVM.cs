@@ -13,46 +13,69 @@ using UnityWeld.Binding;
 [Binding]
 public class SimulationVM : BaseViewModel
 {
-    public QuestionsManager questionsManager;
-
-
-    public const int NUMBER_OF_LEVELS = 3;
-    private const int MAX_NUMBER_OF_ERRORS = 4;
-
-    private int currentLevel;
+    // Private fields.
+    private const int MAX_NUMBER_OF_ERRORS = 1;
     private int displayedQuestionsCounter;
-    public int DisplayedQuestionsCounter { get { return displayedQuestionsCounter; } set { displayedQuestionsCounter = value; QuestionNumberText = value.ToString(); } }
-
-
-
     private int lives;
+    private string questionNumberText;
+    private Utils.QuestionOption[] playerScore;
+
+    // Properties
+    public int DisplayedQuestionsCounter { get { return displayedQuestionsCounter; } set { displayedQuestionsCounter = value; QuestionNumberText = value.ToString(); } }
     [Binding]
     public int Lives { get { return lives; } set { lives = value; NotifyPropertyChanged("Lives"); } }
-    [Binding]
-    public int Level { get; set; }
-
-    private string questionNumberText; 
+    //[Binding]
+    //public static int Level;
     [Binding]
     public string QuestionNumberText { get { return DisplayedQuestionsCounter.ToString() + "/" + Utils.QUESTIONS_NUM_IN_SIM; } set {questionNumberText = value + "/" + Utils.QUESTIONS_NUM_IN_SIM; NotifyPropertyChanged("QuestionNumberText"); }  }
 
-    private Utils.QuestionOption[] playerScore;
     
+    public const int NUMBER_OF_LEVELS = 3;
+    public QuestionsManager questionsManager;
     
-    
-    void Awake()
+    //public static string currentLevelName = LevelsVM.chosenLevel;
+    public static int currentLevel = LevelsVM.chosenLevelIdx;
+
+
+    protected override void OnStart()
     {
+        currentLevel = LevelsVM.chosenLevelIdx;
+        Debug.Log("CURRENT LEVEL NAME: " + FromIdxToName());
+        Debug.Log(currentLevel);
         DisplayedQuestionsCounter = 0;
-        SetModel();
-        ResetScore();
+        //SetModel();
+        
+        //if (!LevelsVM.isSet)
+        //{
+        //     currentLevel = LevelsVM.chosenLevelIdx;
+        //    LevelsVM.isSet = true;
+        //}
 
         SetQuestionsManager();
-        
+        //GameObject.Find("QuestionMenu").SetActive(false);
         // Get all the questions.
-        model.SetQuestionsByCategory(Utils.MIXED_HEBREW, toRnd:false);
+        //model.SetQuestionsByCategory(Utils.MIXED_HEBREW, toRnd:false);
+
+       
+
+        // Get only the quesions of the current level simulation.!
+
         Lives = MAX_NUMBER_OF_ERRORS;
-        
+    }
 
-
+    private string FromIdxToName()
+    {
+        switch (currentLevel)
+        {
+            case 1:
+                return "Level1";
+            case 2:
+                return "Level2";
+            case 3:
+                return "Level3";
+            default:
+                return LevelsVM.chosenLevel;
+        }
     }
 
     private void ResetScore()
@@ -79,20 +102,39 @@ public class SimulationVM : BaseViewModel
     // Set the model.
     protected override void SetModel()
     {
-        model = AppModel.Instance;
+        base.SetModel();
         model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
+            if (this == null) { return; }
+
+            string propertyName = GetPropertyName();
+
             // The model got the questions from the database.
             if (eventArgs.PropertyName.Equals("Questions"))
             {
                 questionsManager.SetQuestions(model.Questions.ToArray());
             }
+            else if (eventArgs.PropertyName.Equals(propertyName))
+            {
+                NotifyPropertyChanged(propertyName);
+            }
         };
+        model.SetQuestionsByLevel(FromIdxToName());
+        ResetScore();
     }
+
+    
+
     private void SetQuestionsManager()
     {
+       // questionsManager = GameObject.Find("QuestionsManager").GetComponent<QuestionsManager>();
+        questionsManager.IsSimulationQuestinos = true;
+        //questionsManager.SetQuestions(model.Questions.ToArray());
+
         questionsManager.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
+            if (this == null) { return; }
+
             // The player answered a question.
             if (eventArgs.PropertyName.Equals("LastAnswerResults"))
             {
@@ -103,6 +145,10 @@ public class SimulationVM : BaseViewModel
                 if (result.Item2)
                 {
                     playerScore[result.Item1] = Utils.QuestionOption.Correct;
+                    if (displayedQuestionsCounter.ToString().Equals(Utils.QUESTIONS_NUM_IN_SIM))
+                    {
+                        OnFinishLevel();
+                    }
                 }
                 else
                 {
@@ -116,24 +162,31 @@ public class SimulationVM : BaseViewModel
 
     public void OnFinishLevel()
     {
-        if (Level <= (NUMBER_OF_LEVELS - 1))
+        if (currentLevel < (NUMBER_OF_LEVELS))
         {
-            Level++;
+            //currentLevel++;
+            // Save the user level. 
+            NotifyPropertyChanged("OpenedLevel");
+        }
+        else
+        {
+            NotifyPropertyChanged("FinishLastLevel");
         }
 
 
-        // Set the user score to && between the user score arrays.
-        //model.UpdateUserScore(playerScore);
-
-        // Save the user level. 
-        NotifyPropertyChanged("LevelFinished");
 
 
     }
-    public void OnExitSimulation(Utils.OnSuccessFunc onSuccess)
+    protected override ErrorTypes[] GetErrorTypes() { return new ErrorTypes[]{ ErrorTypes.SaveScore, ErrorTypes.LoadQuestions }; }
+    public string GetPropertyName()
+    {
+        return "IsUserSaved";
+    }
+    public void OnExitSimulation()
     {
         model.UpdateUserScore(playerScore);
-        model.SaveUser(onSuccess) ;
+        model.UpdateUserLevel(currentLevel - 1);
+        model.SaveUser();
+        
     }
-
 }

@@ -1,40 +1,55 @@
 ﻿using Assets;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelsView : BaseView
 {
-    //private SceneLoader sceneLoader;
-    public GameObject loadingCircle;
+    //public GameObject loadingCircle;
+    //public string ChosenLevel;
+    //public string LevelName;
+    //public int LevelIdx;
 
+    //private LevelsVM viewModel;
 
-    public static string ChosenLevel;
-    private void Start()
-    {
-        //sceneLoader = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
-        loadingCircle.SetActive(false);
-    }
+    //private new void Start()
+    //{
+    //    base.Start();
+    //    loadingCircle.SetActive(false);
+    //    viewModel = GameObject.Find("View").GetComponent<LevelsVM>();
+    //}
 
-    public void OnClickLevel(string level)
-    {
-        loadingCircle.SetActive(true);
-        if (level.Contains("1"))
-        {
-            ChosenLevel = Utils.SIMULATION_SCENE_1;
-        }
-        else if (level.Contains("2"))
-        {
-            ChosenLevel = Utils.SIMULATION_SCENE_2;
-        }
-        else if (level.Contains("3"))
-        {
-            ChosenLevel = Utils.SIMULATION_SCENE_3;
-        }
+    //// On click any level button event handler.
+    //public void OnClickLevel(string level)
+    //{
+    //    //loadingCircle.SetActive(true);
+    //    if (level.Contains("1"))
+    //    {
+    //        ChosenLevel = Utils.SIMULATION_SCENE_1;
+    //        //LevelName = "Level1";
+    //        //LevelIdx = 1;
+    //    }
+    //    else if (level.Contains("2"))
+    //    {
+    //        ChosenLevel = Utils.SIMULATION_SCENE_2;
+    //        //LevelName = "Level2";
+    //        //LevelIdx = 2;
+    //    }
+    //    else if (level.Contains("3"))
+    //    {
+    //        ChosenLevel = Utils.SIMULATION_SCENE_3;
+    //        //LevelName = "Level3";
+    //        //LevelIdx = 3;
+    //    }
         
-        OnClickButton();
-        sceneLoader.LoadLevel(ChosenLevel);
-    }
+    //    // MAY BE HERE TO LOAD THE QUESTION FROM THE DATABASE ACCORDING TO THE CHOSEN LEVEL.
+
+    //    //OnClickButton();
+    //    //viewModel.OnChooseLevel(LevelName, LevelIdx);
+    //    sceneLoader.LoadLevel(ChosenLevel);
+    //}
+
 }

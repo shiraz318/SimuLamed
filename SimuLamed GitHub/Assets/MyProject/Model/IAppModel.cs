@@ -11,33 +11,31 @@ namespace Assets.model
     public interface IAppModel : INotifyPropertyChanged
     {
         // Properties.
-        Question[] Questions { get; set; }
+        Question[] Questions { get; set; } 
         ErrorObject Error { get; set; }
-        int NumOfQuestions { get; }
-        int HintsNumber { get; }
+        int NumOfQuestions { get; set; }
+        int HintsNumber { get; set; }
+        int OpenLevel { get; set; }
+        string CurrentUsername { get;}
         QuestionType SelectedSubject { get; set; }
 
 
 
         // Methods.
-        void SignIn(string password, string email, Utils.OnSuccessFunc onSuccess);
-        void SignUp(string username, string password, string email, Utils.OnSuccessFunc onSuccess);
-        void ResetPassword(string email, Utils.OnSuccessFunc onSuccess);
-        
-        string GetCurrentUsername();
+        void SignIn(string password, string email);
+        void SignUp(string username, string password, string email);
+        void ResetPassword(string email);
         void ResetCurrentUser();
-
         void SetQuestionsByCategory(string category, bool toRnd);
-        //void SetQuestionsByCategory(string category);
         void SetUserScore(int questionNum, bool isAnsCorrect);
-        void SaveUser(Utils.OnSuccessFunc onSuccess);
+        void SaveUser();
         int GetNumOfQuestionsByCategory(string category);
         int GetNumOfCorrectAnswersByCategory(string category);
         void DecreaseHint();
         void InitUserLastAns();
-        int GetOpenLevel();
         void UpdateUserScore(Utils.QuestionOption[] playerScore);
-        void UpdateUserOpenLevel(int openLevel);
-        //int GetNumOfQuestions();
+        void SetFromNumToType(ErrorTypes errorType);
+        void SetQuestionsByLevel(string level);
+        void UpdateUserLevel(int level);
     }
 }

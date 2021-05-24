@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 174876643566828318}
   - component: {fileID: 174876643566828317}
   - component: {fileID: 174876643566828316}
-  - component: {fileID: 8084035369612041819}
+  - component: {fileID: 1809812270963922630}
   m_Layer: 5
   m_Name: InfoButton
   m_TagString: Untagged
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8084035369612041819}
+      - m_Target: {fileID: 1809812270963922630}
         m_MethodName: OnClickInfoButton
         m_Mode: 1
         m_Arguments:
@@ -131,7 +131,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8084035369612041819
+--- !u!114 &1809812270963922630
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 174876643566828314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e53aa7febe66a844d829dabd791da95f, type: 3}
+  m_Script: {fileID: 11500000, guid: 20785a38f4a24e941b7dca2ad9798d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   infoScreen: {fileID: 174876643631315716}

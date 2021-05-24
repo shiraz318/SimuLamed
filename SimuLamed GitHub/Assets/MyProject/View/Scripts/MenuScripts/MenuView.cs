@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class MenuView : BaseView
 {
+
     // On click event handler for clicking the start simulation button.
     //public void OnClickStartSimulation()
     //{
@@ -22,7 +23,7 @@ public class MenuView : BaseView
     //{
     //    GoToOtherScene(Utils.STATISTICS_SCENE);
     //}
-    
+
     //// On click event handler for clicking the options button.
     //public void OnClickSettings()
     //{
@@ -31,12 +32,11 @@ public class MenuView : BaseView
     //}
 
     // On click event handler for clicking the log out button.
-    public void OnClickLogOut()
-    {
-        PlayerPrefs.DeleteAll();
-        
-        MenuVM viewModel = GameObject.Find("View").GetComponent<MenuVM>();
-        viewModel.LogOut();
-        GoToOtherScene(Utils.SIGN_IN_SCENE);
-    }
+    //public void OnClickLogOut()
+    //{
+    //    PlayerPrefs.DeleteAll();
+    //    MenuVM viewModel = GameObject.Find("View").GetComponent<MenuVM>();
+    //    viewModel.LogOut();
+    //    GoToOtherScene(Utils.SIGN_IN_SCENE);
+    //}
 }

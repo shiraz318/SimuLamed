@@ -824,8 +824,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 893d7aded8478d74f89d07462d9e1994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneLoader: {fileID: 1524319745}
-  soundManager: {fileID: 2016752012}
 --- !u!1 &611796745
 GameObject:
   m_ObjectHideFlags: 0
@@ -2606,18 +2604,6 @@ MonoBehaviour:
   viewAdapterOptions: {fileID: 0}
   viewModelPropertyName: SignInVM.IsLoadingCircleOn
   viewPropertyName: UnityEngine.UI.Image.enabled
---- !u!114 &1524319745 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1852030449259734886, guid: 277761a2d971b0e4e9ccac9ed4781cf3,
-    type: 3}
-  m_PrefabInstance: {fileID: 1316570681}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d28668d2816aaa4b919af3109a9461b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1563412425
 GameObject:
   m_ObjectHideFlags: 0
@@ -3858,6 +3844,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074783411281034391, guid: bfc87eeabf2b2804f9f208f906d4a33e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bfc87eeabf2b2804f9f208f906d4a33e, type: 3}

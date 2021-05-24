@@ -30,7 +30,6 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
 
         CarStartPosition = optionalStartPositions[randIndex].position;
         CarStartRotation = optionalStartPositions[randIndex].eulerAngles;
-        Debug.Log("POSITION NUMBER" + randIndex.ToString());
     }
 
     public void GetInput()
