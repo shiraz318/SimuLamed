@@ -162,6 +162,7 @@ namespace Assets.model
         // Sign up.
         public void SignUp(string username, string password, string email)
         {
+  
             Action<string> onFailure = (message) => SetError(message, ErrorTypes.SignUp);
 
             // If signing up is done successfully, save the new user to the database.
@@ -175,7 +176,7 @@ namespace Assets.model
             
             // If email is valid - sign up.
             ActionIfEmailIsValid(email,
-                () => databaseHandler.SignUp(password, email, onSuccessSignUp, onFailure),
+                () => databaseHandler.SignUp(email, password, onSuccessSignUp, onFailure),
                 ErrorTypes.SignUp);
         }
 

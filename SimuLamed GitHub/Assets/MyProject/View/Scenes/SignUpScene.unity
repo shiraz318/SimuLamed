@@ -670,9 +670,9 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1400, y: 1000}
+  m_ReferenceResolution: {x: 800, y: 800}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -743,8 +743,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c331720a648b44aace269638fb245f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneLoader: {fileID: 587521461}
-  soundManager: {fileID: 1182034888}
 --- !u!1 &553930762
 GameObject:
   m_ObjectHideFlags: 0
@@ -1072,18 +1070,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 277761a2d971b0e4e9ccac9ed4781cf3, type: 3}
---- !u!114 &587521461 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1852030449259734886, guid: 277761a2d971b0e4e9ccac9ed4781cf3,
-    type: 3}
-  m_PrefabInstance: {fileID: 587521460}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d28668d2816aaa4b919af3109a9461b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &646732324
 GameObject:
   m_ObjectHideFlags: 0
