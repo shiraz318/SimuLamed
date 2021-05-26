@@ -76,7 +76,7 @@ public class QuestionsManager : BaseViewModel
     {
         IsQuestionSet = false;
         currentQuestionNumber = 0;
-        StartCoroutine(GetImage("https://www.gov.il/BlobFolder/generalpage/tq_pic_01/he/TQ_PIC_3393.jpg"));
+        StartCoroutine(GetImage("https://www.gov.il/BlobFolder/generalpage/tq_pic_02/he/TQ_PIC_3530.jpg"));
     }
 
     // Display the given nubmer question.
