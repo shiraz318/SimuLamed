@@ -14,21 +14,21 @@ public class CameraController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
-    {
-        if(Input.GetKey(KeyCode.V))
-        {
-            if(firstCamera.activeSelf)
-            {
-                firstCamera.SetActive(false);
-                secondCamera.SetActive(true);
-            } else
-            {
-                firstCamera.SetActive(true);
-                secondCamera.SetActive(false);
-            }
-        }
-    }
+    //void FixedUpdate()
+    //{
+    //    if(Input.GetKey(KeyCode.V))
+    //    {
+    //        if(firstCamera.activeSelf)
+    //        {
+    //            firstCamera.SetActive(false);
+    //            secondCamera.SetActive(true);
+    //        } else
+    //        {
+    //            firstCamera.SetActive(true);
+    //            secondCamera.SetActive(false);
+    //        }
+    //    }
+    //}
 
     public void OnClickSwitch()
     {
