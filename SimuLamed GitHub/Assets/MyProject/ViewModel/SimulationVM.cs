@@ -14,7 +14,7 @@ using UnityWeld.Binding;
 public class SimulationVM : BaseViewModel
 {
     // Private fields.
-    private const int MAX_NUMBER_OF_ERRORS = 1;
+    private const int MAX_NUMBER_OF_ERRORS = 4;
     private int displayedQuestionsCounter;
     private int lives;
     private string questionNumberText;

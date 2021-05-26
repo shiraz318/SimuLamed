@@ -22,6 +22,7 @@ public class QuestionsManager : BaseViewModel
     private Question[] questions;
     private static int currentQuestionNumber;
 
+
     // Properties.
     public Tuple<int, bool> LastAnswerResults { get { return lastAnswerResults; } 
         set { lastAnswerResults = value; NotifyPropertyChanged("LastAnswerResults"); } }
@@ -75,6 +76,7 @@ public class QuestionsManager : BaseViewModel
     {
         IsQuestionSet = false;
         currentQuestionNumber = 0;
+        StartCoroutine(GetImage("https://www.gov.il/BlobFolder/generalpage/tq_pic_01/he/TQ_PIC_3393.jpg"));
     }
 
     // Display the given nubmer question.

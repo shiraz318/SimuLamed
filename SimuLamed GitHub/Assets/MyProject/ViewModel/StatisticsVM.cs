@@ -10,6 +10,8 @@ public class StatisticsVM : BaseViewModel
     // Private fields.
     private int totalCorrectAns = 0;
     private int totalAns = 0;
+    private bool isLoadingCircleOn;
+    private string errorMessage;
 
 
     [Binding]
@@ -47,6 +49,30 @@ public class StatisticsVM : BaseViewModel
         get { if(model == null) { return 0; } return (float)totalCorrectAns / (float)totalAns; }
     }
 
+    [Binding]
+    public override string ErrorMessage
+    {
+        get { return errorMessage; }
+        set
+        {
+            errorMessage = value;
+            if (value != "") { IsLoadingCircleOn = false; }
+            NotifyPropertyChanged("ErrorMessage");
+        }
+    }
+
+    [Binding]
+    public bool IsLoadingCircleOn
+    {
+        get { return isLoadingCircleOn; }
+        set { isLoadingCircleOn = value; NotifyPropertyChanged("IsLoadingCircleOn"); }
+    }
+
+    protected override void OnStart()
+    {
+        base.OnStart();
+        IsLoadingCircleOn = true;
+    }
     protected override void SetModel()
     {
 
@@ -62,6 +88,7 @@ public class StatisticsVM : BaseViewModel
                 NotifyPropertyChanged("MixedValue");
                 NotifyPropertyChanged("TransactionRulesValue");
                 NotifyPropertyChanged("SafetyValue");
+                IsLoadingCircleOn = false;
             }
         };
         model.SetFromNumToType(ErrorTypes.Statistics);

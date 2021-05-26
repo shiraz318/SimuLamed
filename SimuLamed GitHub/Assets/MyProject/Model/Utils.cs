@@ -86,7 +86,7 @@ namespace Assets
         public const bool DEFAULT_TO_MUTE_SOUND = false;
         
         
-        public const string QUESTIONS_NUM_IN_SIM = "1";
+        public const string QUESTIONS_NUM_IN_SIM = "30";
 
         
 
@@ -94,7 +94,7 @@ namespace Assets
 
 
 
-        public const int HINTS_PER_CORRECT_ANS = 2;
+        public const int HINTS_PER_CORRECT_ANS = 4;
         public const int INITIAL_NUMBER_OF_HINTS = 4;
 
 
