@@ -80,6 +80,14 @@ public class ScreensManager : MonoBehaviour
         menuUI.SetActive(toActivate);
         Time.timeScale = toActivate? 0f: 1f;
         gameIsPaused = toActivate? true: false;
+        if (gameIsPaused)
+        {
+            SoundManager.muteCar = true;
+        }
+        else
+        {
+            SoundManager.muteCar = soundManager.IsMute;
+        }
     }
 
     // Pause the game.

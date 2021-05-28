@@ -11,7 +11,16 @@ using UnityWeld.Binding;
 public class MyCarController : MonoBehaviour, INotifyPropertyChanged
 {
     public List<Transform> optionalStartPositions;
+    //[Binding]
+    //public bool IsMute { get { return soundManager.IsMute; } }
+    private float pitch;
+    private bool muteCar;
+    [Binding]
+    public float Pitch { get { return pitch; } set { pitch = value; NotifyPropertyChanged("Pitch"); } }
+    [Binding]
+    public bool MuteCar { get { return muteCar; } set { muteCar = value; NotifyPropertyChanged("MuteCar"); } }
 
+    private const float topSpeed = 110f;
     private Vector3 carStartPosition;
     private Vector3 carStartRotation;
     [Binding]
@@ -30,6 +39,7 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
 
         CarStartPosition = optionalStartPositions[randIndex].position;
         CarStartRotation = optionalStartPositions[randIndex].eulerAngles;
+        
     }
 
     public void GetInput()
@@ -110,7 +120,16 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
         // calculate speed in km/h
         drive = rigidBody.velocity.magnitude * 3.6f;
         Speed = Round(drive, 0).ToString();
+        UpdateEngineSound(drive, topSpeed);
     }
+    private void UpdateEngineSound(float currentSpeed, float topSpeed)
+    {
+        Pitch = currentSpeed / topSpeed;
+        MuteCar = SoundManager.muteCar;
+         //GetComponent<AudioSource>().pitch = Pitch;
+        //PlaySound(carEngine);
+    }
+
 
     private void UpdateWheelPoses()
     {
@@ -138,9 +157,6 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
         Steer();
         Accelerate();
         UpdateWheelPoses();
-       
-        
-
     }
    
 
@@ -171,6 +187,11 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
         int ascii = System.Convert.ToInt32(character);
         return ascii.ToString();
     }
+
+
+
+
+
 
     public Rigidbody rigidBody;
 

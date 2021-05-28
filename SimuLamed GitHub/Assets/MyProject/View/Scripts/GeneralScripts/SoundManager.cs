@@ -15,6 +15,11 @@ public class SoundManager : MonoBehaviour
     public AudioSource pauseSimulation;
     public AudioSource quitSimulation;
     public AudioSource displayQuestionInSimulation;
+  //  public AudioSource carEngine;
+
+
+    public static bool muteCar;
+    public bool IsMute { get { return PlayerPrefs.GetInt(Utils.MUTE_SOUND) != 0; } }
 
     // On click regular button event handler.
     public void OnClickButton()
@@ -66,6 +71,13 @@ public class SoundManager : MonoBehaviour
     {
         PlaySound(pauseSimulation);
     }
+
+    //public void UpdateEngineSound(float currentSpeed, float topSpeed)
+    //{
+    //    carEngine.pitch = currentSpeed / topSpeed;
+    //    if ()
+    //    PlaySound(carEngine);
+    //}
     // Play the given sound if the user did not mute sounds.
     private void PlaySound(AudioSource sound)
     {
@@ -74,5 +86,6 @@ public class SoundManager : MonoBehaviour
             sound.Play();
         }
     }
+
 
 }
