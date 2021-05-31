@@ -44,6 +44,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Street 4 2M prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802244790182692, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4737365782299246, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -109,6 +117,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4289579308978971345}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &4310885768899944687 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 23910408433680958, guid: 0509744eed6f16e4c98e542f790a84b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 4289579308978971345}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5843721040601877954
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -116,9 +130,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6792988329143533554}
     m_Modifications:
+    - target: {fileID: 1045525805849594, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1642800337198924, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
       propertyPath: m_Name
       value: Sideway 8 prefab (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642800337198924, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4452246840175256, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -189,6 +211,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5843721040601877954}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &5858064686599997760 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 23951317768635522, guid: 5617f09499355b14bb58fe8aeb052d7e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5843721040601877954}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6679346862858978502
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -196,9 +224,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6792988329143533554}
     m_Modifications:
+    - target: {fileID: 1045525805849594, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1642800337198924, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
       propertyPath: m_Name
       value: Sideway 8 prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642800337198924, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4452246840175256, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -261,6 +297,36 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: e392b3db3896de742a7fe9186046092b, type: 2}
+    - target: {fileID: 8928779718985394558, guid: 5617f09499355b14bb58fe8aeb052d7e,
+        type: 3}
+      propertyPath: m_Size
+      value: 13.119999
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928779718985394558, guid: 5617f09499355b14bb58fe8aeb052d7e,
+        type: 3}
+      propertyPath: m_LocalReferencePoint.x
+      value: 0.0009976625
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928779718985394558, guid: 5617f09499355b14bb58fe8aeb052d7e,
+        type: 3}
+      propertyPath: m_LocalReferencePoint.z
+      value: 5.5599995
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928779718985394558, guid: 5617f09499355b14bb58fe8aeb052d7e,
+        type: 3}
+      propertyPath: m_LODs.Array.data[0].renderers.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928779718985394558, guid: 5617f09499355b14bb58fe8aeb052d7e,
+        type: 3}
+      propertyPath: m_LODs.Array.data[0].renderers.Array.data[1].renderer
+      value: 
+      objectReference: {fileID: 4310885768899944687}
+    - target: {fileID: 8928779718985394558, guid: 5617f09499355b14bb58fe8aeb052d7e,
+        type: 3}
+      propertyPath: m_LODs.Array.data[0].renderers.Array.data[2].renderer
+      value: 
+      objectReference: {fileID: 5858064686599997760}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
 --- !u!4 &6674718428972104436 stripped

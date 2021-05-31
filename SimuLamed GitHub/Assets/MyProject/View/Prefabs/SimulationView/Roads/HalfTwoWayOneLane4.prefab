@@ -75,6 +75,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Street 4 2M prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802244790182692, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4737365782299246, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -146,6 +154,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Decal_Line_Long_1
       objectReference: {fileID: 0}
+    - target: {fileID: 1466791991827730, guid: 79efc0f8407ae3345a275c3c4576b058, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4667587598522724, guid: 79efc0f8407ae3345a275c3c4576b058, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -213,9 +225,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4881475429700856761}
     m_Modifications:
+    - target: {fileID: 1045525805849594, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1642800337198924, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
       propertyPath: m_Name
       value: Sideway 8 prefab (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642800337198924, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4452246840175256, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
       propertyPath: m_LocalPosition.y

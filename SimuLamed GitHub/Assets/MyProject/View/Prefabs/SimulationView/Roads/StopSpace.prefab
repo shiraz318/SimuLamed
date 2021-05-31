@@ -63,6 +63,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -138,9 +148,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -158,6 +183,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -233,9 +268,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -253,6 +303,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -328,9 +388,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -348,6 +423,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -423,9 +508,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -443,6 +543,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -518,9 +628,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -538,6 +663,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -613,9 +748,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -633,6 +783,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -708,9 +868,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -728,6 +903,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -803,9 +988,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -823,6 +1023,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -898,9 +1108,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -918,6 +1143,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -993,9 +1228,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1013,6 +1263,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -1088,9 +1348,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1108,6 +1383,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -1183,9 +1468,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1203,6 +1503,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -1278,9 +1588,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1298,6 +1623,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -1373,9 +1708,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1396,6 +1746,14 @@ PrefabInstance:
     - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_Name
       value: Street 4 2M prefab (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802244790182692, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4285674003731666, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1480,6 +1838,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Street 4 2M prefab (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802244790182692, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4285674003731666, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.28
@@ -1559,6 +1925,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -1634,9 +2010,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1654,6 +2045,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -1729,9 +2130,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1749,6 +2165,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -1824,9 +2250,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1847,6 +2288,14 @@ PrefabInstance:
     - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_Name
       value: Street 4 2M prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802244790182692, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4285674003731666, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1931,6 +2380,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Street 4 2M prefab (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802244790182692, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4285674003731666, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.28
@@ -2010,6 +2467,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -2085,9 +2552,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2108,6 +2590,14 @@ PrefabInstance:
     - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_Name
       value: Street 4 2M prefab (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802244790182692, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4285674003731666, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2192,6 +2682,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Street 4 2M prefab (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802244790182692, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4285674003731666, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.28
@@ -2275,6 +2773,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Street 4 2M prefab (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802244790182692, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4285674003731666, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.28
@@ -2354,6 +2860,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 928177199404610738, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 929972187315253252, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 933592822456456652, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -2429,9 +2945,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedYellowSidewalk
       objectReference: {fileID: 0}
+    - target: {fileID: 7628295486723970698, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8506686443587944436, guid: 27310324686d180429afa0b5dbdd71c2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509718376968314506, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511512196621310524, guid: 27310324686d180429afa0b5dbdd71c2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

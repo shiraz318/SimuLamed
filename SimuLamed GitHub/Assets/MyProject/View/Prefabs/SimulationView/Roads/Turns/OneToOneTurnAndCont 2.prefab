@@ -109,6 +109,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turn
       objectReference: {fileID: 0}
+    - target: {fileID: 1651991887703117743, guid: c02be75c669646a449b700a25521d960,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1674069134597479588, guid: c02be75c669646a449b700a25521d960,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -1093,6 +1098,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Turn (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1651991887703117743, guid: c02be75c669646a449b700a25521d960,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1674069134597479588, guid: c02be75c669646a449b700a25521d960,
         type: 3}

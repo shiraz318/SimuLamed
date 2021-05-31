@@ -118,6 +118,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yield_02_Lines (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1642019633489756, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4487800881587776, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -185,9 +189,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 720404989512720483}
     m_Modifications:
+    - target: {fileID: 1045525805849594, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1642800337198924, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
       propertyPath: m_Name
       value: Sideway 8 prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642800337198924, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4452246840175256, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -264,6 +276,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yield_02_Lines (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 1642019633489756, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4487800881587776, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -335,6 +351,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yield_02_Lines (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1642019633489756, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4487800881587776, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -402,9 +422,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 1045525805849594, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1642800337198924, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
       propertyPath: m_Name
       value: Sideway 8 prefab (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642800337198924, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4665886090133042, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
       propertyPath: m_RootOrder
@@ -481,6 +509,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Street 4 2M prefab (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802244790182692, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4737365782299246, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -551,6 +587,10 @@ PrefabInstance:
     - target: {fileID: 1642019633489756, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
       propertyPath: m_Name
       value: Yield_02_Lines (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642019633489756, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4487800881587776, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
       propertyPath: m_RootOrder
@@ -623,6 +663,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yield_02_Lines (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 1642019633489756, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4487800881587776, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -693,6 +737,10 @@ PrefabInstance:
     - target: {fileID: 1642019633489756, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
       propertyPath: m_Name
       value: Yield_02_Lines (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642019633489756, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4487800881587776, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
       propertyPath: m_RootOrder
@@ -765,6 +813,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yield_02_Lines (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 1642019633489756, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4487800881587776, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -835,6 +887,14 @@ PrefabInstance:
     - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_Name
       value: Street 4 2M prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802244790182692, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4737365782299246, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_RootOrder
@@ -907,6 +967,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yield_02_Lines (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1642019633489756, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4487800881587776, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -974,9 +1038,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 1045525805849594, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1642800337198924, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
       propertyPath: m_Name
       value: Sideway 8 prefab (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642800337198924, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4665886090133042, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
       propertyPath: m_RootOrder
@@ -1053,6 +1125,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Street 4 2M prefab (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802244790182692, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4737365782299246, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1123,6 +1203,10 @@ PrefabInstance:
     - target: {fileID: 1642019633489756, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
       propertyPath: m_Name
       value: Yield_02_Lines (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642019633489756, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4487800881587776, guid: ad540d26dcfbbe841bbdf524fa30b090, type: 3}
       propertyPath: m_RootOrder

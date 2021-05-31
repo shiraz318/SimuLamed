@@ -140,6 +140,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crossing_Merged_Line_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1055832848285992, guid: 938db97cdfaba0a42bc9cbd8ddd8c839, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4239407795149992, guid: 938db97cdfaba0a42bc9cbd8ddd8c839, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -214,6 +218,10 @@ PrefabInstance:
     - target: {fileID: 1055832848285992, guid: 938db97cdfaba0a42bc9cbd8ddd8c839, type: 3}
       propertyPath: m_Name
       value: Crossing_Merged_Line_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055832848285992, guid: 938db97cdfaba0a42bc9cbd8ddd8c839, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4239407795149992, guid: 938db97cdfaba0a42bc9cbd8ddd8c839, type: 3}
       propertyPath: m_RootOrder
@@ -290,6 +298,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Street 4 2M prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802244790182692, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4737365782299246, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -360,6 +376,14 @@ PrefabInstance:
     - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_Name
       value: Street 4 2M prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802244790182692, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4737365782299246, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_RootOrder
@@ -432,6 +456,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Street 4 2M prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 1256093442512822, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802244790182692, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4737365782299246, guid: 0509744eed6f16e4c98e542f790a84b5, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -502,6 +534,10 @@ PrefabInstance:
     - target: {fileID: 1798583563052748, guid: 20dcc1a0a6d76784cbf41322a4ffdac5, type: 3}
       propertyPath: m_Name
       value: Crossing_Merged_Line_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798583563052748, guid: 20dcc1a0a6d76784cbf41322a4ffdac5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4796752740805866, guid: 20dcc1a0a6d76784cbf41322a4ffdac5, type: 3}
       propertyPath: m_RootOrder

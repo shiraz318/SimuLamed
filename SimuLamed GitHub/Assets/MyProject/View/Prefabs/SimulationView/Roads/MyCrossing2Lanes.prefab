@@ -109,6 +109,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MyCrossingOneLane1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8976426557545966366, guid: ddf45a2f926a19148ae13c031c3dfd1f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddf45a2f926a19148ae13c031c3dfd1f, type: 3}
 --- !u!4 &6484947028074048449 stripped
@@ -188,6 +193,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MyCrossingOneLane1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976426557545966366, guid: ddf45a2f926a19148ae13c031c3dfd1f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddf45a2f926a19148ae13c031c3dfd1f, type: 3}

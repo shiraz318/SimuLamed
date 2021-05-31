@@ -54,9 +54,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 1806105705677458, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1848551350543670, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
       propertyPath: m_Name
       value: Street 6 Prefab (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1848551350543670, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4433211905656290, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
       propertyPath: m_RootOrder
@@ -129,10 +137,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 514234438895019423, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514691869819003177, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
       propertyPath: m_Name
       value: BlueWhiteSidewalk (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3569740870910325305, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
@@ -204,6 +227,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5397675469902393244, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399259350497028906, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8e920193f46e3242b79b9b607aa3d98, type: 3}
 --- !u!4 &653976430370703532 stripped
@@ -219,10 +252,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 514234438895019423, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514691869819003177, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
       propertyPath: m_Name
       value: BlueWhiteSidewalk (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3569740870910325305, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
@@ -294,6 +342,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5397675469902393244, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399259350497028906, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8e920193f46e3242b79b9b607aa3d98, type: 3}
 --- !u!4 &790385386256134748 stripped
@@ -309,10 +367,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 514234438895019423, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514691869819003177, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
       propertyPath: m_Name
       value: BlueWhiteSidewalk (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3569740870910325305, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
@@ -384,6 +457,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5397675469902393244, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399259350497028906, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8e920193f46e3242b79b9b607aa3d98, type: 3}
 --- !u!4 &1152450461153771789 stripped
@@ -399,9 +482,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 1806105705677458, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1848551350543670, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
       propertyPath: m_Name
       value: Street 6 Prefab (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1848551350543670, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4433211905656290, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
       propertyPath: m_RootOrder
@@ -474,9 +565,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 1806105705677458, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1848551350543670, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
       propertyPath: m_Name
       value: Street 6 Prefab (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1848551350543670, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4433211905656290, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
       propertyPath: m_RootOrder
@@ -549,9 +648,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 1806105705677458, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1848551350543670, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
       propertyPath: m_Name
       value: Street 6 Prefab (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1848551350543670, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4433211905656290, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
       propertyPath: m_RootOrder
@@ -624,10 +731,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 514234438895019423, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514691869819003177, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
       propertyPath: m_Name
       value: BlueWhiteSidewalk (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3569740870910325305, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
@@ -699,6 +821,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5397675469902393244, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399259350497028906, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8e920193f46e3242b79b9b607aa3d98, type: 3}
 --- !u!4 &1152450460522160304 stripped
@@ -714,9 +846,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 1806105705677458, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1848551350543670, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
       propertyPath: m_Name
       value: Street 6 Prefab (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1848551350543670, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4433211905656290, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
       propertyPath: m_RootOrder
@@ -789,10 +929,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 514234438895019423, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514691869819003177, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
       propertyPath: m_Name
       value: BlueWhiteSidewalk (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3569740870910325305, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
@@ -864,6 +1019,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5397675469902393244, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399259350497028906, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8e920193f46e3242b79b9b607aa3d98, type: 3}
 --- !u!4 &1152450460918145748 stripped
@@ -879,10 +1044,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 514234438895019423, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514691869819003177, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
       propertyPath: m_Name
       value: BlueWhiteSidewalk (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3569740870910325305, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
@@ -954,6 +1134,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5397675469902393244, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399259350497028906, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8e920193f46e3242b79b9b607aa3d98, type: 3}
 --- !u!4 &1152450462314190339 stripped
@@ -969,10 +1159,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 514234438895019423, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514691869819003177, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
       propertyPath: m_Name
       value: BlueWhiteSidewalk (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3569740870910325305, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
@@ -1044,6 +1249,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5397675469902393244, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399259350497028906, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8e920193f46e3242b79b9b607aa3d98, type: 3}
 --- !u!4 &1152450462564450505 stripped
@@ -1059,9 +1274,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 1806105705677458, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1848551350543670, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
       propertyPath: m_Name
       value: Street 6 Prefab (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1848551350543670, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4433211905656290, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
       propertyPath: m_RootOrder
@@ -1134,10 +1357,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 514234438895019423, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514691869819003177, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
       propertyPath: m_Name
       value: BlueWhiteSidewalk (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3569740870910325305, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
@@ -1209,6 +1447,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5397675469902393244, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399259350497028906, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8e920193f46e3242b79b9b607aa3d98, type: 3}
 --- !u!4 &1152450461839266993 stripped
@@ -1224,9 +1472,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 1806105705677458, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1848551350543670, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
       propertyPath: m_Name
       value: Street 6 Prefab (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1848551350543670, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4433211905656290, guid: 9cf6fe41a87aee14499e9aa67b6e1e2b, type: 3}
       propertyPath: m_RootOrder
@@ -1299,10 +1555,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 514234438895019423, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514691869819003177, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
       propertyPath: m_Name
       value: BlueWhiteSidewalk (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3569740870910325305, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
@@ -1374,6 +1645,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5397675469902393244, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399259350497028906, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8e920193f46e3242b79b9b607aa3d98, type: 3}
 --- !u!4 &7637167388608013534 stripped
@@ -1389,10 +1670,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1914682891381421314}
     m_Modifications:
+    - target: {fileID: 514234438895019423, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514691869819003177, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
       propertyPath: m_Name
       value: BlueWhiteSidewalk (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771299319183935803, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3569740870910325305, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
@@ -1462,6 +1758,16 @@ PrefabInstance:
     - target: {fileID: 3569740870910325305, guid: c8e920193f46e3242b79b9b607aa3d98,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5397675469902393244, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399259350497028906, guid: c8e920193f46e3242b79b9b607aa3d98,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

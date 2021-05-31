@@ -20,7 +20,7 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
     [Binding]
     public bool MuteCar { get { return muteCar; } set { muteCar = value; NotifyPropertyChanged("MuteCar"); } }
 
-    private const float topSpeed = 110f;
+    private const float topSpeed = 200f;
     private Vector3 carStartPosition;
     private Vector3 carStartRotation;
     [Binding]

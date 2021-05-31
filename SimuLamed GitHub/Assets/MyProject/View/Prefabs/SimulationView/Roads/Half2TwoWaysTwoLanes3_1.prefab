@@ -40,10 +40,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8170077108011613579}
     m_Modifications:
+    - target: {fileID: 3857532449246925837, guid: c6976854a2f9eb14f89a3d90f16af724,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3858076470040699039, guid: c6976854a2f9eb14f89a3d90f16af724,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3858673634909028658, guid: c6976854a2f9eb14f89a3d90f16af724,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3858673635949255594, guid: c6976854a2f9eb14f89a3d90f16af724,
         type: 3}
       propertyPath: m_Name
       value: Rail2_Pref (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3858673635949255594, guid: c6976854a2f9eb14f89a3d90f16af724,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3858673635949255595, guid: c6976854a2f9eb14f89a3d90f16af724,
         type: 3}
@@ -119,6 +139,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TwoWayOneLane7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027346701111481416, guid: f47bb0168f442f240aa8e8019674fe73,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2720560274134999496, guid: f47bb0168f442f240aa8e8019674fe73,
         type: 3}
@@ -200,10 +225,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8170077108011613579}
     m_Modifications:
+    - target: {fileID: 3857532449246925837, guid: c6976854a2f9eb14f89a3d90f16af724,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3858076470040699039, guid: c6976854a2f9eb14f89a3d90f16af724,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3858673634909028658, guid: c6976854a2f9eb14f89a3d90f16af724,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3858673635949255594, guid: c6976854a2f9eb14f89a3d90f16af724,
         type: 3}
       propertyPath: m_Name
       value: Rail2_Pref
+      objectReference: {fileID: 0}
+    - target: {fileID: 3858673635949255594, guid: c6976854a2f9eb14f89a3d90f16af724,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3858673635949255595, guid: c6976854a2f9eb14f89a3d90f16af724,
         type: 3}

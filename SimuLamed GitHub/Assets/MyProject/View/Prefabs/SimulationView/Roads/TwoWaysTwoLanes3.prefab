@@ -41,9 +41,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2563390481592976049}
     m_Modifications:
+    - target: {fileID: 1045525805849594, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1642800337198924, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
       propertyPath: m_Name
       value: Sideway 8 prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642800337198924, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4452246840175256, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -120,6 +128,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TwoWayOneLane7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027346701111481416, guid: f47bb0168f442f240aa8e8019674fe73,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2720560274134999496, guid: f47bb0168f442f240aa8e8019674fe73,
         type: 3}
@@ -206,6 +219,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TwoWayOneLane7 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1027346701111481416, guid: f47bb0168f442f240aa8e8019674fe73,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3145028996790155279, guid: f47bb0168f442f240aa8e8019674fe73,
         type: 3}
       propertyPath: m_RootOrder
@@ -286,9 +304,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2563390481592976049}
     m_Modifications:
+    - target: {fileID: 1045525805849594, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1642800337198924, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
       propertyPath: m_Name
       value: Sideway 8 prefab (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642800337198924, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4452246840175256, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
       propertyPath: m_LocalPosition.y

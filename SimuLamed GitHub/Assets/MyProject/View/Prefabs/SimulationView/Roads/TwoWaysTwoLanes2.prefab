@@ -44,6 +44,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TwoWayOneLane1 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1027346701111481416, guid: a3f3a2ab6f34c114593ce1d830932acc,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3145028996790155279, guid: a3f3a2ab6f34c114593ce1d830932acc,
         type: 3}
       propertyPath: m_RootOrder
@@ -118,6 +123,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TwoWayOneLane1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027346701111481416, guid: a3f3a2ab6f34c114593ce1d830932acc,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3145028996790155279, guid: a3f3a2ab6f34c114593ce1d830932acc,
         type: 3}

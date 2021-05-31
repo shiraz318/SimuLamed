@@ -16,6 +16,7 @@ public enum Lights
 [System.Serializable]
 public class LightAnimator : MonoBehaviour
 {
+
     public int numberOfTrafficLights = 1;
     public int trafficLightNumber = 1;
     public bool isBlink = false;
@@ -41,7 +42,7 @@ public class LightAnimator : MonoBehaviour
 
     private Material myMat;
   
-    private float oneDuration = 8f; // duration of one cycle.
+    private float oneDuration = 16f; // duration of one cycle.
     private float yellowDuration;
     private float yellowRedDuration;
     private float redDuration;
@@ -51,9 +52,7 @@ public class LightAnimator : MonoBehaviour
     private Dictionary<Lights, Tuple<float, float>> lightsOffsetAndDuration = new Dictionary<Lights, Tuple<float, float>>();  // light, offset, duration.
     public Light[] lights;
 
-    private Lights currentLight;  // the current light that is lit.
-
-   
+    public Lights currentLight;  // the current light that is lit.
 
     void Start()
     {
@@ -86,7 +85,7 @@ public class LightAnimator : MonoBehaviour
         regularLightsTexture = textures.regularLightsTexture;
 
         myMat = GetComponent<Renderer>().material;
-        
+
 
         // Starting with red light.
         currentLight = Lights.Red;
@@ -115,14 +114,16 @@ public class LightAnimator : MonoBehaviour
 
     IEnumerator ChangeLight()
     {
-
+        
         float lightDuration = lightsOffsetAndDuration[currentLight].Item2;
         if (isBlink && currentLight.Equals(Lights.Green) && greenCounter != 0)
         {
             lightDuration = emptyDuration;
         }
-
         yield return new WaitForSeconds(lightDuration);
+        //Debug.Log("POSITION 2: TRAFFIC_NUM: " + trafficLightNumber.ToString() + "LIGHT: " + currentLight);
+
+
 
         // Disable the current light.
         SetLight(false);
@@ -132,12 +133,17 @@ public class LightAnimator : MonoBehaviour
 
         // Enable the next light.
         SetLight(true);
+        //Debug.Log("POSITION 3: TRAFFIC_NUM: " + trafficLightNumber.ToString() + "LIGHT: " + currentLight);
+
 
         // Set the color.
         SetColor();
+        //Debug.Log("POSITION 4: TRAFFIC_NUM: " + trafficLightNumber.ToString() + "LIGHT: " + currentLight);
+
 
         // Call this method again to create an infinite loop.
         StartCoroutine("ChangeLight");
+       // Debug.Log("POSITION 5: TRAFFIC_NUM: " + trafficLightNumber.ToString() + "LIGHT: " + currentLight);
 
     }
 
@@ -215,7 +221,7 @@ public class LightAnimator : MonoBehaviour
                     return Lights.Red;
                 }
             case Lights.Green:
-                {
+                {                    
                     if (isBlink)
                     {
                         greenCounter = (greenCounter + 1) % (NUMBER_OF_BLINKS + 1);

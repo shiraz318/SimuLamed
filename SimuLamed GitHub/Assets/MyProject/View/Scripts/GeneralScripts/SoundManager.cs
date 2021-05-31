@@ -15,6 +15,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource pauseSimulation;
     public AudioSource quitSimulation;
     public AudioSource displayQuestionInSimulation;
+    public AudioSource alert;
   //  public AudioSource carEngine;
 
 
@@ -70,6 +71,10 @@ public class SoundManager : MonoBehaviour
     public void PauseSimulation()
     {
         PlaySound(pauseSimulation);
+    }
+    public void DisplayAlert()
+    {
+        PlaySound(alert);
     }
 
     //public void UpdateEngineSound(float currentSpeed, float topSpeed)
