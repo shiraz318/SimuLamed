@@ -25,7 +25,11 @@ public class QuestionsVM : BaseViewModel
     public int HintsNumber { get { lastHintsNumber = AppModel.Instance.HintsNumber; return lastHintsNumber; } }
 
     [Binding]
-    public bool IsNewHint { get { return isNewHint; } set { isNewHint = value; NotifyPropertyChanged("IsNewHint"); } }
+    public bool IsNewHint 
+    { 
+        get { return isNewHint; } 
+        set { isNewHint = value; NotifyPropertyChanged("IsNewHint"); } 
+    }
 
     [Binding]
     public string SelectedSubject { get { return Question.FromTypeToCategory(AppModel.Instance.SelectedSubject); }}
@@ -44,55 +48,23 @@ public class QuestionsVM : BaseViewModel
         }
     }
     [Binding]
-    public string QuestionNumText { get { return questionNumText; } set { questionNumText = value + " / " + numberOfQuestions.ToString(); NotifyPropertyChanged("QuestionNumText"); } }
-    public bool IsQuestionSet { get { return isQuestionSet; } set { isQuestionSet = value; NotifyPropertyChanged("QuestionNumText"); } }
-
-    protected override ErrorTypes[] GetErrorTypes()
+    public string QuestionNumText 
     {
-        return new ErrorTypes[] { ErrorTypes.LoadQuestions };
+        get { return questionNumText; } 
+        set 
+        {
+            questionNumText = value + " / " + numberOfQuestions.ToString();
+            NotifyPropertyChanged("QuestionNumText"); 
+        } 
     }
+    public bool IsQuestionSet 
+    {
+        get { return isQuestionSet; } 
+        set { isQuestionSet = value; NotifyPropertyChanged("QuestionNumText"); } 
+    }
+
     public QuestionsManager questionsManager;
 
-    protected override void OnStart()
-    {
-        IsQuestionSet = false;
-    }
-    protected override void SetModel()
-    {
-        base.SetModel();
-        model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
-        {
-            if (this == null) { return; }
-
-            // The model got the questions from the database.
-            if (eventArgs.PropertyName.Equals("Questions") && !IsQuestionSet && model.Questions.Length > 0)
-            {
-                questionNum = 0;
-                numberOfQuestions = model.Questions.Length;
-                questionsManager.SetQuestions(model.Questions.ToArray());
-                IsQuestionSet = true;
-                model.InitUserLastAns();
-
-                DisplayQuestion();
-            }
-            else if (eventArgs.PropertyName.Equals("HintsNumber"))
-            {
-                IsNewHint = (lastHintsNumber < HintsNumber);
-                NotifyPropertyChanged("HintsNumber");
-            }
-        };
-
-        lastHintsNumber = model.HintsNumber;
-
-        // Get the questions of the selected subject category.
-        model.SetQuestionsByCategory(SelectedSubject, true);
-
-        IsHintButtonOn = true;
-        NotifyPropertyChanged("HintsNumber");
-
-        SetQuestionsManager();
-
-    }
 
     // Set the propertychanged property of the question manager.
     private void SetQuestionsManager()
@@ -107,16 +79,12 @@ public class QuestionsVM : BaseViewModel
                 model.SetUserScore(result.Item1, result.Item2);
                 IsHintButtonOn = false;
             }
-
         };
-
-            
     }
 
     // Present a question.
     private void DisplayQuestion()
     {
-
         questionsManager.DisplayQuestion(questionNum);
 
         // New question - update the question number.
@@ -124,25 +92,9 @@ public class QuestionsVM : BaseViewModel
         IsHintButtonOn = true;
     }
 
-
-    //// NO ONE IS CALLING THIS!!!!!
-    //// On click event handler for clicking an answer.
-    //public void OnClickAnswer(bool isAnsCorrect)
-    //{
-
-    //    // Set the answer buttons to be not clickable.
-    //    // IsAnsInteractable = false;
-
-    //    IsHintButtonOn = false;
-    //    //questionsManager.OnClickAnswer(isAnsCorrect);
-    //    //if (!isAnsCorrect) { NotifyPropertyChanged("WrongAnswer"); }
-    //    // model.SetUserScore(questions[questionNum].questionNumber, isAnsCorrect);
-    //}
-
     // On click event handler for clicking next question button.
     public void OnClickNextQuestion()
     {
-        
         questionNum = (questionNum + 1) % numberOfQuestions;
         DisplayQuestion();
     }
@@ -161,8 +113,6 @@ public class QuestionsVM : BaseViewModel
     public string GetCorrectAns()
     {
         return questionsManager.CurrentQuestion.correctAns;
-       // return "";
-        //return questions[questionNum].correctAns;
     }
 
     // On click event handler for clicking hint button.
@@ -171,6 +121,51 @@ public class QuestionsVM : BaseViewModel
         model.DecreaseHint();
         // Disable the hint button - can't have more then one hint per question.
         IsHintButtonOn = false;
+    }
+
+
+
+    // Override methods.
+    protected override ErrorTypes[] GetErrorTypes()
+    {
+        return new ErrorTypes[] { ErrorTypes.LoadQuestions };
+    }
+    protected override void OnStart()
+    {
+        IsQuestionSet = false;
+    }
+    protected override void SetModel()
+    {
+        base.SetModel();
+        lastHintsNumber = model.HintsNumber;
+
+        // Get the questions of the selected subject category.
+        model.SetQuestionsByCategory(SelectedSubject, true);
+
+        IsHintButtonOn = true;
+        NotifyPropertyChanged("HintsNumber");
+
+        SetQuestionsManager();
+
+    }
+    protected override void AdditionalModelSettings(PropertyChangedEventArgs eventArgs)
+    {
+        // The model got the questions from the database.
+        if (eventArgs.PropertyName.Equals("Questions") && !IsQuestionSet && model.Questions.Length > 0)
+        {
+            questionNum = 0;
+            numberOfQuestions = model.Questions.Length;
+            questionsManager.SetQuestions(model.Questions.ToArray());
+            IsQuestionSet = true;
+            model.InitUserLastAns();
+            DisplayQuestion();
+        }
+        else if (eventArgs.PropertyName.Equals("HintsNumber"))
+        {
+            IsNewHint = (lastHintsNumber < HintsNumber);
+            NotifyPropertyChanged("HintsNumber");
+        }
+
     }
 
 }

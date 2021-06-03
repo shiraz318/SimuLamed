@@ -11,10 +11,11 @@ public class BaseViewModel : MonoBehaviour, INotifyPropertyChanged
 
     // Fields.
     private string errorMessage;
-
     protected IAppModel model;
 
     public event PropertyChangedEventHandler PropertyChanged;
+    
+    // Properties.
     [Binding]
     public virtual string ErrorMessage
     {
@@ -26,44 +27,9 @@ public class BaseViewModel : MonoBehaviour, INotifyPropertyChanged
         }
     }
 
-
-    // Methods.
-    protected virtual void SetModel() { 
-        
-        model = AppModel.Instance;
-        ErrorTypes[] errorTypes = GetErrorTypes();
-        if (!errorTypes[0].Equals(ErrorTypes.None))
-        {
-            model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
-            {
-                if (this == null) { return; }
-
-                Debug.Log(eventArgs.PropertyName);
-                if (eventArgs.PropertyName.Equals("Error"))
-                {
-                    foreach (ErrorTypes errorType in errorTypes)
-                    {
-                        if (model.Error.ErrorType == errorType)
-                        {
-                            ErrorMessage = model.Error.Message;
-                            Debug.Log(ErrorMessage);
-                        }
-                    }
-                    Debug.Log(model.Error.Message);
-                }
-
-            };
-        }
-        
-
-
-    }
-    protected virtual void OnStart() { }
-    protected virtual ErrorTypes[] GetErrorTypes() { return new ErrorTypes[] { ErrorTypes.None }; }
-
     public void Start()
     {
-        OnStart();  
+        OnStart();
         SetModel();
     }
 
@@ -75,6 +41,39 @@ public class BaseViewModel : MonoBehaviour, INotifyPropertyChanged
             this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
     }
+
+
+
+    // Virtual methods.
+    protected virtual void SetModel() { 
+        
+        model = AppModel.Instance;
+        ErrorTypes[] errorTypes = GetErrorTypes();
+
+        if (!errorTypes[0].Equals(ErrorTypes.None))
+        {
+            model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
+            {
+                if (this == null) { return; }
+                if (eventArgs.PropertyName.Equals("Error"))
+                {
+                    foreach (ErrorTypes errorType in errorTypes)
+                    {
+                        if (model.Error.ErrorType == errorType)
+                        {
+                            ErrorMessage = model.Error.Message;
+                        }
+                    }
+                }
+                else { AdditionalModelSettings(eventArgs); }
+
+            };
+        }
+    }
+    protected virtual void AdditionalModelSettings(PropertyChangedEventArgs eventArgs) { }
+    protected virtual void OnStart() { }
+    protected virtual ErrorTypes[] GetErrorTypes() { return new ErrorTypes[] { ErrorTypes.None }; }
+
 
 
 }

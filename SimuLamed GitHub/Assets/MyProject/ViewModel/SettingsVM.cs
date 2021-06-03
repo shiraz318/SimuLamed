@@ -37,8 +37,7 @@ namespace Assets.ViewModel
         public bool ToShowQuestions { get { return toShowQuestions; } set { toShowQuestions = value; }
         }
         [Binding]
-        public bool ToMuteSound { get { return toMuteSound; } set { toMuteSound = value; }
-        }
+        public bool ToMuteSound { get { return toMuteSound; } set { toMuteSound = value; } }
 
 
         // Save the chosen settings.
@@ -46,7 +45,7 @@ namespace Assets.ViewModel
         {
             if (!CheckValidityOfKeys())
             {
-                ErrorMessage = Utils.ERROR_IN_KEYS_H;
+                ErrorMessage = ErrorObject.ERROR_IN_KEYS;
             }
             else
             {
@@ -58,38 +57,27 @@ namespace Assets.ViewModel
                 PlayerPrefs.SetString(Utils.SHOW_QUESTIONS, ToShowQuestions ? "show":string.Empty);
                 PlayerPrefs.SetInt(Utils.MUTE_SOUND, ToMuteSound ? 1 : 0);
                 
-                NotifyPropertyChanged(GetPropertyName());
+                // Notify that we finished saving the settings.
+                NotifyPropertyChanged(GetOnFinishActionPropertyName());
             }
         }
 
-        public string GetPropertyName() {  return "SavedSettings"; }
+        // Get the property name of finishing the main action of the view model.
+        public string GetOnFinishActionPropertyName() {  return "SavedSettings"; }
 
         // Checks if the player chose a key more than once.
         private bool CheckValidityOfKeys()
         {
-            // Hash set - contains every key only once.
-            //Therefore if there are more than one key value - the length will be less than 4.
+            /*
+            * Hash set - contains every key only once.
+            * Therefore if there are more than one key value - the length will be less than 4.
+            */
             keys.Add(LeftInput);
             keys.Add(RightInput);
             keys.Add(ForwardInput);
             keys.Add(BackwardsInput);
             return keys.Count == 4;
         }
-
-        //private bool CheckAndSetMapKeys(string keyName, string value)
-        //{
-        //    value = value.ToLower();
-        //    foreach (var pair in map)
-        //    {
-        //        if (value.Equals(pair.Value) && pair.Key != keyName)
-        //        {
-        //            return false;
-        //        }
-               
-        //    }
-        //    map[keyName] = value;
-        //    return true;
-        //}
 
         // Set the given key to it's matching ascii character.
         private void SetPlayerKeys(string keyName, string keyValue)

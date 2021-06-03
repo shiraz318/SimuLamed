@@ -31,22 +31,18 @@ namespace Assets.model
             while (!sr.EndOfStream)
             {
                 string[] line = sr.ReadLine().Split(',');
-
                 if (isFirstRow)
                 {
                     isFirstRow = false;
                     continue;
                 }
-
                 for (int i = 0; i < line.Length; i++)
                 {
                     line[i] = line[i].Replace('*', ',');
                     line[i] = line[i].Trim('\"').Replace("\"\"", "\"");
                 }
-
                 lines.Add(line);
             }
-
             return lines;
         }
 
@@ -62,15 +58,15 @@ namespace Assets.model
         private static Question ParseQuestion(string[] line, int rowNumber)
         {
             string[] answers = new string[5];
-            QuestionDifficulty questionDifficulty;
-            try
-            {
-                questionDifficulty = (QuestionDifficulty)int.Parse(line[0]);
-            }
-            catch 
-            {
-                questionDifficulty = QuestionDifficulty.Medium;
-            }
+            //QuestionDifficulty questionDifficulty;
+            //try
+            //{
+            //    questionDifficulty = (QuestionDifficulty)int.Parse(line[0]);
+            //}
+            //catch 
+            //{
+            //    questionDifficulty = QuestionDifficulty.Medium;
+            //}
 
             QuestionType questionType = GetQuestionType(line[3]);
             
@@ -85,7 +81,8 @@ namespace Assets.model
             string simulationLevel = line[10];
 
 
-            return new Question(rowNumber, questionType, questionDifficulty, questionString, answers, imageUrl,simulationLevel);
+            return new Question(rowNumber, questionType, questionString, answers, imageUrl,simulationLevel);
+            //return new Question(rowNumber, questionType, questionDifficulty, questionString, answers, imageUrl,simulationLevel);
         }
 
         // Create questions from the given list.
@@ -152,9 +149,7 @@ namespace Assets.model
                 if (!string.IsNullOrEmpty(notHebrew))
                 {
                     var englishPart = Regex.Replace(notHebrew, "[^a-zA-Z]", "");
-
                     var simpleNumbersOnlyPart = Regex.Replace(notHebrew, "[^0-9]", "");
-
 
                     text = ReplaceWithRevers(englishPart, text);
                     text = ReplaceWithRevers(simpleNumbersOnlyPart, text);

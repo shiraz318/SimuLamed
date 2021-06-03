@@ -99,6 +99,8 @@ namespace Assets.Model
                 correctAnswers = new int[] { -1 };
             }
         }
+
+        // Initialize the number of correct answeres in a row of the user.
         public void InitCorrectAnsInARowCounter()
         {
             correctAnsInARowCounter = 0;

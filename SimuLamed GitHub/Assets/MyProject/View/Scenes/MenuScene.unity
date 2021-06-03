@@ -681,8 +681,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 482768980}
-        m_MethodName: OnClickLogOut
+      - m_Target: {fileID: 482768979}
+        m_MethodName: LogOut
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -948,7 +948,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 482768974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e1d7053e01e4df41951715b6e2a6049, type: 3}
+  m_Script: {fileID: 11500000, guid: c24cec0d4c0b28841992a8018abe9e95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &562874762

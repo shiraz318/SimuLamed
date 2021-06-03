@@ -19,6 +19,8 @@ public struct User
         this.details = details;
         this.state = state;
     }
+    
+    // Reset the user fiels.
     public void ResetUser()
     {
         IsAssigned = false;

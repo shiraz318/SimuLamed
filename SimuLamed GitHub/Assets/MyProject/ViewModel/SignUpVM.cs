@@ -7,15 +7,17 @@ using UnityWeld.Binding;
 [Binding]
 public class SignUpVM : RegisterViewModel
 {
+    // Private fiels.
     private string password = "";
+    private string username = "";
+
+    // Properties.
     [Binding]
     public string Password
     {
         get { return password; }
         set { password = value; }
     }
-
-    private string username = "";
     [Binding]
     public string Username
     {
@@ -23,7 +25,7 @@ public class SignUpVM : RegisterViewModel
         set { username = value; }
     }
 
-
+    // Override methods.
     protected override ErrorTypes[] GetErrorTypes()
     {
         return new ErrorTypes[] { ErrorTypes.SignUp };

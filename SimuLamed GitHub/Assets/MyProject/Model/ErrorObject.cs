@@ -18,6 +18,23 @@ namespace Assets.model
     }
     public class ErrorObject
     {
+
+        // Hebrew Messages.
+        public const string EMAIL_EXISTS_MESSAGE = "כתובת אימייל נמצאת בשימוש";
+        public const string EMAIL_NOT_FOUND_MESSAGE = "כתובת אימייל לא קיימת";
+        public const string INVALID_PASSWORD_MESSAGE = "סיסמא שגויה";
+        public const string WEAK_PASSWORD__MESSAGE = "סיסמא חלשה. אנא הזן לפחות 6 תווים";
+        public const string FAIL_SAVE_SCORE_MESSAGE = "קרתה תקלה! לא הצלחנו לשמור את ההתקדמות שלך";
+        public const string FAIL_LOAD_STATISTICS_MESSAGE = "תקלה! לא הצלחנו לטעון את הסטטיסטיקה שלך";
+        public const string FAIL_LOAD_QUESTIONS_MESSAGE = "תקלה! לא הצלחנו לטעון את השאלות";
+        public const string FAIL_LOAD_QUESTION_MESSAGE = "תקלה! לא הצלחנו לטעון את השאלה";
+        public const string INAVLID_EMAIL_MESSAGE = "כתובת אימייל לא חוקית";
+        public const string UNVERIFIED_EMAIL_MESSAGE = "אנא אמת את המייל שלך";
+        public const string EMPTY_FIELD_MESSAGE = "אנא מלא את כל השדות";
+        public const string ERROR_IN_KEYS = " מקש נמצא בשימוש יותר מפעם אחת";
+        public const string FAIL_LOAD_IMAGE_MESSAGE = "תקלה! לא הצלחנו לטעון את התמונה";
+
+
         private string message;
         public string Message { get { return message; } set { SetMessage(value); } }
         public ErrorTypes ErrorType { get; set; }
@@ -27,35 +44,37 @@ namespace Assets.model
             Message = message;
             ErrorType = errorType;
         }
+
+        // Set the message of this error by the given value string.
         private void SetMessage(string value)
         {
             if (value.Equals("EMAIL EXISTS"))
             {
-                message = "כתובת אימייל נמצאת בשימוש";
+                message = EMAIL_EXISTS_MESSAGE;
             }
             else if (value.Equals("EMAIL NOT FOUND"))
             {
-                message = "כתובת אימייל לא קיימת";
+                message = EMAIL_NOT_FOUND_MESSAGE;
             }
             else if (value.Equals("INVALID PASSWORD"))
             {
-                message = "סיסמא שגויה";
+                message = INVALID_PASSWORD_MESSAGE;
             }
             else if (value.Equals("WEAK PASSWORD "))
             {
-                message = "סיסמא חלשה. אנא הזן לפחות 6 תווים";
+                message = WEAK_PASSWORD__MESSAGE;
             }
             else if (ErrorType.Equals(ErrorTypes.SaveScore))
             {
-                message = Utils.FAIL_SAVE_SCORE_MESSAGE_H;
+                message = FAIL_SAVE_SCORE_MESSAGE;
             }
             else if (ErrorType.Equals(ErrorTypes.Statistics))
             {
-                message = "תקלה! לא הצלחנו לטעון את הסטטיסטיקה שלך";
+                message = FAIL_LOAD_STATISTICS_MESSAGE;
             }
             else if (ErrorType.Equals(ErrorTypes.LoadQuestions))
             {
-                message = "תקלה! לא הצלחנו לטעון את השאלות";
+                message = FAIL_LOAD_QUESTIONS_MESSAGE;
             }
             else
             {

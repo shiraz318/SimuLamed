@@ -16,16 +16,15 @@ public class SignInVM : RegisterViewModel
         set { password = value; }
     }
     
+    // Override methods.
     protected override ErrorTypes[] GetErrorTypes()
     {
         return new ErrorTypes[] { ErrorTypes.SignIn };
     }
-
     protected override string[] GetFields()
     {
         return new string[] { Email, Password};
     }
-
     public override string GetOnFinishActionPropertyName()
     {
         return "IsSignedIn";

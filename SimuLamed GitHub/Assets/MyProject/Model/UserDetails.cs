@@ -23,14 +23,20 @@ namespace Assets.Model
             this.localId = localId;
             this.idToken = idToken;
         }
+
+        // Setter for localId.
         public void SetLocalId(string localId)
         {
             this.localId = localId;
         }
+
+        // Setter for idToken.
         public void SetIdToken(string idToken)
         {
             this.idToken = idToken;
         }
+
+        // Reset the user details fiels.
         public void ResetDetails()
         {
             username = "";

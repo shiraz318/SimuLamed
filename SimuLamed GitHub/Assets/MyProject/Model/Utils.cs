@@ -24,16 +24,16 @@ namespace Assets
         public delegate void OnFailureFunc(string errorMessage);
 
         // Constants.
-        public const string INAVLID_EMAIL_MESSAGE = "INVALID EMAIL ADDRESS";
-        public const string INAVLID_EMAIL_MESSAGE_H = "כתובת אימייל לא חוקית";
-        public const string UNVERIFIED_EMAIL_MESSAGE = "PLEASE VERIFY YOUR EMAIL";
-        public const string UNVERIFIED_EMAIL_MESSAGE_H = "אנא אמת את המייל שלך";
-        public const string EMPTY_FIELD_MESSAGE = "PLEASE FILL ALL FIELDS";
-        public const string EMPTY_FIELD_MESSAGE_H = "אנא מלא את כל השדות";
-        public const string EMPTY_EMAIL_MESSAGE = "PLEASE ENTER YOUR EMAIL";
-        public const string FAIL_SAVE_SCORE_MESSAGE = "WE COULD NOT SAVE YOUR PROGRESS";
-        public const string FAIL_SAVE_SCORE_MESSAGE_H = "קרתה תקלה! לא הצלחנו לשמור את ההתקדמות שלך";
-        
+        //public const string INAVLID_EMAIL_MESSAGE = "INVALID EMAIL ADDRESS";
+        //public const string INAVLID_EMAIL_MESSAGE_H = "כתובת אימייל לא חוקית";
+        //public const string UNVERIFIED_EMAIL_MESSAGE = "PLEASE VERIFY YOUR EMAIL";
+        //public const string UNVERIFIED_EMAIL_MESSAGE_H = "אנא אמת את המייל שלך";
+        //public const string EMPTY_FIELD_MESSAGE = "PLEASE FILL ALL FIELDS";
+        //public const string EMPTY_FIELD_MESSAGE_H = "אנא מלא את כל השדות";
+        //public const string EMPTY_EMAIL_MESSAGE = "PLEASE ENTER YOUR EMAIL";
+        //public const string FAIL_SAVE_SCORE_MESSAGE = "WE COULD NOT SAVE YOUR PROGRESS";
+        // public const string FAIL_SAVE_SCORE_MESSAGE_H = "קרתה תקלה! לא הצלחנו לשמור את ההתקדמות שלך";
+
         public const string SAFETY_HEBREW = "בטיחות";
         public const string TRANSACTION_RULES_HEBREW = "חוקי התנועה";
         public const string UNDERSTANDING_VEHICLE_HEBREW = "הכרת הרכב";
@@ -45,8 +45,8 @@ namespace Assets
         public const string SIGNS_ENGLISH = "Signs";
         public const string UNDERSTANDING_VEHICLE_ENGLISH = "UnderstandingVehicle";
         public const string MIXED_ENGLISH = "Mixed";
-        
-        
+
+        // Scenes names.
         public const string SIGN_IN_SCENE = "SignInScene";
         public const string SIGN_UP_SCENE = "SignUpScene";
         public const string MENU_SCENE = "MenuScene";
@@ -59,7 +59,6 @@ namespace Assets
         public const string SIMULATION_SCENE_2 = "SimulationScene_2";
         public const string SIMULATION_SCENE_3 = "SimulationScene_3";
         public const string LEVELS_SCENE = "LevelsScene";
-        //public const string SIMULATION_SCENE = "SimpleRoad";
 
 
         public const string ANS_1_NAME = "Ans1";
@@ -74,10 +73,10 @@ namespace Assets
 
         public const string SHOW_QUESTIONS = "ShowQuestions";
         public const string MUTE_SOUND = "MuteSound";
-        public const string ERROR_IN_KEYS = "KEY ALREADY IN USE"; 
-        public const string ERROR_IN_KEYS_H =" מקש נמצא בשימוש יותר מפעם אחת"; 
+        //public const string ERROR_IN_KEYS = "KEY ALREADY IN USE"; 
+       // public const string ERROR_IN_KEYS_H =" מקש נמצא בשימוש יותר מפעם אחת"; 
 
-
+        // Default settings.
         public const string DEFAULT_FORWARD = "w";
         public const string DEFAULT_BACKWARDS = "s";
         public const string DEFAULT_RIGHT = "d";
@@ -87,27 +86,20 @@ namespace Assets
         
         
         public const string QUESTIONS_NUM_IN_SIM = "30";
-
-        
-
-
-
-
-
         public const int HINTS_PER_CORRECT_ANS = 4;
         public const int INITIAL_NUMBER_OF_HINTS = 4;
 
 
 
         // Statics.
-        public static Color32 greenColor = new Color32(14, 255, 0, 255);
-        public static Color32 redColor = new Color32(255, 0, 0, 255);
-        public static Color32 progress1Color = new Color32(255, 76, 76, 255);
-        public static Color32 progress2Color = new Color32(255, 166, 61, 255);
-        public static Color32 progress3Color = new Color32(248, 238, 92, 255);
-        public static Color32 progress4Color = new Color32(141, 255, 95, 255);
+        //public static Color32 greenColor = new Color32(14, 255, 0, 255);
+        //public static Color32 redColor = new Color32(255, 0, 0, 255);
+        //public static Color32 progress1Color = new Color32(255, 76, 76, 255);
+        //public static Color32 progress2Color = new Color32(255, 166, 61, 255);
+        //public static Color32 progress3Color = new Color32(248, 238, 92, 255);
+        //public static Color32 progress4Color = new Color32(141, 255, 95, 255);
         
-        public static Color32 disabledAnsColor = new Color32(217, 177, 83, 255);//125
+        //public static Color32 disabledAnsColor = new Color32(217, 177, 83, 255);//125
 
         //private static Dictionary<int, QuestionType> fromQuestionNumToType;
 
@@ -122,13 +114,13 @@ namespace Assets
         //{
         //    return fromQuestionNumToType[questionNum];
         //}
-        public static void OnClickWithButtonCheck(string buttonWantedName, string buttonName, Action action)
-        {
-            if (buttonName.Equals(buttonWantedName))
-            {
-                action();
-            }
-        }
+        //public static void OnClickWithButtonCheck(string buttonWantedName, string buttonName, Action action)
+        //{
+        //    if (buttonName.Equals(buttonWantedName))
+        //    {
+        //        action();
+        //    }
+        //}
 
 
 

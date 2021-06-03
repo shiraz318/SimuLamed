@@ -26,7 +26,7 @@ namespace Assets.model
     {
 
         //public QuestionType questionType;
-        public QuestionDifficulty questionDifficulty;
+        //public QuestionDifficulty questionDifficulty;
         public string question;
         public string ans1;
         public string ans2;
@@ -40,11 +40,12 @@ namespace Assets.model
 
 
 
-        public Question(int questionNumber, QuestionType questionType, QuestionDifficulty questionDifficulty, string question, string[] answers, string imageUrl, string simulationLevel)
+        //public Question(int questionNumber, QuestionType questionType, QuestionDifficulty questionDifficulty, string question, string[] answers, string imageUrl, string simulationLevel)
+        public Question(int questionNumber, QuestionType questionType, string question, string[] answers, string imageUrl, string simulationLevel)
         {
             this.questionNumber = questionNumber;
             this.questionCategory = FromTypeToCategory(questionType);
-            this.questionDifficulty = questionDifficulty;
+            //this.questionDifficulty = questionDifficulty;
             this.question = question;
             this.ans1 = answers[0];
             this.ans2 = answers[1];
@@ -55,6 +56,7 @@ namespace Assets.model
             this.simulationLevel = simulationLevel;
         }
 
+        // Returns hebrew category accordingly to the given quesiton type.
         public static string FromTypeToCategory(QuestionType questionType)
         {
             switch (questionType)
@@ -73,6 +75,7 @@ namespace Assets.model
 
         }
 
+        // Returns question type accordingly to the given hebrew category.
         public static QuestionType FromCategoryToTypeHebrew(string category)
         {
             switch (category)
@@ -90,6 +93,8 @@ namespace Assets.model
             }
 
         }
+
+        // Returns question type accordingly to the given english category.
         public static QuestionType FromCategoryToTypeEnglish(string category)
         {
             switch (category)

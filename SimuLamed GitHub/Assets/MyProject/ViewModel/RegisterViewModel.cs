@@ -17,7 +17,6 @@ public abstract class RegisterViewModel : BaseViewModel {
     // Properties.
     [Binding]
     public string Email { get { return email; } set { email = value; } }
-
     [Binding]
     public override string ErrorMessage
     {
@@ -29,7 +28,6 @@ public abstract class RegisterViewModel : BaseViewModel {
             NotifyPropertyChanged("ErrorMessage");
         }
     }
-
     [Binding]
     public bool IsLoadingCircleOn { get { return isLoadingCircleOn; }
         set { isLoadingCircleOn = value; NotifyPropertyChanged("IsLoadingCircleOn"); }
@@ -52,35 +50,35 @@ public abstract class RegisterViewModel : BaseViewModel {
         {
             if (field.Equals(""))
             {
-                ErrorMessage = Utils.EMPTY_FIELD_MESSAGE_H;
+                ErrorMessage = ErrorObject.EMPTY_FIELD_MESSAGE;
                 return false;
             }
         }
         return true;
     }
-    protected abstract string[] GetFields();
-    protected abstract void RegisterAction();
-    public abstract string GetOnFinishActionPropertyName();
-    
+
+
+    // Override methods.
     protected override void OnStart()
     {
         IsLoadingCircleOn = false;
     }
-
-    protected override void SetModel()
+    protected override void AdditionalModelSettings(PropertyChangedEventArgs eventArgs)
     {
-        base.SetModel();
-        model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
+        string propertyName = GetOnFinishActionPropertyName();
+        if (eventArgs.PropertyName.Equals(propertyName))
         {
-            if (this == null) { return; }
+            NotifyPropertyChanged(propertyName);
+        }
 
-            string propertyName = GetOnFinishActionPropertyName();
-            if (eventArgs.PropertyName.Equals(propertyName))
-            {
-                NotifyPropertyChanged(propertyName);
-            }
-        };
     }
+
+
+    // Abstract methods.
+    protected abstract string[] GetFields();
+    protected abstract void RegisterAction();
+    public abstract string GetOnFinishActionPropertyName();
+    
 
 
 

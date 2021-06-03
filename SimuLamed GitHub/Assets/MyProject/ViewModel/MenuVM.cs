@@ -8,8 +8,7 @@ public class MenuVM : BaseViewModel
 {
     // Properties.
     [Binding]
-    public string Username { get { return AppModel.Instance.CurrentUsername; }
-    }
+    public string Username { get { return AppModel.Instance.CurrentUsername; } }
 
     // Log out.
     public void LogOut() { model.ResetCurrentUser(); }

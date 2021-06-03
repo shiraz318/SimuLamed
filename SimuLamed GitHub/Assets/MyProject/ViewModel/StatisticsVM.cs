@@ -14,6 +14,7 @@ public class StatisticsVM : BaseViewModel
     private string errorMessage;
 
 
+    // Properties.
     [Binding]
     public float SafetyValue
     {
@@ -60,7 +61,6 @@ public class StatisticsVM : BaseViewModel
             NotifyPropertyChanged("ErrorMessage");
         }
     }
-
     [Binding]
     public bool IsLoadingCircleOn
     {
@@ -68,38 +68,6 @@ public class StatisticsVM : BaseViewModel
         set { isLoadingCircleOn = value; NotifyPropertyChanged("IsLoadingCircleOn"); }
     }
 
-    protected override void OnStart()
-    {
-        base.OnStart();
-        IsLoadingCircleOn = true;
-    }
-    protected override void SetModel()
-    {
-
-        base.SetModel();
-        model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
-        {
-            if (this == null) { return; }
-
-            if (eventArgs.PropertyName.Equals("FromQuestionNumToType"))
-            {
-                NotifyPropertyChanged("UnderstandingVehicleValue");
-                NotifyPropertyChanged("SignsValue");
-                NotifyPropertyChanged("MixedValue");
-                NotifyPropertyChanged("TransactionRulesValue");
-                NotifyPropertyChanged("SafetyValue");
-                IsLoadingCircleOn = false;
-            }
-        };
-        model.SetFromNumToType(ErrorTypes.Statistics);
-        // Notify that the values changed - model is set now.
-
-    }
-
-    protected override ErrorTypes[] GetErrorTypes()
-    {
-        return new ErrorTypes[] { ErrorTypes.Statistics };
-    }
 
     // Get the value of the score of the given category
     private float GetValue(string category)
@@ -115,5 +83,35 @@ public class StatisticsVM : BaseViewModel
 
         return numOfQuestions != 0 ? (float)correctAnswers / (float)numOfQuestions : 0f;
     }
+
+
+    // Override methods.
+    protected override void OnStart()
+    {
+        base.OnStart();
+        IsLoadingCircleOn = true;
+    }
+    protected override void SetModel()
+    {
+        base.SetModel();
+        model.SetFromNumToType(ErrorTypes.Statistics);
+    }
+    protected override void AdditionalModelSettings(PropertyChangedEventArgs eventArgs)
+    {
+        if (eventArgs.PropertyName.Equals("FromQuestionNumToType"))
+        {
+            NotifyPropertyChanged("UnderstandingVehicleValue");
+            NotifyPropertyChanged("SignsValue");
+            NotifyPropertyChanged("MixedValue");
+            NotifyPropertyChanged("TransactionRulesValue");
+            NotifyPropertyChanged("SafetyValue");
+            IsLoadingCircleOn = false;
+        }
+    }
+    protected override ErrorTypes[] GetErrorTypes()
+    {
+        return new ErrorTypes[] { ErrorTypes.Statistics };
+    }
+
 
 }

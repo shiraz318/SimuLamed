@@ -22,24 +22,48 @@ namespace Assets.model
         private Dictionary<int, QuestionType> fromQuestionNumToType;
 
         // Properties.
-        public Question[] Questions { get { return questions; } 
-            set { questions = value; NotifyPropertyChanged("Questions"); } }
+        public Question[] Questions 
+        { 
+            get { return questions; } 
+            set { questions = value; NotifyPropertyChanged("Questions"); } 
+        }
         public ErrorObject Error { get ; set ; }
         public int NumOfQuestions { get; set; }
-        public int HintsNumber { get { return currentUser.IsAssigned ? currentUser.state.numOfHints : 0; } 
-            set{ currentUser.state.numOfHints = value; NotifyPropertyChanged("HintsNumber"); } }
-        public int OpenLevel { get { return currentUser.state.openLevel; } 
-            set { currentUser.state.openLevel = value; } }
+        public int HintsNumber 
+        { 
+            get { return currentUser.IsAssigned ? currentUser.state.numOfHints : 0; } 
+            set{ currentUser.state.numOfHints = value; NotifyPropertyChanged("HintsNumber"); } 
+        }
+        public int OpenLevel 
+        { 
+            get { return currentUser.state.openLevel; } 
+            set { currentUser.state.openLevel = value; } 
+        }
         public QuestionType SelectedSubject { get; set; }
-        public string CurrentUsername { get { return currentUser.IsAssigned ? currentUser.details.username : ""; } }
-        public bool IsSignedUp { get { return isSignedUp; } 
-            set { isSignedUp = value; NotifyPropertyChanged("IsSignedUp"); } }
-        public bool IsSignedIn { get { return isSignedIn; } 
-            set { isSignedIn = value; NotifyPropertyChanged("IsSignedIn"); } }
-        public bool IsResetPassword { get { return isResetPassword; } 
-            set { isResetPassword = value; NotifyPropertyChanged("IsResetPassword"); } }
-        public bool IsUserSaved { get { return isUserSaved; } 
-            set { isUserSaved = value; NotifyPropertyChanged("IsUserSaved"); } }
+        public string CurrentUsername 
+        { 
+            get { return currentUser.IsAssigned ? currentUser.details.username : ""; } 
+        }
+        public bool IsSignedUp 
+        { 
+            get { return isSignedUp; } 
+            set { isSignedUp = value; NotifyPropertyChanged("IsSignedUp"); } 
+        }
+        public bool IsSignedIn 
+        { 
+            get { return isSignedIn; } 
+            set { isSignedIn = value; NotifyPropertyChanged("IsSignedIn"); } 
+        }
+        public bool IsResetPassword 
+        { 
+            get { return isResetPassword; } 
+            set { isResetPassword = value; NotifyPropertyChanged("IsResetPassword"); } 
+        }
+        public bool IsUserSaved 
+        {
+            get { return isUserSaved; } 
+            set { isUserSaved = value; NotifyPropertyChanged("IsUserSaved"); } 
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -64,18 +88,17 @@ namespace Assets.model
             }
         }
 
+
         // Private Constructor.
         private AppModel()
         {
             // Initialization.
             databaseHandler = FirebaseManager.Instance;
             Error = new ErrorObject("", ErrorTypes.None);
-
             currentUser.ResetUser();
             Questions = new Question[0];
             fromQuestionNumToType = new Dictionary<int, QuestionType>();
         }
-
 
         // Reset password.
         public void ResetPassword(string email)
@@ -89,18 +112,21 @@ namespace Assets.model
                 ErrorTypes.ResetPassword);
         }
         
+        /*
+         * Set the dictionary fromQuestionNumToType and set the error object 
+         * accordingly to the given errorType if something is wrong.
+         */
         public void SetFromNumToType(ErrorTypes errorType)
         {
             databaseHandler.GetAllQuestions(currentUser.details.idToken, onSuccess: (questions) =>
                 {
+                    // This is the first time the dictionary is being set.
                     if (fromQuestionNumToType.Count == 0)
                     {
                         questions = questions.OrderBy(x => x.questionNumber).ToArray();
-
                         fromQuestionNumToType = questions.ToDictionary(x => x.questionNumber,
                             x => Question.FromCategoryToTypeHebrew(x.questionCategory));
                     }
-
                     ResetError();
                     NotifyPropertyChanged("FromQuestionNumToType");
                 },
@@ -110,6 +136,7 @@ namespace Assets.model
         // Sign in.
         public void SignIn(string password, string email)
         {
+            // Define onSuccess function for when signing in is done successfully.
             Action<User> newOnSuccess = delegate (User user)
             {
                 IsSignedIn = true;
@@ -117,31 +144,13 @@ namespace Assets.model
                 currentUser.IsAssigned = true;
                 NotifyPropertyChanged("HintsNumber");
 
-            // I THINK THIS SHOULD MOVE TO STATISTICS SECTION. NOT SIGN IN.
-            // MAY BE FOR INITSCORE - ONLY GET NUMBER OF QUESTIONS.
-
-
-            databaseHandler.GetNumberOfQuestions(user.details.idToken, (numOfQuestions) =>
-            {
-                NumOfQuestions = numOfQuestions;
-                ResetError();
-                currentUser.state.InitScore(numOfQuestions);
-            },
-            (error) => { SetError(error, ErrorTypes.SignIn); });
-
-            //    // Get all the questions from the database.
-            //    databaseHandler.GetAllQuestions(user.details.idToken, onSuccess:(questions)=> 
-            //    {
-            //        if (fromQuestionNumToType.Count == 0)
-            //        {
-            //            fromQuestionNumToType = questions.ToDictionary(x => x.questionNumber,
-            //                x => Question.FromCategoryToTypeHebrew(x.questionCategory));
-            //        }
-                    
-            //        ResetError();
-            //        currentUser.state.InitScore(NumOfQuestions);
-            //    },
-            //    onFailure:(message) => { SetError(message, ErrorTypes.SignIn); }); 
+                databaseHandler.GetNumberOfQuestions(user.details.idToken, (numOfQuestions) =>
+                {
+                    NumOfQuestions = numOfQuestions;
+                    ResetError();
+                    currentUser.state.InitScore(numOfQuestions);
+                },
+                (error) => { SetError(error, ErrorTypes.SignIn); });
             };
             
             // If email is valid - sign in.
@@ -162,9 +171,8 @@ namespace Assets.model
         // Sign up.
         public void SignUp(string username, string password, string email)
         {
-  
             Action<string> onFailure = (message) => SetError(message, ErrorTypes.SignUp);
-
+            
             // If signing up is done successfully, save the new user to the database.
             Action<string,string> onSuccessSignUp = (string idToken, string localId) =>
             {
@@ -189,14 +197,13 @@ namespace Assets.model
             }
             else 
             { 
-                SetError(Utils.INAVLID_EMAIL_MESSAGE_H, errorType);
+                SetError(ErrorObject.INAVLID_EMAIL_MESSAGE, errorType);
             }
         }
 
         // Check if a given string is a valid email address.
         private bool IsVaildEmailAddress(string email)
         {
-            //TODO - FIX THIS FUNCTION - IT RETURNS TRUE FOR THE ADDRESS shiraz422@gmail.co
             try
             {
                 var addr = new System.Net.Mail.MailAddress(email);
@@ -208,6 +215,7 @@ namespace Assets.model
             }
         }
 
+        // Set questions array to contain questions in the given level.
         public void SetQuestionsByLevel(string level)
         {
             databaseHandler.GetQuestionsInLevel(currentUser.details.idToken, level, 
@@ -215,7 +223,7 @@ namespace Assets.model
                 (message) => { SetError(message, ErrorTypes.LoadQuestions); });
         }
 
-        // Set questions property by the given category.
+        // Set questions array to contain questinos in the given category.
         public void SetQuestionsByCategory(string category, bool toRnd)
         {
             // Get all questions of the given category from the database.
@@ -225,9 +233,10 @@ namespace Assets.model
                 (message) => { SetError(message, ErrorTypes.LoadQuestions); });
         }
 
-        // Set the questions property to the given questions array and randomize it accornding to toRnd.
+        // Set the questions array to the given questions array and randomize it accornding to toRnd.
         private void SetQuestions(Question[] inputQuestions, bool toRnd)
         {
+            // Randomize the questions.
             if (toRnd)
             {
                 System.Random rnd = new System.Random();
@@ -308,6 +317,7 @@ namespace Assets.model
             HintsNumber = HintsNumber - 1;
         }
         
+        // Updata the user open level to max(given level, user prev open level)
         public void UpdateUserLevel(int level)
         {
             if (currentUser.state.openLevel < level)

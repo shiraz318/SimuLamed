@@ -23,6 +23,7 @@ public sealed class FirebaseManager : IDatabaseHandler
     private const string RESET_PASSWORD_API = "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=" + AUTH_KEY;
     private const string CHECK_EMAIL_VER_API = "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=" + AUTH_KEY;
 
+    
     private static fsSerializer serializer = new fsSerializer();
 
     // Thread safety singleton using double check locking 
@@ -83,7 +84,6 @@ public sealed class FirebaseManager : IDatabaseHandler
         SignResponsePost(SEND_EMAIL_VER_API, emailData, response => onSuccess(), onFailure);
     }
 
-
     // Create a new Error Object and set the Error property.
     private string ExtractErrorMessage(Exception error)
     {
@@ -93,13 +93,11 @@ public sealed class FirebaseManager : IDatabaseHandler
         return errorMessage;
     }
 
-
     // Extract the response message from a given RequestExcetion.
     private string GetResponseError(RequestException exception)
     {
         return exception.Response.Split(',')[1].Split(':')[1].Split('\"')[1].Replace('_', ' ');
     }
-
 
     // Sign in a given user.
     public void SignInUser(string password, string email, Action<User> onSuccess, Action<string> onFailure)
@@ -112,7 +110,6 @@ public sealed class FirebaseManager : IDatabaseHandler
             CheckEmailVerification(response, email, onSuccess, onFailure);
         }, onFailure);
     }
-
 
     // Check if the given email has been verified.
     private void CheckEmailVerification(SignResponse response, string email, Action<User> onSuccess, Action<string> onFailure)
@@ -134,7 +131,7 @@ public sealed class FirebaseManager : IDatabaseHandler
             }
             else
             {
-                onFailure(Utils.UNVERIFIED_EMAIL_MESSAGE_H);
+                onFailure(ErrorObject.UNVERIFIED_EMAIL_MESSAGE);
             }
 
         }).Catch(error => { onFailure(ExtractErrorMessage(error)); });
@@ -159,12 +156,17 @@ public sealed class FirebaseManager : IDatabaseHandler
             Then(response => { onSuccess(); }).Catch(error => { onFailure(ExtractErrorMessage(error));});
     }
 
+    /*
+     * A general method for getting an object from the database using the given url 
+     * and act accordingly to the givne onResponse and onFailure.
+     */ 
     private void GetRequest(string url, Action<ResponseHelper> onResponse, Action<string> onFailure)
     {
         RestClient.Get(url).Then(response => { onResponse(response); }).
         Catch(error => { onFailure(error.Message); });
     }
 
+    // Get number of questions in the database.
     public void GetNumberOfQuestions(string idToken, Action<int> onSuccess, Action<string> onFailure)
     {
         string getRequest = $"{databaseURL}questions.json?auth=" + idToken + "&shallow=true";
@@ -175,76 +177,31 @@ public sealed class FirebaseManager : IDatabaseHandler
             serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
             onSuccess(questions.Count());
         }, onFailure);
-        //RestClient.Get(getRequest).Then(response =>
-        //{
-        //    Dictionary<string, bool>questions = new Dictionary<string, bool>();
-        //    fsData questionsData = fsJsonParser.Parse(response.Text);
-        //    serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
-        //    onSuccess(questions.Count());
-
-        //}).
-        //Catch(error =>
-        //{
-        //    onFailure(error.Message);
-
-        //});
     }
+    
+    // Get all the questions in the databae.
     public void GetAllQuestions(string idToken, Action<Question[]> onSuccess, Action<string> onFailure)
     {
         string getRequest = $"{databaseURL}questions.json?auth=" + idToken + "&orderBy=\"questionNumber\"&startAt=0";
         GetQuestions(getRequest, onSuccess, onFailure);
-        //RestClient.Get(getRequest).Then(response =>
-        //{
-        //    Dictionary<string, Question> questions = new Dictionary<string, Question>();
-        //    fsData questionsData = fsJsonParser.Parse(response.Text);
-        //    serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
-
-        //    onSuccess(questions.Values.ToArray());
-        //}).
-        //Catch(error =>
-        //{
-        //    onFailure(error.Message);
-
-        //});
     }
 
     // Set Questions by a given category from the database.
-    public void GetQuestionsByCategory(string currentUserIdToken, string category, Action<Question[]> onSuccess, Action<string> onFailure)
+    public void GetQuestionsByCategory(string idToken, string category, Action<Question[]> onSuccess, Action<string> onFailure)
     {
         if (category.Equals(Utils.MIXED_HEBREW))
         {
-            GetAllQuestions(currentUserIdToken, onSuccess, onFailure);
+            GetAllQuestions(idToken, onSuccess, onFailure);
         }
         else
         {
-            string getRequest = $"{databaseURL}questions.json?auth=" + currentUserIdToken + "&orderBy=\"questionCategory\"&equalTo=\"" + category + "\"";
-
-            //// כל הנושאים
-            //if (category.Equals(Utils.MIXED_HEBREW))
-            //{
-            //    getRequest = getRequest + "&orderBy=\"questionNumber\"&startAt=0";
-            //}
-            //else
-            //{
-            //getRequest = getRequest + "&orderBy=\"questionCategory\"&equalTo=\"" + category + "\"";
-            //}
+            string getRequest = $"{databaseURL}questions.json?auth=" + idToken + 
+                "&orderBy=\"questionCategory\"&equalTo=\"" + category + "\"";
             GetQuestions(getRequest, onSuccess, onFailure);
         }
-        //RestClient.Get(getRequest).Then( response => {
-            
-        //    Dictionary<string, Question> questions = new Dictionary<string, Question>();
-        //    fsData questionsData = fsJsonParser.Parse(response.Text);
-        //    serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
-
-        //    onSuccess(questions.Values.ToArray());
-
-        //}).Catch(error => 
-        //{
-        //    onFailure(error.Message);
-        //    Debug.Log(error);
-        //});
     }
 
+    // Get questions using the given url and acting accordingly to the onSuccess and onFailure functions.
     private void GetQuestions(string url, Action<Question[]> onSuccess, Action<string> onFailure)
     {
         GetRequest(url, response =>
@@ -257,24 +214,11 @@ public sealed class FirebaseManager : IDatabaseHandler
 
     }
 
+    // Get all the questions that appears in the given level.
     public void GetQuestionsInLevel(string idToekn, string level, Action<Question[]> onSuccess, Action<string> onFailure)
     {
         string getRequest = $"{databaseURL}questions.json?auth=" + idToekn + "&orderBy=\"simulationLevel\"&equalTo=\"" + level + "\"";
         GetQuestions(getRequest, onSuccess, onFailure);
-        //RestClient.Get(getRequest).Then(response => {
-
-        //    Dictionary<string, Question> questions = new Dictionary<string, Question>();
-        //    fsData questionsData = fsJsonParser.Parse(response.Text);
-        //    serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
-
-        //    onSuccess(questions.Values.ToArray());
-
-        //}).Catch(error =>
-        //{
-        //    onFailure(error.Message);
-        //    Debug.Log(error);
-        //});
-
     }
 
     // Upload the given questions to the database reqursivly;
