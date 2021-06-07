@@ -28,6 +28,7 @@ public class ScreensManager : MonoBehaviour
     {
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         SetViewModel();
+        isQuitMenu = false;
     }
     private void SetViewModel()
     {
@@ -80,6 +81,7 @@ public class ScreensManager : MonoBehaviour
         menuUI.SetActive(toActivate);
         Time.timeScale = toActivate? 0f: 1f;
         gameIsPaused = toActivate? true: false;
+        isQuitMenu = false;
         if (gameIsPaused)
         {
             SoundManager.muteCar = true;
@@ -114,6 +116,7 @@ public class ScreensManager : MonoBehaviour
     public void OnClickFinishAns()
     {
         ActivateMenu(() => { soundManager.OnClickButton(); }, questionsMenuUI, false);
+
         
     }
     // Continue the game.

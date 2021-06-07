@@ -19,6 +19,7 @@ public class OnClickInfo : MonoBehaviour
     {
         infoScreen.SetActive(toActivate);
         Time.timeScale = timeScale;
+        SoundManager.muteCar = toActivate;
     }
 
 }

@@ -46,7 +46,7 @@ public class StatisticsVM : BaseViewModel
     [Binding]
     public float MixedValue
     {
-        //get { return 1f; }
+        //get { return 0.58f; }
         get { if(model == null) { return 0; } return (float)totalCorrectAns / (float)totalAns; }
     }
 
