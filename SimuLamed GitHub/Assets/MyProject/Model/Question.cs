@@ -28,11 +28,12 @@ namespace Assets.model
         //public QuestionType questionType;
         //public QuestionDifficulty questionDifficulty;
         public string question;
-        public string ans1;
-        public string ans2;
-        public string ans3;
-        public string ans4;
-        public string correctAns;
+        //public string ans1;
+        //public string ans2;
+        //public string ans3;
+        //public string ans4;
+        //public string correctAns;
+        public string[] answers;
         public string imageUrl;
         public int questionNumber;
         public string questionCategory;
@@ -47,15 +48,19 @@ namespace Assets.model
             this.questionCategory = FromTypeToCategory(questionType);
             //this.questionDifficulty = questionDifficulty;
             this.question = question;
-            this.ans1 = answers[0];
-            this.ans2 = answers[1];
-            this.ans3 = answers[2];
-            this.ans4 = answers[3];
-            this.correctAns = answers[4];
+            this.answers = answers;
+            //this.ans1 = answers[0];
+            //this.ans2 = answers[1];
+            //this.ans3 = answers[2];
+            //this.ans4 = answers[3];
+            //this.correctAns = answers[4];
             this.imageUrl = imageUrl;
             this.simulationLevel = simulationLevel;
         }
-
+        public string GetCorrectAns()
+        {
+            return this.answers[4];
+        }
         // Returns hebrew category accordingly to the given quesiton type.
         public static string FromTypeToCategory(QuestionType questionType)
         {

@@ -161,9 +161,11 @@ namespace Assets.model
         }
 
         // Create a new user.
-        private User CreateUser(string username, string email, string idToken, string localId)
+        //private User CreateUser(string username, string email, string idToken, string localId)
+        private User CreateUser(string username, string idToken, string localId)
         {
-            UserDetails details = new UserDetails(username, email, localId, idToken);
+            UserDetails details = new UserDetails(username, localId, idToken);
+           // UserDetails details = new UserDetails(username, email, localId, idToken);
             UserState state = new UserState(new int[] { -1 }, Utils.INITIAL_NUMBER_OF_HINTS, 0);
             return new User(details, state);
         }
@@ -177,7 +179,8 @@ namespace Assets.model
             Action<string,string> onSuccessSignUp = (string idToken, string localId) =>
             {
                 // If saving the new user is done successfully, reset the error object and set IsSignedUp to true.
-                databaseHandler.SaveNewUser(CreateUser(username, email, idToken, localId),
+                databaseHandler.SaveNewUser(CreateUser(username, idToken, localId),
+                //databaseHandler.SaveNewUser(CreateUser(username, email, idToken, localId),
                     ()=> { ResetError(); IsSignedUp = true; },
                     onFailure);
             };

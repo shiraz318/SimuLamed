@@ -167,10 +167,14 @@ public class QuestionsManager : BaseViewModel
         if (CurrentQuestion != null)
         {
             QuestionText = CurrentQuestion.question;
-            Ans1Text = CurrentQuestion.ans1;
-            Ans2Text = CurrentQuestion.ans2;
-            Ans3Text = CurrentQuestion.ans3;
-            Ans4Text = CurrentQuestion.ans4;
+            Ans1Text = CurrentQuestion.answers[0];
+            Ans2Text = CurrentQuestion.answers[1];
+            Ans3Text = CurrentQuestion.answers[2];
+            Ans4Text = CurrentQuestion.answers[3];
+            //Ans1Text = CurrentQuestion.ans1;
+            //Ans2Text = CurrentQuestion.ans2;
+            //Ans3Text = CurrentQuestion.ans3;
+            //Ans4Text = CurrentQuestion.ans4;
             IsAnsInteractable = true;
             // Notify that the answers color needs to be reset.
             NotifyPropertyChanged("ResetAnsColor");

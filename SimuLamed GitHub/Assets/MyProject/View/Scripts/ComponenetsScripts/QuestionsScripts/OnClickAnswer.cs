@@ -24,7 +24,8 @@ public class OnClickAnswer : MonoBehaviour
         { 
             if (questionManager.IsQuestionSet)
             {
-                return questionManager.CurrentQuestion.correctAns; 
+                return questionManager.CurrentQuestion.GetCorrectAns(); 
+                //return questionManager.CurrentQuestion.correctAns; 
             }
             return ""; 
         }

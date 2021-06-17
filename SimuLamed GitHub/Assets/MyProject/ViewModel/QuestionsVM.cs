@@ -112,7 +112,8 @@ public class QuestionsVM : BaseViewModel
     // Get the correct answer of the current question.
     public string GetCorrectAns()
     {
-        return questionsManager.CurrentQuestion.correctAns;
+        return questionsManager.CurrentQuestion.GetCorrectAns();
+        //return questionsManager.CurrentQuestion.correctAns;
     }
 
     // On click event handler for clicking hint button.

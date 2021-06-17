@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 400002}
   - component: {fileID: 3300000}
   - component: {fileID: 2300000}
+  - component: {fileID: 7692765416163569361}
   m_Layer: 0
   m_Name: GSDStreetLightSingle
   m_TagString: Untagged
@@ -172,3 +173,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &7692765416163569361
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100002}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.45420575, y: 9.400127, z: 0.32035565}
+  m_Center: {x: -0.06696451, y: 4.702944, z: -0.0000004172325}

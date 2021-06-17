@@ -38,7 +38,7 @@ public class ScreensManager : MonoBehaviour
             if (this == null) { return; }
             if (eventArgs.PropertyName.Equals("Lives"))
             {
-                if (simulationVM.Lives <= 0)
+                if (simulationVM.Lives < 0)
                 {
                     FailMenu();
                 }

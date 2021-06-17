@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8407025784031317569}
   - component: {fileID: 8407025784027926115}
   - component: {fileID: 8407025784029023395}
+  - component: {fileID: 7314693604083776400}
   m_Layer: 0
   m_Name: StreetLight_Traffic
   m_TagString: Metal
@@ -82,6 +83,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &7314693604083776400
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8407025784031220321}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.25854492, y: 0.3909912, z: 5.6089654}
+  m_Center: {x: -0.052978516, y: 0.013244629, z: 2.675319}
 --- !u!1001 &2474254493812987921
 PrefabInstance:
   m_ObjectHideFlags: 0

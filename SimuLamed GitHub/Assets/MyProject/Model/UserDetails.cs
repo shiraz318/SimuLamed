@@ -12,14 +12,15 @@ namespace Assets.Model
     public struct UserDetails
     {
         public string username;
-        public string email;
+      //  public string email;
         public string localId;
         public string idToken;
         
-        public UserDetails(string username, string email, string localId, string idToken)
+        //public UserDetails(string username, string email, string localId, string idToken)
+        public UserDetails(string username, string localId, string idToken)
         {
             this.username = username;
-            this.email = email;
+           // this.email = email;
             this.localId = localId;
             this.idToken = idToken;
         }
@@ -40,7 +41,7 @@ namespace Assets.Model
         public void ResetDetails()
         {
             username = "";
-            email = "";
+           // email = "";
             localId = "";
             idToken = "";
         }
