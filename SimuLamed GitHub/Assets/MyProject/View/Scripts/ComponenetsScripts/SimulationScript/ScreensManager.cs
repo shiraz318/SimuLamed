@@ -20,13 +20,14 @@ public class ScreensManager : MonoBehaviour
     public GameObject successMenuUI;
     public GameObject questionsMenuUI;
     public GameObject lastSuccessMenuUI;
-    
+
 
     private SimulationVM simulationVM;
 
     void Start()
     {
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+       
         SetViewModel();
         isQuitMenu = false;
     }
@@ -96,7 +97,6 @@ public class ScreensManager : MonoBehaviour
     private void Pause()
     {
         ActivateMenu(() => { soundManager.PauseSimulation(); }, pauseMenuUI, true);
-        
     }
 
     // Display the right finish level menu UI.

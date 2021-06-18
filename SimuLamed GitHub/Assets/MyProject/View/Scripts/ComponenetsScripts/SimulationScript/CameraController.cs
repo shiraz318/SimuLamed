@@ -13,6 +13,11 @@ public class CameraController : MonoBehaviour
         secondCamera.SetActive(false);
     }
 
+
+    public GameObject GetCurrentCamera()
+    {
+        return firstCamera.activeSelf ? firstCamera : secondCamera;
+    }
     
     // Switch between the two cameras.
     public void OnClickSwitch()
