@@ -11,7 +11,7 @@ public class TabInputField : MonoBehaviour
     void Start()
     {
         system = EventSystem.current;
-        // Init the list.
+        // Initialize the list.
         inputList = new List<GameObject>();
         InputField[] array = transform.GetComponentsInChildren<InputField>();
         for (int i = 0; i < array.Length; i++)

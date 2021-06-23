@@ -9,18 +9,15 @@ using System.Threading.Tasks;
 namespace Assets.Model
 {
     [Serializable]
-    public struct UserDetails
+    public class UserDetails
     {
         public string username;
-      //  public string email;
         public string localId;
         public string idToken;
         
-        //public UserDetails(string username, string email, string localId, string idToken)
         public UserDetails(string username, string localId, string idToken)
         {
             this.username = username;
-           // this.email = email;
             this.localId = localId;
             this.idToken = idToken;
         }
@@ -37,13 +34,12 @@ namespace Assets.Model
             this.idToken = idToken;
         }
 
-        // Reset the user details fiels.
-        public void ResetDetails()
-        {
-            username = "";
-           // email = "";
-            localId = "";
-            idToken = "";
-        }
+        //// Reset the user details fiels.
+        //public void ResetDetails()
+        //{
+        //    username = "";
+        //    localId = "";
+        //    idToken = "";
+        //}
     }
 }

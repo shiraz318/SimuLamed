@@ -58,15 +58,6 @@ namespace Assets.model
         private static Question ParseQuestion(string[] line, int rowNumber)
         {
             string[] answers = new string[5];
-            //QuestionDifficulty questionDifficulty;
-            //try
-            //{
-            //    questionDifficulty = (QuestionDifficulty)int.Parse(line[0]);
-            //}
-            //catch 
-            //{
-            //    questionDifficulty = QuestionDifficulty.Medium;
-            //}
 
             QuestionType questionType = GetQuestionType(line[3]);
             
@@ -82,7 +73,6 @@ namespace Assets.model
 
 
             return new Question(rowNumber, questionType, questionString, answers, imageUrl,simulationLevel);
-            //return new Question(rowNumber, questionType, questionDifficulty, questionString, answers, imageUrl,simulationLevel);
         }
 
         // Create questions from the given list.

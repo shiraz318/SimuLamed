@@ -31,7 +31,7 @@ namespace Assets.model
         public int NumOfQuestions { get; set; }
         public int HintsNumber 
         { 
-            get { return currentUser.IsAssigned ? currentUser.state.numOfHints : 0; } 
+            get { return currentUser != null? currentUser.state.numOfHints : 0; } 
             set{ currentUser.state.numOfHints = value; NotifyPropertyChanged("HintsNumber"); } 
         }
         public int OpenLevel 
@@ -42,7 +42,7 @@ namespace Assets.model
         public QuestionType SelectedSubject { get; set; }
         public string CurrentUsername 
         { 
-            get { return currentUser.IsAssigned ? currentUser.details.username : ""; } 
+            get { return currentUser != null ? currentUser.details.username : ""; } 
         }
         public bool IsSignedUp 
         { 
@@ -95,7 +95,7 @@ namespace Assets.model
             // Initialization.
             databaseHandler = FirebaseManager.Instance;
             Error = new ErrorObject("", ErrorTypes.None);
-            currentUser.ResetUser();
+            currentUser = null;
             Questions = new Question[0];
             fromQuestionNumToType = new Dictionary<int, QuestionType>();
         }
@@ -141,7 +141,6 @@ namespace Assets.model
             {
                 IsSignedIn = true;
                 currentUser = user;
-                currentUser.IsAssigned = true;
                 NotifyPropertyChanged("HintsNumber");
 
                 databaseHandler.GetNumberOfQuestions(user.details.idToken, (numOfQuestions) =>
@@ -338,7 +337,7 @@ namespace Assets.model
         // Reset the current user.
         public void ResetCurrentUser()
         {
-            currentUser.ResetUser();
+            currentUser = null;
         }
 
         // Notify property changed.

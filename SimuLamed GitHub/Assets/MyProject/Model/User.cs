@@ -7,69 +7,25 @@ using System.Linq;
 
 
 [Serializable] 
-public struct User
+public class User
 {
-    public bool IsAssigned { get; set; }
+  //  public bool IsAssigned { get; set; }
     public UserDetails details; // contains the user details.
     public UserState state; // contains the user state.
     
     public User (UserDetails details, UserState state)
     {
-        IsAssigned = true;
+//        IsAssigned = true;
         this.details = details;
         this.state = state;
     }
     
-    // Reset the user fiels.
-    public void ResetUser()
-    {
-        IsAssigned = false;
-        state = null;
-        details.ResetDetails();
-    }
-
-
-    //// Init the user score.
-    //public void InitUserScore(int numOfQuestions)
+    //// Reset the user fiels.
+    //public void ResetUser()
     //{
-    //    state.InitScore(numOfQuestions);
-    //}
-   
-    //// Set the user score according to the given question number and whether the user answered correctly on it or not.
-    //public void SetScore(int questionNum, bool isAnsCorrect)
-    //{
-    //    state.SetScore(questionNum, isAnsCorrect);
+    //    IsAssigned = false;
+    //    state = null;
+    //    details.ResetDetails();
     //}
 
-    //// Set the correct answers of the user
-    //public void SetCorrectAns()
-    //{
-    //    state.SetCorrectAns();
-    //}
-
-    //public void AddHint()
-    //{
-    //    state.numOfHints++;
-    //}
-    //public void DecreaseHint()
-    //{
-    //    state.numOfHints--;
-    //}
-    //public bool IsDeserveNewHint()
-    //{
-    //    return state.IsDeserveNewHint();
-
-    //}
-    //public int GetOpenLevel()
-    //{
-    //    return state.openLevel;
-    //}
-    //public void InitCorrectAnsInARowCounter()
-    //{
-    //    state.InitCorrectAnsInARowCounter();
-    //}
-    //public void AddLevel()
-    //{
-    //    state.openLevel++;
-    //}
 }

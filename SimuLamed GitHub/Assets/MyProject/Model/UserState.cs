@@ -26,7 +26,7 @@ namespace Assets.Model
 
         }
 
-        // Init the score.
+        // Initialize the score.
         public void InitScore(int numOfQuestions)
         {
             correctAnsInARowCounter = 0;

@@ -18,22 +18,12 @@ namespace Assets
         }
 
 
-        // Delegates.
-        public delegate void OnSuccessFunc();
-        public delegate void OnSuccessSignInFunc(User user);
-        public delegate void OnFailureFunc(string errorMessage);
+        //// Delegates.
+        //public delegate void OnSuccessFunc();
+        //public delegate void OnSuccessSignInFunc(User user);
+        //public delegate void OnFailureFunc(string errorMessage);
 
         // Constants.
-        //public const string INAVLID_EMAIL_MESSAGE = "INVALID EMAIL ADDRESS";
-        //public const string INAVLID_EMAIL_MESSAGE_H = "כתובת אימייל לא חוקית";
-        //public const string UNVERIFIED_EMAIL_MESSAGE = "PLEASE VERIFY YOUR EMAIL";
-        //public const string UNVERIFIED_EMAIL_MESSAGE_H = "אנא אמת את המייל שלך";
-        //public const string EMPTY_FIELD_MESSAGE = "PLEASE FILL ALL FIELDS";
-        //public const string EMPTY_FIELD_MESSAGE_H = "אנא מלא את כל השדות";
-        //public const string EMPTY_EMAIL_MESSAGE = "PLEASE ENTER YOUR EMAIL";
-        //public const string FAIL_SAVE_SCORE_MESSAGE = "WE COULD NOT SAVE YOUR PROGRESS";
-        // public const string FAIL_SAVE_SCORE_MESSAGE_H = "קרתה תקלה! לא הצלחנו לשמור את ההתקדמות שלך";
-
         public const string SAFETY_HEBREW = "בטיחות";
         public const string TRANSACTION_RULES_HEBREW = "חוקי התנועה";
         public const string UNDERSTANDING_VEHICLE_HEBREW = "הכרת הרכב";

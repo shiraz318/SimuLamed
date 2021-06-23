@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class LevelIcon : MonoBehaviour
 {
-
     public Button button;
     public Image backOpenImage;
     public Image openLevelImage;
@@ -25,13 +24,6 @@ public class LevelIcon : MonoBehaviour
          * Otherwise its close.
          */
         SetEnable(viewModel.OpenLevel >= levelIdx - 1);
-        //{
-        //    SetEnable(true);
-        //}
-        //else
-        //{
-        //    SetEnable(false);
-        //}
         button.onClick.AddListener(OnClickIcon);
     }
 

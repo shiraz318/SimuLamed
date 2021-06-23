@@ -18,7 +18,7 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
     // Sound related variables.
     private float pitch;
     private bool muteCar;
-    private const float topSpeed = 200f;
+    private const float topSpeed = 180f;
 
     // Inputs variables.
     private float m_horizontalInput;

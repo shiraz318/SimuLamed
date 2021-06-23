@@ -53,17 +53,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 849aa43646ecd904398908a2ada7d0a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: {fileID: 5999471725453616607}
-  wrongAnswerClicked: {fileID: 9100365962970543765}
-  correctAnswerClicked: {fileID: 1335723121640434809}
-  gotNewHint: {fileID: 1686912191541883673}
-  hintClicked: {fileID: 5999471725453616607}
-  passLevel: {fileID: 3754815471899068115}
-  failLevel: {fileID: 3194131858048985011}
-  pauseSimulation: {fileID: 4542200492018558369}
-  quitSimulation: {fileID: 4542200492018558369}
-  displayQuestionInSimulation: {fileID: 5845142374992663727}
-  alert: {fileID: 1713380299569010715}
+  sounds:
+  - {fileID: 5999471725453616607}
+  - {fileID: 9100365962970543765}
+  - {fileID: 1335723121640434809}
+  - {fileID: 1686912191541883673}
+  - {fileID: 5999471725453616607}
+  - {fileID: 3754815471899068115}
+  - {fileID: 3194131858048985011}
+  - {fileID: 4542200492018558369}
+  - {fileID: 4542200492018558369}
+  - {fileID: 5845142374992663727}
+  - {fileID: 1713380299569010715}
 --- !u!1001 &16681398098391858
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -616,6 +617,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CarEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4553808742123837075, guid: 1714b149e16a5194e846f3b6453fbcc4,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1714b149e16a5194e846f3b6453fbcc4, type: 3}
