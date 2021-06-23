@@ -11,6 +11,8 @@ public class ScreensManager : MonoBehaviour
 {
     public static bool gameIsPaused = false;
     public static bool isQuitMenu = false;
+    public static bool isQuestionMenu = false;
+    public static bool isEndMenu = false;
 
     public static SoundManager soundManager;
 
@@ -54,7 +56,7 @@ public class ScreensManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (!isQuitMenu)
+            if (!isQuitMenu && !isQuestionMenu && !isEndMenu)
             {
                 if (gameIsPaused)
                 {
@@ -70,8 +72,11 @@ public class ScreensManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-
-            QuitMenu();
+            if (!gameIsPaused)
+            {
+                QuitMenu();
+            }
+            
         }
     }
 
@@ -91,6 +96,8 @@ public class ScreensManager : MonoBehaviour
         {
             SoundManager.muteCar = soundManager.IsMute;
         }
+        isQuestionMenu = false;
+        isEndMenu = false;
     }
 
     // Pause the game.
@@ -110,6 +117,8 @@ public class ScreensManager : MonoBehaviour
         {
             SuccessMenu();
         }
+        isEndMenu = true;
+        
     }
 
     // Continue the game after answering the question.
@@ -132,10 +141,10 @@ public class ScreensManager : MonoBehaviour
     {
         ActivateMenu(()=> { soundManager.QuitSimulation(); }, quitMenuUI, true);
         
-        if (gameIsPaused)
-        {
-            pauseMenuUI.SetActive(false);
-        }
+        //if (gameIsPaused)
+        //{
+        //    pauseMenuUI.SetActive(false);
+        //}
         
         isQuitMenu = true;
     }
@@ -154,7 +163,7 @@ public class ScreensManager : MonoBehaviour
     public void FailMenu()
     {
         ActivateMenu(() => { soundManager.FailLevel(); }, failMenuUI, true);
-        
+        isEndMenu = true;
         questionsMenuUI.SetActive(false);
        
     }
@@ -183,7 +192,7 @@ public class ScreensManager : MonoBehaviour
     public void DisplayQuestion(int questionNumber)
     {
         ActivateMenu(() => { soundManager.DisplayQuestion(); }, questionsMenuUI, true);
-        
+        isQuestionMenu = true;
         simulationVM.DisplayQuestion(questionNumber);
     }
 
