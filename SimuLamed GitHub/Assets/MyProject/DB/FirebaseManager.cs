@@ -22,8 +22,13 @@ public sealed class FirebaseManager : IDatabaseHandler
     private const string SIGN_IN_API = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + AUTH_KEY;
     private const string RESET_PASSWORD_API = "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=" + AUTH_KEY;
     private const string CHECK_EMAIL_VER_API = "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=" + AUTH_KEY;
-
+    private const string EMAIL_FIELD = "email";
+    private const string PASSWORD_FIELD = "password";
+    private const string USERS_DB_NAME = "users";
+    private const string QUESTIONS_DB_NAME = "questions";
     
+
+
     private static fsSerializer serializer = new fsSerializer();
 
     // Thread safety singleton using double check locking 
@@ -52,16 +57,36 @@ public sealed class FirebaseManager : IDatabaseHandler
     public void PostUser(User user, Action onSuccess, Action<string> onFailure)
     {
         RestClient.Put<User>($"{databaseURL}users/{user.details.localId}.json?auth=" + user.details.idToken, user).
-            Then(response => { onSuccess();}).
+            Then(response => { onSuccess(); }).
             Catch(error => { onFailure(ExtractErrorMessage(error)); });
     }
 
     // A general method for Post a given body to a given url while the response is of SignResponse type.
     public void SignResponsePost(string url, string body, Action<SignResponse> onSuccess, Action<string> onFailure)
     {
+        //RestClient.Post<SignResponse>(GetRequestHelper(url, body)).Then(response => onSuccess(response)).
+        //    Catch(error =>
+        //    {
+        //        onFailure(ExtractErrorMessage(error));
+        //    });
         RestClient.Post<SignResponse>(url, body).Then(response => onSuccess(response)).
             Catch(error => { onFailure(ExtractErrorMessage(error)); });
     }
+
+    public RequestHelper GetRequestHelper(string url, string body)
+    {
+        return new RequestHelper
+        {
+            Uri = url,
+            Params = new Dictionary<string, string> {
+                { "key", AUTH_KEY }
+            },
+            BodyString = body,
+            Timeout = 1
+        };
+
+    }
+
 
     // Sign up.
     public void SignUp(string email, string password, Action<string,string> onSuccess, Action<string> onFailure)
@@ -96,6 +121,13 @@ public sealed class FirebaseManager : IDatabaseHandler
     // Extract the response message from a given RequestExcetion.
     private string GetResponseError(RequestException exception)
     {
+        if (exception.Response.Equals(""))
+        {
+            if (exception.ServerMessage.Equals("Cannot resolve destination host"))
+            {
+                return "לא הצלחנו להתחבר למסד הנתונים";
+            }
+        }
         return exception.Response.Split(',')[1].Split(':')[1].Split('\"')[1].Replace('_', ' ');
     }
 
@@ -139,11 +171,12 @@ public sealed class FirebaseManager : IDatabaseHandler
 
     // Get a user from the database according to the given localId and idToken.
     private void GetUser(string localId, string idToken, Action<User> onSuccess, Action<string> onFailure)
-    {
+    {        
         RestClient.Get<User>($"{databaseURL}users/{localId}.json?auth=" + idToken).
             Then(response => {
                 response.details.SetIdToken(idToken); response.details.SetLocalId(localId);
-                onSuccess(response); }).Catch(error=> { onFailure(error.Message); });
+                onSuccess(response); }).Catch(error=> 
+                { onFailure(error.Message); });
     }
 
     // Reset password.
