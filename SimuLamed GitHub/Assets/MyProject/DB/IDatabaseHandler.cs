@@ -14,7 +14,7 @@ namespace Assets.model
         void ResetPassword(string email, Action onSuccess, Action<string> onFailure);
         void UploadDataset(List<Question> questions);
         void GetQuestionsByCategory(string userIdToken, string category, Action<Question[]> onSuccess , Action<string> onFailure);
-        void PostUser(User user, Action onSuccess, Action<string> onFailure);
+        void PutUser(User user, Action onSuccess, Action<string> onFailure);
         void SignUp(string email, string password, Action<string,string> onSuccess, Action<string> onFailure);
         void SaveNewUser(User newUser, Action onSuccess, Action<string> onFailure);
         void GetNumberOfQuestions(string idToken, Action<int> onSuccess, Action<string> onFailure);

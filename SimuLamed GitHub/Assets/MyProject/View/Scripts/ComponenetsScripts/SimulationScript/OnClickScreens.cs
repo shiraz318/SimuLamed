@@ -57,9 +57,16 @@ public class OnClickScreens : MonoBehaviour
         CheckTime();
         action();
     }
+
+    public void OnClickNoSave()
+    {
+        OnClickCheckTime(() => { ScreensManager.ResetScreens(); sceneLoader.LoadNextScene(Utils.LEVELS_SCENE); });
+    }
+
     private void OnClickCheckTimeAndExit(Action onSuccess)
     {
         OnClickCheckTime(()=> { SetOnSuccessFunc(onSuccess); });
+        ScreensManager.ResetScreens();
         viewModel.OnExitSimulation();
     }
     

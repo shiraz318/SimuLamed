@@ -10,9 +10,8 @@ public class BaseViewModel : MonoBehaviour, INotifyPropertyChanged
 {
 
     // Fields.
-    private string errorMessage;
+    private string errorMessage = "";
     protected IAppModel model;
-
     public event PropertyChangedEventHandler PropertyChanged;
     
     // Properties.
@@ -27,8 +26,10 @@ public class BaseViewModel : MonoBehaviour, INotifyPropertyChanged
         }
     }
 
+
     public void Start()
     {
+        //ErrorMessage = "";
         OnStart();
         SetModel();
     }

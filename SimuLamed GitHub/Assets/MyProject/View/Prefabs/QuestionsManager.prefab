@@ -925,7 +925,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "\u05DC\u05D0 \u05D4\u05E6\u05DC\u05D7\u05E0\u05D5 \u05DC\u05D8\u05E2\u05D5\u05DF
+    \u05D0\u05EA \u05D4\u05E9\u05D0\u05DC\u05D4 "
   m_isRightToLeft: 1
   m_fontAsset: {fileID: 11400000, guid: 4e97ffb52602fbb409a01d4ba1a3c526, type: 2}
   m_sharedMaterial: {fileID: 9199116499576093476, guid: 4e97ffb52602fbb409a01d4ba1a3c526,
@@ -1022,14 +1023,13 @@ GameObject:
   - component: {fileID: 1112465672194861291}
   - component: {fileID: 735437536228738269}
   - component: {fileID: 6933029420498110363}
-  - component: {fileID: 6837455779280663331}
   m_Layer: 5
   m_Name: ErrorText
   m_TagString: QuestionText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1112465672194861291
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1147,22 +1147,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &6837455779280663331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4703621997242817900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a205e6ced4bc924f9725c1f6020bb02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewAdapterTypeName: 
-  viewAdapterOptions: {fileID: 0}
-  viewModelPropertyName: QuestionsManager.ErrorMessage
-  viewPropertyName: TMPro.TextMeshProUGUI.text
 --- !u!114 &1181728209747017892
 MonoBehaviour:
   m_ObjectHideFlags: 0

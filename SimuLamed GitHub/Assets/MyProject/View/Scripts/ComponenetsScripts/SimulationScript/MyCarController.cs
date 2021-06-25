@@ -37,6 +37,8 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
     private float drive;
     private string speed = "0";
 
+    
+
 
 
     // Properties.
@@ -49,6 +51,7 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
     public Vector3 CarStartPosition { get { return carStartPosition; } set { carStartPosition = value; NotifyPropertyChanged("CarStartPosition"); } }
     [Binding]
     public Vector3 CarStartRotation { get { return carStartRotation; } set { carStartRotation = value; NotifyPropertyChanged("CarStartRotation"); } }
+
     [Binding]
     public string Speed
     {
@@ -72,6 +75,7 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
         CarStartRotation = optionalStartPositions[randIndex].eulerAngles;
         
     }
+    
 
     // Get the current pressed key.
     public void GetInput()
@@ -205,6 +209,7 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
         Accelerate();
         // Set the position of the wheels.
         UpdateWheelPoses();
+
     }
      
     // Convert the given string to ASCII.

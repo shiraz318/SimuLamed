@@ -11,7 +11,7 @@ using UnityEngine.Networking;
 using UnityWeld.Binding;
 
 [Binding]
-public class SimulationVM : BaseViewModel
+public class SimulationVM : SaveViewModel
 {
     // Private fields.
     private const int MAX_NUMBER_OF_ERRORS = 4;
@@ -19,7 +19,6 @@ public class SimulationVM : BaseViewModel
     private int lives;
     private string questionNumberText;
     private Utils.QuestionOption[] playerScore;
-
     // Properties
     public int DisplayedQuestionsCounter 
     { 
@@ -140,8 +139,9 @@ public class SimulationVM : BaseViewModel
     public void OnExitSimulation()
     {
         model.UpdateUserScore(playerScore);
-        model.UpdateUserLevel(currentLevel - 1);
+        model.UpdateUserLevel(currentLevel);
         model.SaveUser();
+        //model.SaveUser();
     }
 
 
@@ -150,6 +150,7 @@ public class SimulationVM : BaseViewModel
     // Override methods.
     protected override void OnStart()
     {
+        IsSaveingFailed = false;
         currentLevel = LevelsVM.chosenLevelIdx;
         DisplayedQuestionsCounter = 0;
         SetQuestionsManager();
@@ -180,17 +181,23 @@ public class SimulationVM : BaseViewModel
     }
     protected override void AdditionalModelSettings(PropertyChangedEventArgs eventArgs)
     {
-        string propertyName = GetOnFinishActionPropertyName();
-
+        //string propertyName = GetOnFinishActionPropertyName();
+        questionsManager.IsQuestionSet = false;
         // The model got the questions from the database.
         if (eventArgs.PropertyName.Equals("Questions"))
         {
+            questionsManager.IsQuestionSet = true;
             questionsManager.SetQuestions(model.Questions.ToArray());
         }
-        else if (eventArgs.PropertyName.Equals(propertyName))
-        {
-            NotifyPropertyChanged(propertyName);
-        }
+        base.AdditionalModelSettings(eventArgs);
+        //else if (eventArgs.PropertyName.Equals(propertyName))
+        //{
+        //    NotifyPropertyChanged(propertyName);
+        //} 
+        //else if (eventArgs.PropertyName.Equals("IsSaveingFailed"))
+        //{
+        //    IsSaveingFailed = true;
+        //}
     }
     protected override ErrorTypes[] GetErrorTypes() { return new ErrorTypes[]{ ErrorTypes.SaveScore, ErrorTypes.LoadQuestions }; }
 }

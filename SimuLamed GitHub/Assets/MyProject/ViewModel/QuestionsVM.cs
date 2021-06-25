@@ -151,6 +151,7 @@ public class QuestionsVM : BaseViewModel
     }
     protected override void AdditionalModelSettings(PropertyChangedEventArgs eventArgs)
     {
+        questionsManager.IsQuestionSet = false;
         // The model got the questions from the database.
         if (eventArgs.PropertyName.Equals("Questions") && !IsQuestionSet && model.Questions.Length > 0)
         {

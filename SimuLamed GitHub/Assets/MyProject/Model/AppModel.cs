@@ -16,6 +16,7 @@ namespace Assets.model
         private bool isSignedIn;
         private bool isResetPassword;
         private bool isUserSaved;
+        private bool failToSave;
         private Question[] questions;
         private IDatabaseHandler databaseHandler;
         private User currentUser;
@@ -64,7 +65,11 @@ namespace Assets.model
             get { return isUserSaved; } 
             set { isUserSaved = value; NotifyPropertyChanged("IsUserSaved"); } 
         }
-
+        public bool IsSaveingFailed
+        {
+            get { return failToSave; }
+            set { failToSave = value; NotifyPropertyChanged("IsSaveingFailed"); }
+        }
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Thread safety singleton using double check locking 
@@ -165,7 +170,7 @@ namespace Assets.model
         {
             UserDetails details = new UserDetails(username, localId, idToken);
            // UserDetails details = new UserDetails(username, email, localId, idToken);
-            UserState state = new UserState(new int[] { -1 }, Utils.INITIAL_NUMBER_OF_HINTS, 0);
+            UserState state = new UserState(new int[] { -1 }, Utils.INITIAL_NUMBER_OF_HINTS, 1);
             return new User(details, state);
         }
 
@@ -253,15 +258,17 @@ namespace Assets.model
 
         // Save current user to the database.
         public void SaveUser()
-        {            
+        {
             // Set the correct answers of the current user.
             currentUser.state.SetCorrectAns();
 
             // If posting the user is done successfully, reset the error object and set IsUserSaved to true.
-            databaseHandler.PostUser(currentUser,
-                ()=> { ResetError(); IsUserSaved = true; },
-                (message) => SetError(message, ErrorTypes.SaveScore)) ;
+            databaseHandler.PutUser(currentUser,
+                () => { ResetError(); IsUserSaved = true; },
+                (message) => { IsSaveingFailed = true;  SetError(message, ErrorTypes.SaveScore); });
         }
+
+
 
         // Reset the error propery.
         private void ResetError()

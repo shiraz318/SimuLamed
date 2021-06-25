@@ -20,10 +20,10 @@ public class LevelIcon : MonoBehaviour
         sceneLoader = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
 
         /*
-         * If the highest open level of the user is bigger than this level index-1 - this level is open. 
+         * If the highest open level of the user is bigger than this level index - this level is open. 
          * Otherwise its close.
          */
-        SetEnable(viewModel.OpenLevel >= levelIdx - 1);
+        SetEnable(viewModel.OpenLevel >= levelIdx);
         button.onClick.AddListener(OnClickIcon);
     }
 

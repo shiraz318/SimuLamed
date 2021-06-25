@@ -14,14 +14,26 @@ public class ScreensManager : MonoBehaviour
     public static bool isQuestionMenu = false;
     public static bool isEndMenu = false;
 
+
     public static SoundManager soundManager;
 
-    public GameObject pauseMenuUI;
-    public GameObject quitMenuUI;
-    public GameObject failMenuUI;
-    public GameObject successMenuUI;
-    public GameObject questionsMenuUI;
-    public GameObject lastSuccessMenuUI;
+    private const int PAUSE_MENU_UI_IDX = 0;
+    private const int QUIT_MENU_UI_IDX = 1;
+    private const int FAIL_MENU_UI_IDX = 2;
+    private const int SUCCESS_MENU_UI_IDX = 3;
+    private const int QUESTIONS_MENU_UI_IDX = 4;
+    private const int LAST_SUCCESS_MENU_UI_IDX = 5;
+    private const int ERROR_SUCCESS_MENU_UI_IDX = 6;
+
+    //public GameObject pauseMenuUI;
+    //public GameObject quitMenuUI;
+    //public GameObject failMenuUI;
+    //public GameObject successMenuUI;
+    //public GameObject questionsMenuUI;
+    //public GameObject lastSuccessMenuUI;
+    //public GameObject ErrorMenuUI;
+
+    public GameObject[] menues;
 
 
     private SimulationVM simulationVM;
@@ -45,10 +57,30 @@ public class ScreensManager : MonoBehaviour
                 {
                     FailMenu();
                 }
+            } 
+            else if (eventArgs.PropertyName.Equals("IsSaveingFailed") && simulationVM.IsSaveingFailed)
+            {
+                DiactivateAllMenues();
+                ActivateMenu(()=>{ }, menues[ERROR_SUCCESS_MENU_UI_IDX], true);
+                
             }
 
         };
 
+    }
+
+    public void Abort()
+    {
+        simulationVM.IsSaveingFailed = false;
+        ActivateMenu(()=> { }, menues[ERROR_SUCCESS_MENU_UI_IDX], false);
+    }
+
+    private void DiactivateAllMenues()
+    {
+        foreach (GameObject menu in menues)
+        {
+            ActivateMenu(()=> { }, menu, false);
+        }
     }
 
     // Check if space or esc is clicked.
@@ -80,6 +112,15 @@ public class ScreensManager : MonoBehaviour
         }
     }
 
+    // Reset the screens to false - no screen is displaying right now.
+    public static void ResetScreens()
+    {
+            gameIsPaused = false;
+            isQuitMenu = false;
+            isQuestionMenu = false;
+            isEndMenu = false;
+    }
+
     // Activate or disactivate the given menu UI and make the given sound action.
     private void ActivateMenu(Action soundAction, GameObject menuUI, bool toActivate)
     {
@@ -103,7 +144,7 @@ public class ScreensManager : MonoBehaviour
     // Pause the game.
     private void Pause()
     {
-        ActivateMenu(() => { soundManager.PauseSimulation(); }, pauseMenuUI, true);
+        ActivateMenu(() => { soundManager.PauseSimulation(); }, menues[PAUSE_MENU_UI_IDX], true);
     }
 
     // Display the right finish level menu UI.
@@ -124,14 +165,14 @@ public class ScreensManager : MonoBehaviour
     // Continue the game after answering the question.
     public void OnClickFinishAns()
     {
-        ActivateMenu(() => { soundManager.OnClickButton(); }, questionsMenuUI, false);
+        ActivateMenu(() => { soundManager.OnClickButton(); }, menues[QUESTIONS_MENU_UI_IDX], false);
 
         
     }
     // Continue the game.
     private void Resume()
     {
-        ActivateMenu(() => { soundManager.PauseSimulation(); }, pauseMenuUI, false);
+        ActivateMenu(() => { soundManager.PauseSimulation(); }, menues[PAUSE_MENU_UI_IDX], false);
         
         gameIsPaused = false;
     }
@@ -139,7 +180,7 @@ public class ScreensManager : MonoBehaviour
     // Dispaly the quit menu UI.
     private void QuitMenu()
     {
-        ActivateMenu(()=> { soundManager.QuitSimulation(); }, quitMenuUI, true);
+        ActivateMenu(()=> { soundManager.QuitSimulation(); }, menues[QUIT_MENU_UI_IDX], true);
         
         //if (gameIsPaused)
         //{
@@ -152,7 +193,7 @@ public class ScreensManager : MonoBehaviour
     // Stay in game - dont quit the game.
     public void OnClickNoButton()
     {
-        ActivateMenu(() => { soundManager.OnClickButton(); }, quitMenuUI, false);
+        ActivateMenu(() => { soundManager.OnClickButton(); }, menues[QUIT_MENU_UI_IDX], false);
        
         isQuitMenu = false;
     }
@@ -162,9 +203,9 @@ public class ScreensManager : MonoBehaviour
     // Display the fail menu UI.
     public void FailMenu()
     {
-        ActivateMenu(() => { soundManager.FailLevel(); }, failMenuUI, true);
+        ActivateMenu(() => { soundManager.FailLevel(); }, menues[FAIL_MENU_UI_IDX], true);
         isEndMenu = true;
-        questionsMenuUI.SetActive(false);
+        menues[QUESTIONS_MENU_UI_IDX].SetActive(false);
        
     }
 
@@ -172,17 +213,17 @@ public class ScreensManager : MonoBehaviour
     // Display the success menu UI.
     public void SuccessMenu()
     {
-        ActivateMenu(() => { soundManager.PassLevel(); }, successMenuUI, true);
-        questionsMenuUI.SetActive(false);
+        ActivateMenu(() => { soundManager.PassLevel(); }, menues[SUCCESS_MENU_UI_IDX], true);
+        menues[QUESTIONS_MENU_UI_IDX].SetActive(false);
         
     }
 
     // Display the last success menu UI.
     public void LastSuccessMenu()
     {
-        ActivateMenu(() => { soundManager.PassLevel(); }, lastSuccessMenuUI, true);
+        ActivateMenu(() => { soundManager.PassLevel(); }, menues[LAST_SUCCESS_MENU_UI_IDX], true);
         
-        questionsMenuUI.SetActive(false);
+        menues[QUESTIONS_MENU_UI_IDX].SetActive(false);
         
     }
 
@@ -191,7 +232,7 @@ public class ScreensManager : MonoBehaviour
     // Display the questions menu UI with the given question.
     public void DisplayQuestion(int questionNumber)
     {
-        ActivateMenu(() => { soundManager.DisplayQuestion(); }, questionsMenuUI, true);
+        ActivateMenu(() => { soundManager.DisplayQuestion(); }, menues[QUESTIONS_MENU_UI_IDX], true);
         isQuestionMenu = true;
         simulationVM.DisplayQuestion(questionNumber);
     }

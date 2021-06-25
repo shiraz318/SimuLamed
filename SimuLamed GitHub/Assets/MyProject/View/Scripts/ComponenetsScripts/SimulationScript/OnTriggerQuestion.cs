@@ -35,7 +35,6 @@ public class OnTriggerQuestion : MonoBehaviour
             // The next time the player collide with this box collider, he will not trigger it.
             boxCollider.isTrigger = false;
             questionMark.SetActive(false);
-    
             screensManager.DisplayQuestion(questionNumber);
         }
 

@@ -157,7 +157,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: -227}
-  m_SizeDelta: {x: 291.411, y: 24.04918}
+  m_SizeDelta: {x: 451.42688, y: 19.603016}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &150365031
 MonoBehaviour:
@@ -222,8 +222,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -506,7 +506,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d9688c237cf93e408e9f5b98047155e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
 --- !u!1001 &517988891
 PrefabInstance:
   m_ObjectHideFlags: 0

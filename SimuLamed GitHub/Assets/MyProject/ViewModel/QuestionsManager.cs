@@ -17,6 +17,7 @@ public class QuestionsManager : BaseViewModel
     private string ans2Text;
     private string ans3Text;
     private string ans4Text;
+    private string errorText;
     private bool isAnsInteractable;
     private Tuple<int, bool> lastAnswerResults;
     private Question[] questions;
@@ -34,6 +35,12 @@ public class QuestionsManager : BaseViewModel
     { 
         get { return questionText; } 
         set { questionText = value; NotifyPropertyChanged("QuestionText"); } 
+    }
+    [Binding]
+    public string ErrorText
+    {
+        get { return errorText; }
+        set { errorText = value; NotifyPropertyChanged("ErrorText"); }
     }
 
     [Binding]
@@ -116,12 +123,19 @@ public class QuestionsManager : BaseViewModel
     // Display the given nubmer question.
     public void DisplayQuestion(int questionNUmber)
     {
-        IsQuestionSet = true;
+        if (!IsQuestionSet)
+        {
+            ErrorMessage = ErrorObject.FAIL_LOAD_QUESTION_MESSAGE;
+            Debug.Log(ErrorMessage);
+            return;
+        }
+        //IsQuestionSet = true;
         // Set the current question number.
         SetQuestionNumber(questionNUmber);
         if (CurrentQuestion == null)
         {
             ErrorMessage = ErrorObject.FAIL_LOAD_QUESTION_MESSAGE;
+            Debug.Log(ErrorMessage);
         }
         else
         {
