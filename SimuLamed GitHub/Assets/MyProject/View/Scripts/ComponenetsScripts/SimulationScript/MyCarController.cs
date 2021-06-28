@@ -26,6 +26,7 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
 
     // Physics of the car.
     public Rigidbody rigidBody;
+    public Transform carT;
     public WheelCollider frontDriverW, frontPassengerW;
     public WheelCollider rearDriverW, rearPassengerW;
     public Transform frontDriverT, frontPassengerT;
@@ -198,6 +199,22 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
         _transform.rotation = _quat;
     }
 
+    private void IsFlip()
+    {
+        if (Vector3.Dot(carT.up, Vector3.down) > 0.8)
+        {
+            Debug.Log("The car is upside down!");
+            carT.transform.Rotate(180f, 0.0f, 0.0f, Space.Self);
+
+
+        }
+         else if (carT.up.z >  0.8)
+        {
+            Debug.Log("The car is on the side!");
+            carT.transform.Rotate(0.0f, 0.0f, 90.0f,  Space.Self);
+        }
+    }
+
 
     private void Update()
     {
@@ -209,9 +226,12 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
         Accelerate();
         // Set the position of the wheels.
         UpdateWheelPoses();
+        // Check if the car flipped.
+        IsFlip();
+        
 
     }
-     
+
     // Convert the given string to ASCII.
     private string FromStringToASCII(string str)
     {

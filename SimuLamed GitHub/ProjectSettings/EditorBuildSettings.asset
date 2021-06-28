@@ -41,13 +41,13 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/MyProject/View/Scenes/SimulationScene_Test.unity
     guid: 304e79fbf276559479896b9b0eda2a37
   - enabled: 1
     path: Assets/MyProject/View/Scenes/QuestionsScene.unity
     guid: d9b7630effcd68e438b93449d4ddc10e
-  - enabled: 1
+  - enabled: 0
     path: Assets/MyProject/View/Scenes/DraftSimulation.unity
     guid: 4a42ea1a52f7301418740a7353ba083d
   - enabled: 0
