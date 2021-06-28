@@ -58,14 +58,17 @@ public class StatisticsVM : BaseViewModel
         {
             errorMessage = value;
             if (value != "") { IsLoadingCircleOn = false; }
-            NotifyPropertyChanged("ErrorMessage");
+            NotifyPropertyChanged();
+            //NotifyPropertyChanged("ErrorMessage");
         }
     }
     [Binding]
     public bool IsLoadingCircleOn
     {
         get { return isLoadingCircleOn; }
-        set { isLoadingCircleOn = value; NotifyPropertyChanged("IsLoadingCircleOn"); }
+        set { isLoadingCircleOn = value; 
+            NotifyPropertyChanged(); }
+            //NotifyPropertyChanged("IsLoadingCircleOn"); }
     }
 
 
@@ -98,14 +101,16 @@ public class StatisticsVM : BaseViewModel
     }
     protected override void AdditionalModelSettings(PropertyChangedEventArgs eventArgs)
     {
-        if (eventArgs.PropertyName.Equals("FromQuestionNumToType"))
+        if (eventArgs.PropertyName.Equals(nameof(model.FromQuestionNumToType)))
         {
-            NotifyPropertyChanged("UnderstandingVehicleValue");
-            NotifyPropertyChanged("SignsValue");
-            NotifyPropertyChanged("MixedValue");
-            NotifyPropertyChanged("TransactionRulesValue");
-            NotifyPropertyChanged("SafetyValue");
+            NotifyPropertyChanged(nameof(UnderstandingVehicleValue));
+            NotifyPropertyChanged(nameof(SignsValue));
+            NotifyPropertyChanged(nameof(MixedValue));
+            NotifyPropertyChanged(nameof(TransactionRulesValue));
+            NotifyPropertyChanged(nameof(SafetyValue));
             IsLoadingCircleOn = false;
+            
+            
         }
     }
     protected override ErrorTypes[] GetErrorTypes()

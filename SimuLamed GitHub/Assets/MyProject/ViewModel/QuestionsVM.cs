@@ -29,7 +29,9 @@ public class QuestionsVM : BaseViewModel
     public bool IsNewHint 
     { 
         get { return isNewHint; } 
-        set { isNewHint = value; NotifyPropertyChanged("IsNewHint"); } 
+        set { isNewHint = value; 
+            NotifyPropertyChanged(); } 
+            //NotifyPropertyChanged("IsNewHint"); } 
     }
 
     [Binding]
@@ -45,7 +47,8 @@ public class QuestionsVM : BaseViewModel
             { isHintButtonOn = false; }
             else
             { isHintButtonOn = value; }
-            NotifyPropertyChanged("IsHintButtonOn");
+            NotifyPropertyChanged();
+            //NotifyPropertyChanged("IsHintButtonOn");
         }
     }
 
@@ -57,14 +60,17 @@ public class QuestionsVM : BaseViewModel
         {
             errorMessage = value;
             if (value != "") { IsLoadingCircleOn = false; }
-            NotifyPropertyChanged("ErrorMessage");
+            NotifyPropertyChanged();
+            //NotifyPropertyChanged("ErrorMessage");
         }
     }
     [Binding]
     public bool IsLoadingCircleOn
     {
         get { return isLoadingCircleOn; }
-        set { isLoadingCircleOn = value; NotifyPropertyChanged("IsLoadingCircleOn"); }
+        set { isLoadingCircleOn = value;
+            NotifyPropertyChanged(); }
+            //NotifyPropertyChanged("IsLoadingCircleOn"); }
     }
 
     [Binding]
@@ -74,7 +80,8 @@ public class QuestionsVM : BaseViewModel
         set 
         {
             questionNumText = value + " / " + numberOfQuestions.ToString();
-            NotifyPropertyChanged("QuestionNumText"); 
+            NotifyPropertyChanged(); 
+            //NotifyPropertyChanged("QuestionNumText"); 
         } 
     }
     public bool IsQuestionSet 
@@ -94,7 +101,7 @@ public class QuestionsVM : BaseViewModel
         {
             if (this == null) { return; }
 
-            if (eventArgs.PropertyName.Equals("LastAnswerResults"))
+            if (eventArgs.PropertyName.Equals(nameof(questionsManager.LastAnswerResults)))
             {
                 Tuple<int, bool> result = questionsManager.LastAnswerResults;  // questionNumber, isCorrect.
                 model.SetUserScore(result.Item1, result.Item2);
@@ -166,19 +173,16 @@ public class QuestionsVM : BaseViewModel
 
         IsHintButtonOn = true;
         
-        //########################################
-        IsNewHint = false;
-        //NotifyPropertyChanged("HintsNumber");
-        //########################################
-
+        NotifyPropertyChanged(nameof(HintsNumber));
         SetQuestionsManager();
 
     }
     protected override void AdditionalModelSettings(PropertyChangedEventArgs eventArgs)
     {
+        
         questionsManager.IsQuestionSet = false;
         // The model got the questions from the database.
-        if (eventArgs.PropertyName.Equals("Questions") && !IsQuestionSet && model.Questions.Length > 0)
+        if (eventArgs.PropertyName.Equals(nameof(model.Questions)) && !IsQuestionSet && model.Questions.Length > 0)
         {
             questionNum = 0;
             numberOfQuestions = model.Questions.Length;
@@ -188,12 +192,11 @@ public class QuestionsVM : BaseViewModel
             model.InitUserLastAns();
             DisplayQuestion();
         }
-        else if (eventArgs.PropertyName.Equals("HintsNumber"))
+        else if (eventArgs.PropertyName.Equals(nameof(model.HintsNumber)))
         {
             IsNewHint = (lastHintsNumber < HintsNumber);
-            //########################################
-            //NotifyPropertyChanged("HintsNumber");
-            //########################################
+            NotifyPropertyChanged(nameof(HintsNumber));
+            
         }
 
     }

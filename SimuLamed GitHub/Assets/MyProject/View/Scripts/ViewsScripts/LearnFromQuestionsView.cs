@@ -16,7 +16,7 @@ public class LearnFromQuestionsView : BaseView
             if (this == null) { return; }
             
             // If the view model finished it's main action - go to the next scene.
-            if (eventArgs.PropertyName.Equals("IsUserSaved"))
+            if (eventArgs.PropertyName.Equals(nameof(viewModel.IsUserSaved)))
             {
                 GoToOtherScene(Utils.MENU_SCENE);
             }

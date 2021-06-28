@@ -78,7 +78,8 @@ public sealed class FirebaseManager : IDatabaseHandler
     {
         RestClient.Put<User>(GetRequestHelper(GetUrlAccessUserByLocalId(), user)).
             Then(response => { onSuccess(); }).
-            Catch(error => { onFailure(ExtractErrorMessage(error)); });
+            Catch(error => { 
+                onFailure(ExtractErrorMessage(error)); });
     }
 
     // Get a user from the database according to the given localId and idToken.
@@ -86,7 +87,8 @@ public sealed class FirebaseManager : IDatabaseHandler
     {
         RestClient.Get<User>(GetRequestHelper(GetUrlAccessUserByLocalId())).
             Then(response => { onSuccess(response); }).
-            Catch(error => { onFailure(error.Message); });
+            Catch(error => { 
+                onFailure(error.Message); });
     }
 
     // A general method for Post a given body to a given url while the response is of SignResponse type.
@@ -94,7 +96,8 @@ public sealed class FirebaseManager : IDatabaseHandler
     {
         RestClient.Post<SignResponse>(GetRequestHelper(url, body)).
             Then(response => onSuccess(response)).
-            Catch(error => { onFailure(ExtractErrorMessage(error));});
+            Catch(error => { 
+                onFailure(ExtractErrorMessage(error));});
     }
      
     /*

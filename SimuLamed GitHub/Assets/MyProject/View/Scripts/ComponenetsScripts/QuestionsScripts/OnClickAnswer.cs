@@ -22,9 +22,9 @@ public class OnClickAnswer : MonoBehaviour
  
    public string CorrectAns 
     { 
-        get 
-        {
-            return questionManager.IsQuestionSet ? questionManager.CurrentQuestion.GetCorrectAns() : "";
+        get
+        { 
+            return questionManager.CurrentQuestion.GetCorrectAns();
         }
     }
 
@@ -45,12 +45,12 @@ public class OnClickAnswer : MonoBehaviour
         questionManager.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
             if (this == null) { return; }
-            if (eventArgs.PropertyName.Equals("ResetAnsColor"))
+            if (eventArgs.PropertyName.Equals(QuestionsManager.RESET_ANS_COLOR))
             {
                 ResetAnsColor();
             }
             // The user answered a question.
-            else if (eventArgs.PropertyName.Equals("LastAnswerResults"))
+            else if (eventArgs.PropertyName.Equals(nameof(questionManager.LastAnswerResults)))
             {
                 // If this button contains the correct answer - change it's color.
                 if (ansText.text.Equals(CorrectAns))

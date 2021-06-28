@@ -19,6 +19,14 @@ namespace Assets.model
         string CurrentUsername { get;}
         QuestionType SelectedSubject { get; set; }
 
+        Dictionary<int, QuestionType> FromQuestionNumToType { get; set; }
+
+        bool IsSignedUp {  get;set;}
+        bool IsSignedIn {  get;set;}
+        bool IsResetPassword {  get;set;}
+        bool IsUserSaved {  get;set;}
+        bool IsSaveingFailed {  get;set;}
+
 
 
         // Methods.

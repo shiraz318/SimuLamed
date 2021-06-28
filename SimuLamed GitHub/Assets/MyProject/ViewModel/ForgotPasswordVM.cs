@@ -22,6 +22,6 @@ public class ForgotPasswordVM : RegisterViewModel {
     }
     public override string GetOnFinishActionPropertyName()
     {
-        return "IsResetPassword";
+        return nameof(model.IsResetPassword);
     }
 }

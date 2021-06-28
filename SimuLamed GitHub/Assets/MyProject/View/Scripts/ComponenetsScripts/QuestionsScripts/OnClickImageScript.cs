@@ -12,8 +12,8 @@ public class OnClickImageScript : MonoBehaviour
     private float originalImageWidth;
     private bool isImageBigger;
 
-    [SerializeField]
-    private QuestionsManager questionManager;
+    
+    public QuestionsManager questionManager;
 
 
     void Start()
@@ -51,7 +51,7 @@ public class OnClickImageScript : MonoBehaviour
         {
             if (this == null) { return; }
 
-            if (eventArgs.PropertyName.Equals("ResetImage"))
+            if (eventArgs.PropertyName.Equals(QuestionsManager.RESET_IMAGE))
             {
                 ResetImageSize();
             }

@@ -43,18 +43,14 @@ namespace Assets.ViewModel
         // Save the chosen settings.
         public void SaveSettings()
         {
-            if (!CheckValidityOfKeys())
-            {
-                ErrorMessage = ErrorObject.ERROR_IN_KEYS;
-            }
-            else
+            if (CheckValidityOfKeys())
             {
                 ErrorMessage = "";
                 SetPlayerKeys(Utils.LEFT, LeftInput);
                 SetPlayerKeys(Utils.RIGHT, RightInput);
                 SetPlayerKeys(Utils.FORWARD, ForwardInput);
                 SetPlayerKeys(Utils.BACKWARDS, BackwardsInput);
-                PlayerPrefs.SetString(Utils.SHOW_QUESTIONS, ToShowQuestions ? "show":string.Empty);
+                PlayerPrefs.SetString(Utils.SHOW_QUESTIONS, ToShowQuestions ? Utils.SHOW :string.Empty);
                 PlayerPrefs.SetInt(Utils.MUTE_SOUND, ToMuteSound ? 1 : 0);
                 
                 // Notify that we finished saving the settings.
@@ -68,6 +64,12 @@ namespace Assets.ViewModel
         // Checks if the player chose a key more than once.
         private bool CheckValidityOfKeys()
         {
+            if (LeftInput.Equals("") || RightInput.Equals("") || ForwardInput.Equals("") || BackwardsInput.Equals(""))
+            {
+                ErrorMessage = ErrorObject.KEY_IS_MISSING;
+                return false;
+            }
+
             /*
             * Hash set - contains every key only once.
             * Therefore if there are more than one key value - the length will be less than 4.
@@ -76,7 +78,12 @@ namespace Assets.ViewModel
             keys.Add(RightInput);
             keys.Add(ForwardInput);
             keys.Add(BackwardsInput);
-            return keys.Count == 4;
+            if(keys.Count == 4)
+            {
+                return true;
+            }
+            ErrorMessage = ErrorObject.ERROR_IN_KEYS;
+            return false;
         }
 
         // Set the given key to it's matching ascii character.

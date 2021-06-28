@@ -27,7 +27,7 @@ public class SignInVM : RegisterViewModel
     }
     public override string GetOnFinishActionPropertyName()
     {
-        return "IsSignedIn";
+        return nameof(model.IsSignedIn);
     }
     protected override void RegisterAction()
     {

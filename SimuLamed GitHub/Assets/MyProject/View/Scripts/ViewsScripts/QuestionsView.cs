@@ -34,7 +34,7 @@ public class QuestionsView : BaseView
             if (this == null) { return; }
             
             // If the user got a new hint - play the new hint sound.
-            if (eventArgs.PropertyName.Equals("IsNewHint") && viewModel.IsNewHint)
+            if (eventArgs.PropertyName.Equals(nameof(viewModel.IsNewHint)) && viewModel.IsNewHint)
             {
                 soundManager.GotNewHint();
             }

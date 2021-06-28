@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -21,24 +22,25 @@ namespace Assets.model
         private IDatabaseHandler databaseHandler;
         private User currentUser;
         private Dictionary<int, QuestionType> fromQuestionNumToType;
+        private bool toRnd;
 
         // Properties.
         public Dictionary<int, QuestionType> FromQuestionNumToType
         {
             get { return fromQuestionNumToType; }
-            set { fromQuestionNumToType = value; NotifyPropertyChanged("FromQuestionNumToType"); }
+            set { fromQuestionNumToType = value; NotifyPropertyChanged(); }
         }
         public Question[] Questions 
         { 
             get { return questions; } 
-            set { questions = value; NotifyPropertyChanged("Questions"); } 
+            set { questions = value; NotifyPropertyChanged(); } 
         }
         public ErrorObject Error { get ; set ; }
         public int NumOfQuestions { get; set; }
         public int HintsNumber 
         { 
             get { return currentUser != null? currentUser.state.numOfHints : 0; } 
-            set{ currentUser.state.numOfHints = value; NotifyPropertyChanged("HintsNumber"); } 
+            set{ currentUser.state.numOfHints = value; NotifyPropertyChanged(); } 
         }
         public int OpenLevel 
         { 
@@ -53,27 +55,27 @@ namespace Assets.model
         public bool IsSignedUp 
         { 
             get { return isSignedUp; } 
-            set { isSignedUp = value; NotifyPropertyChanged("IsSignedUp"); } 
+            set { isSignedUp = value; NotifyPropertyChanged(); } 
         }
         public bool IsSignedIn 
         { 
             get { return isSignedIn; } 
-            set { isSignedIn = value; NotifyPropertyChanged("IsSignedIn"); } 
+            set { isSignedIn = value; NotifyPropertyChanged(); } 
         }
         public bool IsResetPassword 
         { 
             get { return isResetPassword; } 
-            set { isResetPassword = value; NotifyPropertyChanged("IsResetPassword"); } 
+            set { isResetPassword = value; NotifyPropertyChanged(); } 
         }
         public bool IsUserSaved 
         {
             get { return isUserSaved; } 
-            set { isUserSaved = value; NotifyPropertyChanged("IsUserSaved"); } 
+            set { isUserSaved = value; NotifyPropertyChanged(); } 
         }
         public bool IsSaveingFailed
         {
             get { return failToSave; }
-            set { failToSave = value; NotifyPropertyChanged("IsSaveingFailed"); }
+            set { failToSave = value; NotifyPropertyChanged(); }
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -208,13 +210,23 @@ namespace Assets.model
         // Set questions array to contain questions in the given level.
         public void SetQuestionsByLevel(string level)
         {
+            toRnd = false;
             databaseHandler.GetQuestionsInLevel(level, OnSuccessGetQuestions, OnFailureGetQuestions);
         }
 
         // If getting the questions is done successfully, set the questions property and reset the error object.
         public void OnSuccessGetQuestions(Question[] inputQuestions)
         {
-            Questions = inputQuestions.OrderBy(x => x.questionNumber).ToArray();
+            if (toRnd)
+            {
+                System.Random rnd = new System.Random();
+                Questions = inputQuestions.OrderBy(x => rnd.Next()).ToArray();
+
+            }
+            else
+            {
+                Questions = inputQuestions.OrderBy(x => x.questionNumber).ToArray();
+            }
             ResetError();
 
         }
@@ -225,25 +237,14 @@ namespace Assets.model
             SetError(message, ErrorTypes.LoadQuestions);
         }
        
-        // Randomize the questions.
-        private void RandQuestions()
-        {
-            System.Random rnd = new System.Random();
-            Questions = Questions.OrderBy(x => rnd.Next()).ToArray();
-        }
 
         // Set questions array to contain questinos in the given category.
         public void SetQuestionsByCategory(string category, bool toRnd)
         {
+            this.toRnd = toRnd;
             // Get all questions of the given category from the database.
-            databaseHandler.GetQuestionsByCategory(category, (inputQuestions) => 
-            {
-                OnSuccessGetQuestions(inputQuestions); 
-                if (toRnd) { RandQuestions(); }
-            }
-            ,OnFailureGetQuestions);
+            databaseHandler.GetQuestionsByCategory(category, OnSuccessGetQuestions, OnFailureGetQuestions);
                 
-               
         }
 
         // Save current user to the database.
@@ -341,11 +342,11 @@ namespace Assets.model
         }
 
         // Notify property changed.
-        public void NotifyPropertyChanged(string propName)
+        public void NotifyPropertyChanged([CallerMemberName] string propertyname = null)
         {
             if (this.PropertyChanged != null)
             {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyname));
             }
         }
 

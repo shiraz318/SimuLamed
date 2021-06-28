@@ -23,65 +23,86 @@ public class QuestionsManager : BaseViewModel
     private Question[] questions;
     private static int currentQuestionNumber;
 
+    public const string RESET_ANS_COLOR = "ResetAnsColor";
+    public const string RESET_IMAGE = "ResetImage";
+
 
     // Properties.
     public Tuple<int, bool> LastAnswerResults 
     { 
         get { return lastAnswerResults; } 
-        set { lastAnswerResults = value; NotifyPropertyChanged("LastAnswerResults"); } 
+        set { lastAnswerResults = value; 
+            NotifyPropertyChanged(); } 
+            //NotifyPropertyChanged(LAST_ANS_RES_PROPERTY_NAME); } 
     }
     [Binding]
     public string QuestionText 
     { 
         get { return questionText; } 
-        set { questionText = value; NotifyPropertyChanged("QuestionText"); } 
+        set { questionText = value;
+            NotifyPropertyChanged(); } 
+            //NotifyPropertyChanged("QuestionText"); } 
     }
     [Binding]
     public string ErrorText
     {
         get { return errorText; }
-        set { errorText = value; NotifyPropertyChanged("ErrorText"); }
+        set { errorText = value; 
+            NotifyPropertyChanged(); }
+            //NotifyPropertyChanged("ErrorText"); }
     }
 
     [Binding]
     public string Ans1Text 
     {
         get { return ans1Text; } 
-        set { ans1Text = value; NotifyPropertyChanged("Ans1Text"); } 
+        set { ans1Text = value; 
+            NotifyPropertyChanged(); } 
+            //NotifyPropertyChanged("Ans1Text"); } 
     }
     [Binding]
     public string Ans2Text 
     {
         get { return ans2Text; } 
-        set { ans2Text = value; NotifyPropertyChanged("Ans2Text"); }
+        set { ans2Text = value; 
+            NotifyPropertyChanged(); }
+            //NotifyPropertyChanged("Ans2Text"); }
     }
     
     [Binding]
     public string Ans3Text 
     {
         get { return ans3Text; } 
-        set { ans3Text = value; NotifyPropertyChanged("Ans3Text"); } 
+        set { ans3Text = value; 
+            NotifyPropertyChanged(); } 
+            //NotifyPropertyChanged("Ans3Text"); } 
     }
     
     [Binding]
     public string Ans4Text 
     {
         get { return ans4Text; } 
-        set { ans4Text = value; NotifyPropertyChanged("Ans4Text"); } 
+        set { ans4Text = value; 
+            NotifyPropertyChanged(); } 
+            //NotifyPropertyChanged("Ans4Text"); } 
     }
 
     [Binding]
     public bool IsAnsInteractable 
     {
         get { return isAnsInteractable; } 
-        set { isAnsInteractable = value; NotifyPropertyChanged("IsAnsInteractable"); } 
+        set { isAnsInteractable = value; 
+            NotifyPropertyChanged(); } 
+            //NotifyPropertyChanged("IsAnsInteractable"); } 
     }
     private bool isImageEnable;
     [Binding]
     public bool IsImageEnable 
     {
         get { return isImageEnable; } 
-        set { isImageEnable = value; NotifyPropertyChanged("IsImageEnable"); } 
+        set { isImageEnable = value;
+            NotifyPropertyChanged(); } 
+            //NotifyPropertyChanged("IsImageEnable"); } 
     }
 
     private Sprite imageSprite;
@@ -89,7 +110,9 @@ public class QuestionsManager : BaseViewModel
     public Sprite ImageSprite 
     {
         get { return imageSprite; } 
-        set { imageSprite = value; NotifyPropertyChanged("ImageSprite"); } 
+        set { imageSprite = value; 
+            NotifyPropertyChanged(); } 
+            //NotifyPropertyChanged("ImageSprite"); } 
     }
 
     private string imageErrorMessag;
@@ -97,14 +120,18 @@ public class QuestionsManager : BaseViewModel
     public string ImageErrorMessage 
     { 
         get { return imageErrorMessag; } 
-        set { imageErrorMessag = value; NotifyPropertyChanged("ImageErrorMessage"); } 
+        set { imageErrorMessag = value; 
+            NotifyPropertyChanged(); } 
+            //NotifyPropertyChanged("ImageErrorMessage"); } 
     }
     private bool isLoadingCircleOn;
     [Binding]
     public bool IsLoadingCircleOn 
     {
         get { return isLoadingCircleOn; } 
-        set { isLoadingCircleOn = value; NotifyPropertyChanged("IsLoadingCircleOn"); } 
+        set { isLoadingCircleOn = value; 
+            NotifyPropertyChanged(); } 
+            //NotifyPropertyChanged("IsLoadingCircleOn"); } 
     }
     public bool IsQuestionSet { get; set; }
     public Question CurrentQuestion { get { return GetQuestionByQuestionNum(); } }
@@ -114,7 +141,6 @@ public class QuestionsManager : BaseViewModel
     
     void Awake()
     {
-        //IsQuestionSet = false;
         currentQuestionNumber = 0;
         // Get default image.
         StartCoroutine(GetImage("https://www.gov.il/BlobFolder/generalpage/tq_pic_02/he/TQ_PIC_3530.jpg"));
@@ -123,19 +149,12 @@ public class QuestionsManager : BaseViewModel
     // Display the given nubmer question.
     public void DisplayQuestion(int questionNUmber)
     {
-        if (!IsQuestionSet)
-        {
-            ErrorMessage = ErrorObject.FAIL_LOAD_QUESTION_MESSAGE;
-            Debug.Log(ErrorMessage);
-            return;
-        }
-        //IsQuestionSet = true;
+
         // Set the current question number.
         SetQuestionNumber(questionNUmber);
         if (CurrentQuestion == null)
         {
             ErrorMessage = ErrorObject.FAIL_LOAD_QUESTION_MESSAGE;
-            Debug.Log(ErrorMessage);
         }
         else
         {
@@ -185,13 +204,10 @@ public class QuestionsManager : BaseViewModel
             Ans2Text = CurrentQuestion.answers[1];
             Ans3Text = CurrentQuestion.answers[2];
             Ans4Text = CurrentQuestion.answers[3];
-            //Ans1Text = CurrentQuestion.ans1;
-            //Ans2Text = CurrentQuestion.ans2;
-            //Ans3Text = CurrentQuestion.ans3;
-            //Ans4Text = CurrentQuestion.ans4;
             IsAnsInteractable = true;
+            
             // Notify that the answers color needs to be reset.
-            NotifyPropertyChanged("ResetAnsColor");
+            NotifyPropertyChanged(RESET_ANS_COLOR);
         }
 
     }
@@ -209,7 +225,7 @@ public class QuestionsManager : BaseViewModel
     private void SetImage(string imageUrl)
     {
         // Notify the image needs to resets it's size.
-        NotifyPropertyChanged("ResetImage");
+        NotifyPropertyChanged(RESET_IMAGE);
 
         // If imageUrl is empty - disable the image. Else - enable.
         IsImageEnable = !imageUrl.Equals("");

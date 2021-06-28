@@ -79,6 +79,7 @@ namespace Assets
         public const string PLAYER_TAG = "Player";
         public const string VIEW = "View";
         public const string SCREENS = "Screens";
+        public const string SHOW = "show";
 
         public const int MAX_NUMBER_OF_ERRORS = 4;
 

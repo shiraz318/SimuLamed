@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityWeld.Binding;
 
@@ -21,7 +22,8 @@ public class BaseViewModel : MonoBehaviour, INotifyPropertyChanged
         set
         {
             errorMessage = value;
-            NotifyPropertyChanged("ErrorMessage");
+            NotifyPropertyChanged();
+         //   NotifyPropertyChanged("ErrorMessage");
         }
     }
 
@@ -33,11 +35,11 @@ public class BaseViewModel : MonoBehaviour, INotifyPropertyChanged
     }
 
     // On property changed.
-    public void NotifyPropertyChanged(string propName)
+    public void NotifyPropertyChanged([CallerMemberName] string propertyname = null)
     {
         if (this.PropertyChanged != null)
         {
-            this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            this.PropertyChanged(this, new PropertyChangedEventArgs(propertyname));
         }
     }
 

@@ -19,7 +19,8 @@ public class LearnFromQVM : SaveViewModel
         { 
             selectedSubject = value;
             model.SelectedSubject = Question.FromCategoryToTypeEnglish(value);
-            NotifyPropertyChanged("SelectedSubject"); 
+            NotifyPropertyChanged(); 
+            //NotifyPropertyChanged("SelectedSubject"); 
         }
     }
 

@@ -31,6 +31,7 @@ namespace Assets.model
         public const string UNVERIFIED_EMAIL_MESSAGE = "אנא אמת את המייל שלך";
         public const string EMPTY_FIELD_MESSAGE = "אנא מלא את כל השדות";
         public const string ERROR_IN_KEYS = " מקש נמצא בשימוש יותר מפעם אחת";
+        public const string KEY_IS_MISSING = "אנא הזן את כל המקשים";
         public const string FAIL_LOAD_IMAGE_MESSAGE = "תקלה! לא הצלחנו לטעון את התמונה";
         public const string TIMEOUT_ERROR_MESSAGE = "שגיאה! בדוק את חיבור הרשת שלך";
 

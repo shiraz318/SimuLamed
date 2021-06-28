@@ -18,14 +18,22 @@ public class SimulationVM : SaveViewModel
     private int lives;
     private string questionNumberText;
     private Utils.QuestionOption[] playerScore;
+    public const string OPENED_LEVEL = "OpenedLevel";
+    public const string FINISHED_LEVEL = "FinishLastLevel";
+
+
     // Properties
+
+
     public int DisplayedQuestionsCounter 
     { 
         get { return displayedQuestionsCounter; } 
         set { displayedQuestionsCounter = value; QuestionNumberText = value.ToString(); } 
     }
     [Binding]
-    public int Lives { get { return lives; } set { lives = value; NotifyPropertyChanged("Lives"); } }
+    public int Lives { get { return lives; } set { lives = value; 
+            NotifyPropertyChanged(); } }
+            //NotifyPropertyChanged("Lives"); } }
     [Binding]
     public string QuestionNumberText 
     { 
@@ -33,31 +41,19 @@ public class SimulationVM : SaveViewModel
         set 
         { 
             questionNumberText = value + "/" + Utils.QUESTIONS_NUM_IN_SIM;
-            NotifyPropertyChanged("QuestionNumberText"); 
+            NotifyPropertyChanged(); 
+            //NotifyPropertyChanged("QuestionNumberText"); 
         }  
     }
 
 
     public const int NUMBER_OF_LEVELS = 3;
-    public QuestionsManager questionsManager;
     public static int currentLevel = LevelsVM.chosenLevelIdx;
+    
+    [SerializeField]
+    private QuestionsManager questionsManager;
+    
 
-
-    //// Convert the index of the current level to the current level name.
-    //private string FromIdxToName()
-    //{
-    //    switch (currentLevel)
-    //    {
-    //        case 1:
-    //            return "Level1";
-    //        case 2:
-    //            return "Level2";
-    //        case 3:
-    //            return "Level3";
-    //        default:
-    //            return LevelsVM.chosenLevel;
-    //    }
-    //}
 
     // Resets the score of the player.
     private void ResetScore()
@@ -90,7 +86,7 @@ public class SimulationVM : SaveViewModel
         {
             if (this == null) { return; }
             // The player answered a question.
-            if (eventArgs.PropertyName.Equals("LastAnswerResults"))
+            if (eventArgs.PropertyName.Equals(nameof(questionsManager.LastAnswerResults)))
             {
                 Tuple<int, bool> result = questionsManager.LastAnswerResults;
                 // Answer is correct.
@@ -120,18 +116,18 @@ public class SimulationVM : SaveViewModel
         if (currentLevel < (NUMBER_OF_LEVELS))
         {
             // Save the user level. 
-            NotifyPropertyChanged("OpenedLevel");
+            NotifyPropertyChanged(OPENED_LEVEL);
         }
         else
         {
-            NotifyPropertyChanged("FinishLastLevel");
+            NotifyPropertyChanged(FINISHED_LEVEL);
         }
     }
     
     // Get the property name of finishing the main action of the view model.
     public string GetOnFinishActionPropertyName()
     {
-        return "IsUserSaved";
+        return nameof(model.IsUserSaved);
     }
 
     // Called when the user exit the simulation.
@@ -140,9 +136,7 @@ public class SimulationVM : SaveViewModel
         model.UpdateUserScore(playerScore);
         model.UpdateUserLevel(currentLevel);
         model.SaveUser();
-        //model.SaveUser();
     }
-
 
 
 
@@ -154,50 +148,25 @@ public class SimulationVM : SaveViewModel
         DisplayedQuestionsCounter = 0;
         SetQuestionsManager();
         Lives = Utils.MAX_NUMBER_OF_ERRORS;
+        
         questionsManager.IsQuestionSet = false;
     }
     protected override void SetModel()
     {
         base.SetModel();
         model.SetQuestionsByLevel(currentLevel.ToString());
-        //model.SetQuestionsByLevel(FromIdxToName());
         ResetScore();
-        //model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
-        //{
-        //    if (this == null) { return; }
-
-        //    string propertyName = GetPropertyName();
-
-        //    // The model got the questions from the database.
-        //    if (eventArgs.PropertyName.Equals("Questions"))
-        //    {
-        //        questionsManager.SetQuestions(model.Questions.ToArray());
-        //    }
-        //    else if (eventArgs.PropertyName.Equals(propertyName))
-        //    {
-        //        NotifyPropertyChanged(propertyName);
-        //    }
-        //};
-        // Get the questions of the current level from the database.
     }
     protected override void AdditionalModelSettings(PropertyChangedEventArgs eventArgs)
     {
-        //string propertyName = GetOnFinishActionPropertyName();
         // The model got the questions from the database.
-        if (eventArgs.PropertyName.Equals("Questions"))
+        if (eventArgs.PropertyName.Equals(nameof(model.Questions)))
         {
+            
             questionsManager.IsQuestionSet = true;
             questionsManager.SetQuestions(model.Questions.ToArray());
         }
         base.AdditionalModelSettings(eventArgs);
-        //else if (eventArgs.PropertyName.Equals(propertyName))
-        //{
-        //    NotifyPropertyChanged(propertyName);
-        //} 
-        //else if (eventArgs.PropertyName.Equals("IsSaveingFailed"))
-        //{
-        //    IsSaveingFailed = true;
-        //}
     }
     protected override ErrorTypes[] GetErrorTypes() { return new ErrorTypes[]{ ErrorTypes.SaveScore, ErrorTypes.LoadQuestions }; }
 }
