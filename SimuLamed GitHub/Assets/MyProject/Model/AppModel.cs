@@ -43,7 +43,7 @@ namespace Assets.model
         public QuestionType SelectedSubject { get; set; }
         public string CurrentUsername 
         { 
-            get { return currentUser != null ? currentUser.details.username : ""; } 
+            get { return currentUser != null ? currentUser.username : ""; } 
         }
         public bool IsSignedUp 
         { 
@@ -123,7 +123,8 @@ namespace Assets.model
          */
         public void SetFromNumToType(ErrorTypes errorType)
         {
-            databaseHandler.GetAllQuestions(currentUser.details.idToken, onSuccess: (questions) =>
+            //databaseHandler.GetAllQuestions(currentUser.details.idToken, onSuccess: (questions) =>
+            databaseHandler.GetAllQuestions(onSuccess: (questions) =>
                 {
                     // This is the first time the dictionary is being set.
                     if (fromQuestionNumToType.Count == 0)
@@ -148,7 +149,8 @@ namespace Assets.model
                 currentUser = user;
                 NotifyPropertyChanged("HintsNumber");
 
-                databaseHandler.GetNumberOfQuestions(user.details.idToken, (numOfQuestions) =>
+                //databaseHandler.GetNumberOfQuestions(user.details.idToken, (numOfQuestions) =>
+                databaseHandler.GetNumberOfQuestions((numOfQuestions) =>
                 {
                     NumOfQuestions = numOfQuestions;
                     ResetError();
@@ -166,12 +168,14 @@ namespace Assets.model
 
         // Create a new user.
         //private User CreateUser(string username, string email, string idToken, string localId)
-        private User CreateUser(string username, string idToken, string localId)
+        //private User CreateUser(string username, string idToken, string localId)
+        private User CreateUser(string username)
         {
-            UserDetails details = new UserDetails(username, localId, idToken);
-           // UserDetails details = new UserDetails(username, email, localId, idToken);
+           // UserDetails details = new UserDetails(username);
+           // UserDetails details = new UserDetails(username, idToken);
+           // UserDetails details = new UserDetails(username, localId, idToken);
             UserState state = new UserState(new int[] { -1 }, Utils.INITIAL_NUMBER_OF_HINTS, 1);
-            return new User(details, state);
+            return new User(username, state);
         }
 
         // Sign up.
@@ -183,7 +187,8 @@ namespace Assets.model
             Action<string,string> onSuccessSignUp = (string idToken, string localId) =>
             {
                 // If saving the new user is done successfully, reset the error object and set IsSignedUp to true.
-                databaseHandler.SaveNewUser(CreateUser(username, idToken, localId),
+                databaseHandler.SaveNewUser(CreateUser(username),
+                //databaseHandler.SaveNewUser(CreateUser(username, idToken, localId),
                 //databaseHandler.SaveNewUser(CreateUser(username, email, idToken, localId),
                     ()=> { ResetError(); IsSignedUp = true; },
                     onFailure);
@@ -225,19 +230,32 @@ namespace Assets.model
         // Set questions array to contain questions in the given level.
         public void SetQuestionsByLevel(string level)
         {
-            databaseHandler.GetQuestionsInLevel(currentUser.details.idToken, level, 
+           // databaseHandler.GetQuestionsInLevel(currentUser.details.idToken, level, 
+            databaseHandler.GetQuestionsInLevel(level, 
                 (questions) => { SetQuestions(questions, false); ResetError(); },
-                (message) => { SetError(message, ErrorTypes.LoadQuestions); });
+                (message) => { 
+                    SetError(message, ErrorTypes.LoadQuestions); });
         }
+        //// Set questions array to contain questions in the given level.
+        //public void SetQuestionsByLevel(string level)
+        //{
+        //   // databaseHandler.GetQuestionsInLevel(currentUser.details.idToken, level, 
+        //    databaseHandler.GetQuestionsInLevel(level, 
+        //        (questions) => { SetQuestions(questions, false); ResetError(); },
+        //        (message) => { 
+        //            SetError(message, ErrorTypes.LoadQuestions); });
+        //}
 
         // Set questions array to contain questinos in the given category.
         public void SetQuestionsByCategory(string category, bool toRnd)
         {
             // Get all questions of the given category from the database.
-            databaseHandler.GetQuestionsByCategory(currentUser.details.idToken, category, 
+           // databaseHandler.GetQuestionsByCategory(currentUser.details.idToken, category, 
+            databaseHandler.GetQuestionsByCategory(category, 
                 // If getting the questions is done successfully, set the questions property and reset the error object.
                 (questions) => { SetQuestions(questions, toRnd); ResetError(); },
-                (message) => { SetError(message, ErrorTypes.LoadQuestions); });
+                (message) => { 
+                    SetError(message, ErrorTypes.LoadQuestions); });
         }
 
         // Set the questions array to the given questions array and randomize it accornding to toRnd.
@@ -345,6 +363,7 @@ namespace Assets.model
         public void ResetCurrentUser()
         {
             currentUser = null;
+            databaseHandler.ResetUser();
         }
 
         // Notify property changed.

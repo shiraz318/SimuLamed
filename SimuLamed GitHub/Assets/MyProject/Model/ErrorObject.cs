@@ -24,7 +24,7 @@ namespace Assets.model
         public const string EMAIL_NOT_FOUND_MESSAGE = "כתובת אימייל לא קיימת";
         public const string INVALID_PASSWORD_MESSAGE = "סיסמא שגויה";
         public const string WEAK_PASSWORD__MESSAGE = "סיסמא חלשה. אנא הזן לפחות 6 תווים";
-        public const string FAIL_SAVE_SCORE_MESSAGE = "קרתה תקלה! לא הצלחנו לשמור את ההתקדמות שלך. אם תבחר לחזור ללא שמירה, התקדמותך תאבד";
+        public const string FAIL_SAVE_SCORE_MESSAGE = "קרתה תקלת רשת! לא הצלחנו לשמור את ההתקדמות שלך. אם תבחר לחזור ללא שמירה, התקדמותך תאבד.";
         public const string FAIL_LOAD_STATISTICS_MESSAGE = "תקלה! לא הצלחנו לטעון את הסטטיסטיקה שלך";
         //public const string FAIL_LOAD_QUESTIONS_MESSAGE = "תקלה! לא הצלחנו לטעון את השאלות";
         public const string FAIL_LOAD_QUESTION_MESSAGE = "תקלה! לא הצלחנו לטעון את השאלה";

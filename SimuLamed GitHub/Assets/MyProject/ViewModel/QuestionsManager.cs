@@ -114,7 +114,7 @@ public class QuestionsManager : BaseViewModel
     
     void Awake()
     {
-        IsQuestionSet = false;
+        //IsQuestionSet = false;
         currentQuestionNumber = 0;
         // Get default image.
         StartCoroutine(GetImage("https://www.gov.il/BlobFolder/generalpage/tq_pic_02/he/TQ_PIC_3530.jpg"));

@@ -10,6 +10,15 @@ namespace Assets.model
 {
     public class QuestionsCreator
     {
+        private const string FILE_PATH = @"D:\unity_installation\Unity Projects\SimuLamed\SimuLamed GitHub\Assets\MyProject\DB\Dataset\Dataset.csv";
+        private const int QUESTION_IDX = 1;
+        private const int FIRST_ANS_IDX = 4;
+        private const int NUM_OF_ANSWERES = 4;
+        private const int IMAGE_IDX = 9;
+        private const int SIMULATION_LEVEL_IDX = 10;
+        private const int QUESTION_TYPE_IDX = 3;
+
+
         // Generate questions.
         public static List<Question> GenerateQuestions()
         {
@@ -21,9 +30,7 @@ namespace Assets.model
         // Read from the dataset.
         private static List<string[]> ReadFromDataset()
         {
-        
-            string filePath = @"D:\unity_installation\Unity Projects\SimuLamed\SimuLamed GitHub\Assets\MyProject\DB\Dataset\Dataset.csv";
-            StreamReader sr = new StreamReader(filePath, Encoding.GetEncoding("windows-1255"));
+            StreamReader sr = new StreamReader(FILE_PATH, Encoding.GetEncoding("windows-1255"));
 
             var lines = new List<string[]>();
             bool isFirstRow = true;
@@ -36,6 +43,11 @@ namespace Assets.model
                     isFirstRow = false;
                     continue;
                 }
+
+                /*
+                 * Commas were replaced with '*' so we need to replace them back to commas.
+                 * Remove '\' In the end of the data and replace double '\' in one '\'.
+                 */
                 for (int i = 0; i < line.Length; i++)
                 {
                     line[i] = line[i].Replace('*', ',');
@@ -57,22 +69,17 @@ namespace Assets.model
         // Parse a given string array into a question object.
         private static Question ParseQuestion(string[] line, int rowNumber)
         {
-            string[] answers = new string[5];
 
-            QuestionType questionType = GetQuestionType(line[3]);
+            QuestionType questionType = GetQuestionType(line[QUESTION_TYPE_IDX]);
+            string questionString = FixHebrew(line[QUESTION_IDX]);
             
-            string questionString = FixHebrew(line[1]);
-            answers[0] = FixHebrew(line[4]);
-            answers[1] = FixHebrew(line[5]);
-            answers[2] = FixHebrew(line[6]);
-            answers[3] = FixHebrew(line[7]);
-            answers[4] = FixHebrew(line[8]);
+            string[] answers = new string[5];
+            for (int i = 0; i <= NUM_OF_ANSWERES; i++)
+            {
+                answers[i] = FixHebrew(line[FIRST_ANS_IDX + i]);
+            }
 
-            string imageUrl = line[9];
-            string simulationLevel = line[10];
-
-
-            return new Question(rowNumber, questionType, questionString, answers, imageUrl,simulationLevel);
+            return new Question(rowNumber, questionType, questionString, answers, line[IMAGE_IDX], line[SIMULATION_LEVEL_IDX]);
         }
 
         // Create questions from the given list.
@@ -128,8 +135,8 @@ namespace Assets.model
             var hebrewMatchCollection = Regex.Matches(text, pattern);
             string hebrewPart = string.Join(" ", hebrewMatchCollection.Cast<Match>().Select(m => m.Value));
 
-            var commaNumbersMatches = Regex.Matches(text, @"(\d{0,3},)(\d{3},)?\d{3}");
-            var hourMatches = Regex.Matches(text, @"(2[0-3]|[0-1][0-9]):([0-5][0-9])");
+            var commaNumbersMatches = Regex.Matches(text, @"(\d{0,3},)(\d{3},)?\d{3}"); // for example: 1,000 
+            var hourMatches = Regex.Matches(text, @"(2[0-3]|[0-1][0-9]):([0-5][0-9])"); // for example: 06:30
 
             // All substrings that are not hebrew letters.
             string[] notHebrews = Regex.Split(text, pattern);
@@ -138,19 +145,20 @@ namespace Assets.model
             {
                 if (!string.IsNullOrEmpty(notHebrew))
                 {
-                    var englishPart = Regex.Replace(notHebrew, "[^a-zA-Z]", "");
-                    var simpleNumbersOnlyPart = Regex.Replace(notHebrew, "[^0-9]", "");
+                    var englishPart = Regex.Replace(notHebrew, "[^a-zA-Z]", ""); // english letters
+                    var simpleNumbersOnlyPart = Regex.Replace(notHebrew, "[^0-9]", ""); // only numbers
 
                     text = ReplaceWithRevers(englishPart, text);
                     text = ReplaceWithRevers(simpleNumbersOnlyPart, text);
                 }
 
             }
-
+            // Reverse hours part.
             foreach (Match hourMatch in hourMatches)
             {
                 text = ReplaceWithRevers(hourMatch.Value, text);
             }
+            // Reverse numbers with commas.
             foreach (Match commaMatch in commaNumbersMatches)
             {
                 text = ReplaceWithRevers(commaMatch.Value, text);

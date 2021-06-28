@@ -12,27 +12,29 @@ namespace Assets.Model
     public class UserDetails
     {
         public string username;
-        public string localId;
-        public string idToken;
+        //public string localId;
+       // public string idToken;
         
-        public UserDetails(string username, string localId, string idToken)
+        public UserDetails(string username)
+        //public UserDetails(string username, string idToken)
+        //public UserDetails(string username, string localId, string idToken)
         {
             this.username = username;
-            this.localId = localId;
-            this.idToken = idToken;
+            //this.localId = localId;
+           // this.idToken = idToken;
         }
 
-        // Setter for localId.
-        public void SetLocalId(string localId)
-        {
-            this.localId = localId;
-        }
+        //// Setter for localId.
+        //public void SetLocalId(string localId)
+        //{
+        //    this.localId = localId;
+        //}
 
-        // Setter for idToken.
-        public void SetIdToken(string idToken)
-        {
-            this.idToken = idToken;
-        }
+        //// Setter for idToken.
+        //public void SetIdToken(string idToken)
+        //{
+        //    this.idToken = idToken;
+        //}
 
         //// Reset the user details fiels.
         //public void ResetDetails()

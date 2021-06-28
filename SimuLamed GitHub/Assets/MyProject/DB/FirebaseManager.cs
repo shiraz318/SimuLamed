@@ -17,6 +17,7 @@ public sealed class FirebaseManager : IDatabaseHandler
     private const string PROJECT_ID = "simulamed-49311-default-rtdb";
     private const string AUTH_KEY = "AIzaSyBS5WVLpACpe5AbRrZ2KmWcw92FFR65Vs0";
     private static readonly string databaseURL = $"https://{PROJECT_ID}.firebaseio.com/";
+    
     private const string SIGN_UP_API= "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + AUTH_KEY;
     private const string SEND_EMAIL_VER_API = "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=" + AUTH_KEY;
     private const string SIGN_IN_API = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + AUTH_KEY;
@@ -24,10 +25,15 @@ public sealed class FirebaseManager : IDatabaseHandler
     private const string CHECK_EMAIL_VER_API = "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=" + AUTH_KEY;
     private const string EMAIL_FIELD = "email";
     private const string PASSWORD_FIELD = "password";
-    private const string USERS_DB_NAME = "users";
-    private const string QUESTIONS_DB_NAME = "questions";
+    private const string SIMULATION_LEVEL_FIELD = "simulationLevel";
+    private const string USERS_COLLECTION_NAME = "users";
+    private const string QUESTIONS_COLLECTION_NAME = "questions";
+    private const string TIMEOUT_ERROR_MESSAGE = "שגיאה! בדוק את חיבור הרשת שלך";
     private const int TIMEOUT = 5;
     
+    private string localId;
+    private string idToken;
+
 
 
     private static fsSerializer serializer = new fsSerializer();
@@ -52,13 +58,19 @@ public sealed class FirebaseManager : IDatabaseHandler
             return instance;
         }
     }
-    
+
+
+    public void ResetUser()
+    {
+        localId = "";
+        idToken = "";
+    }
 
     // Put a given user to the database.
     public void PutUser(User user, Action onSuccess, Action<string> onFailure)
     {
 
-        RestClient.Put<User>(GetRequestHelper($"{databaseURL}users/{user.details.localId}.json?auth=" + user.details.idToken, user)).
+        RestClient.Put<User>(GetRequestHelper($"{databaseURL}users/{localId}.json?auth=" + idToken, user)).
             Then(response => { onSuccess(); }).
             Catch(error => { onFailure(ExtractErrorMessage(error)); });
     }
@@ -72,21 +84,22 @@ public sealed class FirebaseManager : IDatabaseHandler
             {
                 onFailure(ExtractErrorMessage(error));
             });
-        //RestClient.Post<SignResponse>(url, body).Then(response => onSuccess(response)).
-        //    Catch(error => { onFailure(ExtractErrorMessage(error)); });
     }
 
     public RequestHelper GetRequestHelper(string url, object body)
     {
-        return new RequestHelper
-        {
-            Uri = url,
-            Params = new Dictionary<string, string> {
-            { "key", AUTH_KEY }
-        },
-            Body = body,
-            Timeout = TIMEOUT
-        };
+        RequestHelper request = GetRequestHelper(url);
+        request.Body = body;
+        return request;
+        //return new RequestHelper
+        //{
+        //    Uri = url,
+        //    Params = new Dictionary<string, string> {
+        //    { "key", AUTH_KEY }
+        //},
+        //    Body = body,
+        //    Timeout = TIMEOUT
+        //};
     }
     public RequestHelper GetRequestHelper(string url)
     {
@@ -100,19 +113,20 @@ public sealed class FirebaseManager : IDatabaseHandler
         };
     }
 
-
-
     public RequestHelper GetRequestHelper(string url, string body)
     {
-        return new RequestHelper
-        {
-            Uri = url,
-            Params = new Dictionary<string, string> {
-                { "key", AUTH_KEY }
-            },
-            BodyString = body,
-            Timeout = TIMEOUT
-        };
+        RequestHelper request = GetRequestHelper(url);
+        request.BodyString = body;
+        return request;
+        //return new RequestHelper
+        //{
+        //    Uri = url,
+        //    Params = new Dictionary<string, string> {
+        //        { "key", AUTH_KEY }
+        //    },
+        //    BodyString = body,
+        //    Timeout = TIMEOUT
+        //};
 
     }
 
@@ -128,11 +142,11 @@ public sealed class FirebaseManager : IDatabaseHandler
     public void SaveNewUser(User newUser, Action onSuccess, Action<string> onFailure)
     {
         // If Posting the user is done successfully, send an email for verification.
-        PutUser(newUser, () => SendEmailForVerification(newUser.details.idToken, onSuccess, onFailure), onFailure);
+        PutUser(newUser, () => SendEmailForVerification(onSuccess, onFailure), onFailure);
     }
 
     // Send an email for verification.
-    private void SendEmailForVerification(string idToken, Action onSuccess, Action<string> onFailure)
+    private void SendEmailForVerification(Action onSuccess, Action<string> onFailure)
     {
         string emailData = "{\"requestType\":\"VERIFY_EMAIL\",\"idToken\":\"" + idToken + "\"}";
         SignResponsePost(SEND_EMAIL_VER_API, emailData, response => onSuccess(), onFailure);
@@ -157,7 +171,7 @@ public sealed class FirebaseManager : IDatabaseHandler
         }
         catch
         {
-            return "שגיאה! בדוק את חיבור הרשת שלך";
+            return TIMEOUT_ERROR_MESSAGE;
         }
     }
 
@@ -169,12 +183,12 @@ public sealed class FirebaseManager : IDatabaseHandler
         // If Signing in is done successfully, check if the user verified his email.
         SignResponsePost(SIGN_IN_API, userData, response =>
         {
-            CheckEmailVerification(response, email, onSuccess, onFailure);
+            CheckEmailVerification(response, onSuccess, onFailure);
         }, onFailure);
     }
 
     // Check if the given email has been verified.
-    private void CheckEmailVerification(SignResponse response, string email, Action<User> onSuccess, Action<string> onFailure)
+    private void CheckEmailVerification(SignResponse response, Action<User> onSuccess, Action<string> onFailure)
     {
         string emailVerification = "{\"idToken\":\"" + response.idToken + "\"}";
 
@@ -188,25 +202,29 @@ public sealed class FirebaseManager : IDatabaseHandler
 
                 // If the user verified his email he can sign in.
                 if (emailConfirmationInfo.users[0].emailVerified)
-            {
-                GetUser(response.localId, response.idToken, onSuccess, onFailure);
-            }
-            else
-            {
-                onFailure(ErrorObject.UNVERIFIED_EMAIL_MESSAGE);
-            }
+                {
+                    localId = response.localId;
+                    idToken = response.idToken;
+                    GetUser(onSuccess, onFailure);
+                    //GetUser(response.idToken, onSuccess, onFailure);
+                }
+                else
+                {
+                    onFailure(ErrorObject.UNVERIFIED_EMAIL_MESSAGE);
+                }
 
         }).Catch(error => { onFailure(ExtractErrorMessage(error)); });
 
     }
 
     // Get a user from the database according to the given localId and idToken.
-    private void GetUser(string localId, string idToken, Action<User> onSuccess, Action<string> onFailure)
+    private void GetUser(Action<User> onSuccess, Action<string> onFailure)
+    //private void GetUser(string idToken, Action<User> onSuccess, Action<string> onFailure)
     {
         RestClient.Get<User>(GetRequestHelper($"{databaseURL}users/{localId}.json?auth=" + idToken)).
             Then(response =>
             {
-                response.details.SetIdToken(idToken); response.details.SetLocalId(localId);
+                //response.details.idToken = idToken; //response.details.SetLocalId(localId);
                 onSuccess(response);
             }).Catch(error =>
             { onFailure(error.Message); });
@@ -229,12 +247,14 @@ public sealed class FirebaseManager : IDatabaseHandler
     private void GetRequest(string url, Action<ResponseHelper> onResponse, Action<string> onFailure)
     {
         RestClient.Get(GetRequestHelper(url)).Then(response => { onResponse(response); }).
-        Catch(error => { onFailure(error.Message); });
+        Catch(error => { 
+            onFailure(error.Message); });
 
     }
 
     // Get number of questions in the database.
-    public void GetNumberOfQuestions(string idToken, Action<int> onSuccess, Action<string> onFailure)
+    public void GetNumberOfQuestions(Action<int> onSuccess, Action<string> onFailure)
+    //public void GetNumberOfQuestions(string idToken, Action<int> onSuccess, Action<string> onFailure)
     {
         string getRequest = $"{databaseURL}questions.json?auth=" + idToken + "&shallow=true";
         GetRequest(getRequest, response =>
@@ -247,18 +267,21 @@ public sealed class FirebaseManager : IDatabaseHandler
     }
     
     // Get all the questions in the databae.
-    public void GetAllQuestions(string idToken, Action<Question[]> onSuccess, Action<string> onFailure)
+    public void GetAllQuestions(Action<Question[]> onSuccess, Action<string> onFailure)
+    //public void GetAllQuestions(string idToken, Action<Question[]> onSuccess, Action<string> onFailure)
     {
         string getRequest = $"{databaseURL}questions.json?auth=" + idToken + "&orderBy=\"questionNumber\"&startAt=0";
         GetQuestions(getRequest, onSuccess, onFailure);
     }
 
     // Set Questions by a given category from the database.
-    public void GetQuestionsByCategory(string idToken, string category, Action<Question[]> onSuccess, Action<string> onFailure)
+    public void GetQuestionsByCategory(string category, Action<Question[]> onSuccess, Action<string> onFailure)
+    //public void GetQuestionsByCategory(string idToken, string category, Action<Question[]> onSuccess, Action<string> onFailure)
     {
         if (category.Equals(Utils.MIXED_HEBREW))
         {
-            GetAllQuestions(idToken, onSuccess, onFailure);
+            GetAllQuestions(onSuccess, onFailure);
+            //GetAllQuestions(idToken, onSuccess, onFailure);
         }
         else
         {
@@ -277,22 +300,34 @@ public sealed class FirebaseManager : IDatabaseHandler
             fsData questionsData = fsJsonParser.Parse(response.Text);
             serializer.TryDeserialize(questionsData, ref questions).AssertSuccessWithoutWarnings();
             onSuccess(questions.Values.ToArray());
-        }, onFailure);
+        }, 
+        onFailure);
 
     }
+
 
     // Get all the questions that appears in the given level.
-    public void GetQuestionsInLevel(string idToekn, string level, Action<Question[]> onSuccess, Action<string> onFailure)
+    public void GetQuestionsInLevel(string level, Action<Question[]> onSuccess, Action<string> onFailure)
     {
-        string getRequest = $"{databaseURL}questions.json?auth=" + idToekn + "&orderBy=\"simulationLevel\"&equalTo=\"" + level + "\"";
+        string getRequest = $"{databaseURL}questions.json?auth=" + idToken + "&orderBy=\"simulationLevel\"&equalTo=\"" + level + "\"";
         GetQuestions(getRequest, onSuccess, onFailure);
     }
-    
+
+
+
+
+    // Upload the given question to the database.
+    public void UploadDataset(List<Question> questions)
+    {
+        UploadDatasetHelper(questions, 0);
+
+    }
+
 
     // Upload the given questions to the database reqursivly;
     private void UploadDatasetHelper(List<Question> questions, int num)
     {
-        RestClient.Put<Question>($"{databaseURL}questions/{questions[num].questionNumber}.json", questions[num]).Then(response =>
+        RestClient.Put<Question>($"{databaseURL}{QUESTIONS_COLLECTION_NAME}/{questions[num].questionNumber}.json", questions[num]).Then(response =>
         {
             if (num < questions.Count)
             {
@@ -303,13 +338,6 @@ public sealed class FirebaseManager : IDatabaseHandler
                 return;
             }
         }).Catch(error => { Debug.Log(error.Message); });
-
-    }
-
-    // Upload the given question to the database.
-    public void UploadDataset(List<Question> questions)
-    {
-        UploadDatasetHelper(questions, 0);
 
     }
 

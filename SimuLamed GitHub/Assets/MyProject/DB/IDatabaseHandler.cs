@@ -13,12 +13,20 @@ namespace Assets.model
         void SignInUser(string password, string email, Action<User> onSuccess, Action<string> onFailure);
         void ResetPassword(string email, Action onSuccess, Action<string> onFailure);
         void UploadDataset(List<Question> questions);
-        void GetQuestionsByCategory(string userIdToken, string category, Action<Question[]> onSuccess , Action<string> onFailure);
+        //void UploadSimulationLevels(Dictionary<int, List<int>> questionLevels);
+
+        void GetQuestionsByCategory(string category, Action<Question[]> onSuccess , Action<string> onFailure);
+        //void GetQuestionsByCategory(string userIdToken, string category, Action<Question[]> onSuccess , Action<string> onFailure);
         void PutUser(User user, Action onSuccess, Action<string> onFailure);
         void SignUp(string email, string password, Action<string,string> onSuccess, Action<string> onFailure);
         void SaveNewUser(User newUser, Action onSuccess, Action<string> onFailure);
-        void GetNumberOfQuestions(string idToken, Action<int> onSuccess, Action<string> onFailure);
-        void GetAllQuestions(string idToken, Action<Question[]> onSuccess, Action<string> onFailure);
-        void GetQuestionsInLevel(string idToekn, string level, Action<Question[]> onSuccess, Action<string> onFailure);
+        void GetNumberOfQuestions(Action<int> onSuccess, Action<string> onFailure);
+        //void GetNumberOfQuestions(string idToken, Action<int> onSuccess, Action<string> onFailure);
+        void GetAllQuestions(Action<Question[]> onSuccess, Action<string> onFailure);
+        //void GetAllQuestions(string idToken, Action<Question[]> onSuccess, Action<string> onFailure);
+        void GetQuestionsInLevel(string level, Action<Question[]> onSuccess, Action<string> onFailure);
+        //void GetQuestionsInLevel(string level, Action<Question[]> onSuccess, Action<string> onFailure);
+        //void GetQuestionsInLevel(string idToekn, string level, Action<Question[]> onSuccess, Action<string> onFailure);
+        void ResetUser();
     }
 }

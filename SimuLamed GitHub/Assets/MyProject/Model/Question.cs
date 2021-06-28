@@ -41,8 +41,9 @@ namespace Assets.model
 
 
 
-        //public Question(int questionNumber, QuestionType questionType, QuestionDifficulty questionDifficulty, string question, string[] answers, string imageUrl, string simulationLevel)
+        
         public Question(int questionNumber, QuestionType questionType, string question, string[] answers, string imageUrl, string simulationLevel)
+        //public Question(int questionNumber, QuestionType questionType, string question, string[] answers, string imageUrl)
         {
             this.questionNumber = questionNumber;
             this.questionCategory = FromTypeToCategory(questionType);

@@ -36,6 +36,7 @@ namespace Assets.model
         void UpdateUserScore(Utils.QuestionOption[] playerScore);
         void SetFromNumToType(ErrorTypes errorType);
         void SetQuestionsByLevel(string level);
+        //void SetQuestionsByLevel(string level);
         void UpdateUserLevel(int level);
     }
 }

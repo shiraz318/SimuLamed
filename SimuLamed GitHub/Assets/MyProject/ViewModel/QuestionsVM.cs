@@ -19,6 +19,8 @@ public class QuestionsVM : BaseViewModel
     private static int questionNum;
     private bool isQuestionSet;
     private int numberOfQuestions;
+    private string errorMessage;
+    private bool isLoadingCircleOn;
 
     // Properties.
     [Binding]
@@ -47,6 +49,25 @@ public class QuestionsVM : BaseViewModel
             NotifyPropertyChanged("IsHintButtonOn");
         }
     }
+
+    [Binding]
+    public override string ErrorMessage
+    {
+        get { return errorMessage; }
+        set
+        {
+            errorMessage = value;
+            if (value != "") { IsLoadingCircleOn = false; }
+            NotifyPropertyChanged("ErrorMessage");
+        }
+    }
+    [Binding]
+    public bool IsLoadingCircleOn
+    {
+        get { return isLoadingCircleOn; }
+        set { isLoadingCircleOn = value; NotifyPropertyChanged("IsLoadingCircleOn"); }
+    }
+
     [Binding]
     public string QuestionNumText 
     {
@@ -134,6 +155,7 @@ public class QuestionsVM : BaseViewModel
     protected override void OnStart()
     {
         IsQuestionSet = false;
+        IsLoadingCircleOn = true;
     }
     protected override void SetModel()
     {
@@ -159,6 +181,7 @@ public class QuestionsVM : BaseViewModel
             numberOfQuestions = model.Questions.Length;
             questionsManager.SetQuestions(model.Questions.ToArray());
             IsQuestionSet = true;
+            IsLoadingCircleOn = false;
             model.InitUserLastAns();
             DisplayQuestion();
         }

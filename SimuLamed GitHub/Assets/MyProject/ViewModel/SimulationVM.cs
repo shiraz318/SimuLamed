@@ -155,11 +155,13 @@ public class SimulationVM : SaveViewModel
         DisplayedQuestionsCounter = 0;
         SetQuestionsManager();
         Lives = MAX_NUMBER_OF_ERRORS;
+        questionsManager.IsQuestionSet = false;
     }
     protected override void SetModel()
     {
         base.SetModel();
-        model.SetQuestionsByLevel(FromIdxToName());
+        model.SetQuestionsByLevel(currentLevel.ToString());
+        //model.SetQuestionsByLevel(FromIdxToName());
         ResetScore();
         //model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         //{
@@ -182,7 +184,6 @@ public class SimulationVM : SaveViewModel
     protected override void AdditionalModelSettings(PropertyChangedEventArgs eventArgs)
     {
         //string propertyName = GetOnFinishActionPropertyName();
-        questionsManager.IsQuestionSet = false;
         // The model got the questions from the database.
         if (eventArgs.PropertyName.Equals("Questions"))
         {

@@ -11,17 +11,17 @@ public class OnClickInfo : MonoBehaviour
     {
         bool isCurrentlyActicated = infoScreen.activeSelf;
         // If info screen is currently activate - deactivate it, else - activate it.
-        SetInfoScreen(!isCurrentlyActicated, isCurrentlyActicated ? 1f : 0f);
+        SetInfoScreen(!isCurrentlyActicated);
     }
 
     // Set the info screen activation.
-    private void SetInfoScreen(bool toActivate, float timeScale)
+    private void SetInfoScreen(bool toActivate)
     {
         infoScreen.SetActive(toActivate);
-        Time.timeScale = timeScale;
+        //Time.timeScale = timeScale;
 
         // TODO
-        SoundManager.muteCar = toActivate;
+        //SoundManager.muteCar = toActivate;
     }
 
 }
