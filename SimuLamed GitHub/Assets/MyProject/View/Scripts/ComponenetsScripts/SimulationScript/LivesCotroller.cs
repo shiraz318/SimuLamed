@@ -20,7 +20,7 @@ public class LivesCotroller : MonoBehaviour
         viewModel = GameObject.Find(Utils.VIEW).GetComponent<SimulationVM>();
         viewModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
-            if (eventArgs.PropertyName.Equals("Lives"))
+            if (eventArgs.PropertyName.Equals(nameof(viewModel.Lives)))
             {
                 ChangeLives(viewModel.Lives);
             }

@@ -4,6 +4,7 @@ using Assets.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityWeld.Binding;
 
@@ -50,24 +51,20 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
 
     // Properties.
     [Binding]
-    public float Pitch { get { return pitch; } set { pitch = value; NotifyPropertyChanged("Pitch"); } }
+    public float Pitch { get { return pitch; } set { pitch = value; NotifyPropertyChanged(); } }
     [Binding]
-    public bool MuteCar { get { return muteCar; } set { muteCar = value; NotifyPropertyChanged("MuteCar"); } }
+    public bool MuteCar { get { return muteCar; } set { muteCar = value; NotifyPropertyChanged(); } }
 
     [Binding]
-    public Vector3 CarStartPosition { get { return carStartPosition; } set { carStartPosition = value; NotifyPropertyChanged("CarStartPosition"); } }
+    public Vector3 CarStartPosition { get { return carStartPosition; } set { carStartPosition = value; NotifyPropertyChanged(); } }
     [Binding]
-    public Vector3 CarStartRotation { get { return carStartRotation; } set { carStartRotation = value; NotifyPropertyChanged("CarStartRotation"); } }
+    public Vector3 CarStartRotation { get { return carStartRotation; } set { carStartRotation = value; NotifyPropertyChanged(); } }
 
     [Binding]
     public string Speed
     {
         get { return speed; }
-        set
-        {
-            speed = value;
-            NotifyPropertyChanged("Speed");
-        }
+        set {  speed = value;  NotifyPropertyChanged(); }
     }
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -244,11 +241,11 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
     }
 
     //On property changed.
-    public void NotifyPropertyChanged(string propName)
+    public void NotifyPropertyChanged([CallerMemberName] string propertyname = null)
     {
         if (this.PropertyChanged != null)
         {
-            this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            this.PropertyChanged(this, new PropertyChangedEventArgs(propertyname));
         }
     }
 

@@ -19,25 +19,25 @@ public class OnClickScreens : MonoBehaviour
 
     private void Start()
     {
-        sceneLoader = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
-        screenManger = GameObject.Find("Screens").GetComponent<ScreensManager>();
+        sceneLoader = GameObject.Find(Utils.SCENE_LOADER).GetComponent<SceneLoader>();
+        screenManger = GameObject.Find(Utils.SCREENS).GetComponent<ScreensManager>();
 
         SetViewModel();
     }
 
     private void SetViewModel()
     {
-        viewModel = GameObject.Find("View").GetComponent<SimulationVM>();
+        viewModel = GameObject.Find(Utils.VIEW).GetComponent<SimulationVM>();
         viewModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
             if (this == null) { return; }
             
-            if (eventArgs.PropertyName.Equals("OpenedLevel"))
+            if (eventArgs.PropertyName.Equals(SimulationVM.OPENED_LEVEL))
             {
                 isLastQuestion = true;
                 isLastLevel = false;
             }
-            else if (eventArgs.PropertyName.Equals("FinishLastLevel"))
+            else if (eventArgs.PropertyName.Equals(SimulationVM.FINISHED_LEVEL))
             {
                 isLastQuestion = true;
                 isLastLevel = true;

@@ -129,7 +129,7 @@ public class LightAnimator : MonoBehaviour
     {
         // Wait to syncronize the cycles of all the traffic lights that participate in the cycle.
         yield return new WaitForSeconds((trafficLightNumber - 1) * oneDuration);
-        StartCoroutine("ChangeLight");
+        StartCoroutine(nameof(ChangeLight));
 
     }
 
@@ -158,7 +158,7 @@ public class LightAnimator : MonoBehaviour
         // Set the color.
         SetColor();
         // Call this method again to create an infinite loop.
-        StartCoroutine("ChangeLight");
+        StartCoroutine(nameof(ChangeLight));
     }
 
     // Set the visability of the current light to the given value.

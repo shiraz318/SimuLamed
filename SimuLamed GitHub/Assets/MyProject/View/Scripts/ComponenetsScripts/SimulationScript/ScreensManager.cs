@@ -25,40 +25,33 @@ public class ScreensManager : MonoBehaviour
     private const int LAST_SUCCESS_MENU_UI_IDX = 5;
     private const int ERROR_SUCCESS_MENU_UI_IDX = 6;
 
-    //public GameObject pauseMenuUI;
-    //public GameObject quitMenuUI;
-    //public GameObject failMenuUI;
-    //public GameObject successMenuUI;
-    //public GameObject questionsMenuUI;
-    //public GameObject lastSuccessMenuUI;
-    //public GameObject ErrorMenuUI;
-
-    public GameObject[] menues;
+    [SerializeField]
+    private GameObject[] menues;
 
 
     private SimulationVM simulationVM;
 
     void Start()
     {
-        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        soundManager = GameObject.Find(Utils.SOUND_MANAGER).GetComponent<SoundManager>();
        
         SetViewModel();
         isQuitMenu = false;
     }
     private void SetViewModel()
     {
-        simulationVM = GameObject.Find("View").GetComponent<SimulationVM>();
+        simulationVM = GameObject.Find(Utils.VIEW).GetComponent<SimulationVM>();
         simulationVM.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
             if (this == null) { return; }
-            if (eventArgs.PropertyName.Equals("Lives"))
+            if (eventArgs.PropertyName.Equals(nameof(simulationVM.Lives)))
             {
                 if (simulationVM.Lives < 0)
                 {
                     FailMenu();
                 }
             } 
-            else if (eventArgs.PropertyName.Equals("IsSaveingFailed") && simulationVM.IsSaveingFailed)
+            else if (eventArgs.PropertyName.Equals(nameof(simulationVM.IsSaveingFailed)) && simulationVM.IsSaveingFailed)
             {
                 DiactivateAllMenues();
                 ActivateMenu(()=>{ }, menues[ERROR_SUCCESS_MENU_UI_IDX], true);
