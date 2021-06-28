@@ -9,14 +9,14 @@ public class OnTriggerQuestion : MonoBehaviour
     private static ScreensManager screensManager;
     private BoxCollider boxCollider;
 
-    public GameObject questionMark;
-    public int questionNumber;
-
-
+    [SerializeField]
+    private GameObject questionMark;
+    [SerializeField]
+    private int questionNumber;
 
     private void Awake()
     {
-        screensManager = GameObject.Find("Screens").GetComponent<ScreensManager>();
+        screensManager = GameObject.Find(Utils.SCREENS).GetComponent<ScreensManager>();
         boxCollider = GetComponent<BoxCollider>();
         string toShowQuestions = PlayerPrefs.GetString(Utils.SHOW_QUESTIONS);
        
@@ -27,7 +27,7 @@ public class OnTriggerQuestion : MonoBehaviour
     // On trigger enter event handler.
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag(Utils.PLAYER_TAG))
         {
             // Ignore collision with the player.
             Physics.IgnoreCollision(GameObject.Find("Car").GetComponent<BoxCollider>(), boxCollider);

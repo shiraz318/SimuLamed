@@ -25,6 +25,12 @@ namespace Assets.Model
             this.openLevel = openLevel;
 
         }
+        public UserState()
+        {
+            this.correctAnswers = new int[] { -1 };
+            this.numOfHints = Utils.INITIAL_NUMBER_OF_HINTS;
+            this.openLevel = 1;
+        }
 
         // Initialize the score.
         public void InitScore(int numOfQuestions)

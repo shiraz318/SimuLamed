@@ -6,9 +6,12 @@ using UnityEngine.UI;
 
 public class OnClickSound : MonoBehaviour
 {
-    public Sprite soundImage;
-    public Sprite muteImage;
-    public Image voliumImage;
+    [SerializeField]
+    private Sprite soundImage;
+    [SerializeField]
+    private Sprite muteImage;
+    [SerializeField]
+    private Image voliumImage;
     
     private void Start()
     {

@@ -9,7 +9,6 @@ using UnityWeld.Binding;
 public class BaseViewModel : MonoBehaviour, INotifyPropertyChanged
 {
 
-    // Fields.
     private string errorMessage = "";
     protected IAppModel model;
     public event PropertyChangedEventHandler PropertyChanged;
@@ -29,7 +28,6 @@ public class BaseViewModel : MonoBehaviour, INotifyPropertyChanged
 
     public void Start()
     {
-        //ErrorMessage = "";
         OnStart();
         SetModel();
     }

@@ -28,7 +28,7 @@ public class QuestionsView : BaseView
     // Set the view model.
     private void SetViewModel()
     {
-        viewModel = GameObject.Find("View").GetComponent<QuestionsVM>();
+        viewModel = GameObject.Find(Utils.VIEW).GetComponent<QuestionsVM>();
         viewModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
             if (this == null) { return; }

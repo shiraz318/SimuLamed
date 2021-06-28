@@ -25,14 +25,9 @@ namespace Assets.model
     public class Question
     {
 
-        //public QuestionType questionType;
-        //public QuestionDifficulty questionDifficulty;
+        private const int CORRECT_ANS_IDX = 4;
+
         public string question;
-        //public string ans1;
-        //public string ans2;
-        //public string ans3;
-        //public string ans4;
-        //public string correctAns;
         public string[] answers;
         public string imageUrl;
         public int questionNumber;
@@ -43,26 +38,22 @@ namespace Assets.model
 
         
         public Question(int questionNumber, QuestionType questionType, string question, string[] answers, string imageUrl, string simulationLevel)
-        //public Question(int questionNumber, QuestionType questionType, string question, string[] answers, string imageUrl)
         {
             this.questionNumber = questionNumber;
             this.questionCategory = FromTypeToCategory(questionType);
-            //this.questionDifficulty = questionDifficulty;
             this.question = question;
             this.answers = answers;
-            //this.ans1 = answers[0];
-            //this.ans2 = answers[1];
-            //this.ans3 = answers[2];
-            //this.ans4 = answers[3];
-            //this.correctAns = answers[4];
             this.imageUrl = imageUrl;
             this.simulationLevel = simulationLevel;
         }
+        
+        // Get the correct answer.
         public string GetCorrectAns()
         {
-            return this.answers[4];
+            return this.answers[CORRECT_ANS_IDX];
         }
-        // Returns hebrew category accordingly to the given quesiton type.
+        
+        // Returns hebrew category accordingly to the given question type.
         public static string FromTypeToCategory(QuestionType questionType)
         {
             switch (questionType)

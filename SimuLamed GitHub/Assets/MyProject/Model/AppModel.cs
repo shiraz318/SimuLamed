@@ -23,6 +23,11 @@ namespace Assets.model
         private Dictionary<int, QuestionType> fromQuestionNumToType;
 
         // Properties.
+        public Dictionary<int, QuestionType> FromQuestionNumToType
+        {
+            get { return fromQuestionNumToType; }
+            set { fromQuestionNumToType = value; NotifyPropertyChanged("FromQuestionNumToType"); }
+        }
         public Question[] Questions 
         { 
             get { return questions; } 
@@ -72,6 +77,7 @@ namespace Assets.model
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
+        
         // Thread safety singleton using double check locking 
         private static readonly object padlock = new object();
         private static AppModel instance = null;
@@ -123,18 +129,13 @@ namespace Assets.model
          */
         public void SetFromNumToType(ErrorTypes errorType)
         {
-            //databaseHandler.GetAllQuestions(currentUser.details.idToken, onSuccess: (questions) =>
             databaseHandler.GetAllQuestions(onSuccess: (questions) =>
                 {
-                    // This is the first time the dictionary is being set.
-                    if (fromQuestionNumToType.Count == 0)
-                    {
-                        questions = questions.OrderBy(x => x.questionNumber).ToArray();
-                        fromQuestionNumToType = questions.ToDictionary(x => x.questionNumber,
-                            x => Question.FromCategoryToTypeHebrew(x.questionCategory));
-                    }
+                    questions = questions.OrderBy(x => x.questionNumber).ToArray();
+                    FromQuestionNumToType = questions.ToDictionary(x => x.questionNumber,
+                        x => Question.FromCategoryToTypeHebrew(x.questionCategory));
+
                     ResetError();
-                    NotifyPropertyChanged("FromQuestionNumToType");
                 },
                 onFailure: (message) => { SetError(message, errorType); });
         }
@@ -143,60 +144,37 @@ namespace Assets.model
         public void SignIn(string password, string email)
         {
             // Define onSuccess function for when signing in is done successfully.
-            Action<User> newOnSuccess = delegate (User user)
+            Action<User> onSuccess = delegate (User user)
             {
                 IsSignedIn = true;
                 currentUser = user;
-                NotifyPropertyChanged("HintsNumber");
-
-                //databaseHandler.GetNumberOfQuestions(user.details.idToken, (numOfQuestions) =>
+                HintsNumber = user.state.numOfHints;
+                
                 databaseHandler.GetNumberOfQuestions((numOfQuestions) =>
                 {
                     NumOfQuestions = numOfQuestions;
-                    ResetError();
                     currentUser.state.InitScore(numOfQuestions);
+                    ResetError();
                 },
                 (error) => { SetError(error, ErrorTypes.SignIn); });
             };
             
             // If email is valid - sign in.
             ActionIfEmailIsValid(email, 
-                () => databaseHandler.SignInUser(password, email, newOnSuccess,
+                () => databaseHandler.SignInUser(password, email, onSuccess,
                     (message) => SetError(message, ErrorTypes.SignIn)), 
                 ErrorTypes.SignIn);
         }
 
-        // Create a new user.
-        //private User CreateUser(string username, string email, string idToken, string localId)
-        //private User CreateUser(string username, string idToken, string localId)
-        private User CreateUser(string username)
-        {
-           // UserDetails details = new UserDetails(username);
-           // UserDetails details = new UserDetails(username, idToken);
-           // UserDetails details = new UserDetails(username, localId, idToken);
-            UserState state = new UserState(new int[] { -1 }, Utils.INITIAL_NUMBER_OF_HINTS, 1);
-            return new User(username, state);
-        }
 
         // Sign up.
         public void SignUp(string username, string password, string email)
         {
             Action<string> onFailure = (message) => SetError(message, ErrorTypes.SignUp);
             
-            // If signing up is done successfully, save the new user to the database.
-            Action<string,string> onSuccessSignUp = (string idToken, string localId) =>
-            {
-                // If saving the new user is done successfully, reset the error object and set IsSignedUp to true.
-                databaseHandler.SaveNewUser(CreateUser(username),
-                //databaseHandler.SaveNewUser(CreateUser(username, idToken, localId),
-                //databaseHandler.SaveNewUser(CreateUser(username, email, idToken, localId),
-                    ()=> { ResetError(); IsSignedUp = true; },
-                    onFailure);
-            };
-            
             // If email is valid - sign up.
             ActionIfEmailIsValid(email,
-                () => databaseHandler.SignUp(email, password, onSuccessSignUp, onFailure),
+                () => databaseHandler.SignUp(username, email, password, () => { ResetError(); IsSignedUp = true; }, onFailure),
                 ErrorTypes.SignUp);
         }
 
@@ -230,48 +208,42 @@ namespace Assets.model
         // Set questions array to contain questions in the given level.
         public void SetQuestionsByLevel(string level)
         {
-           // databaseHandler.GetQuestionsInLevel(currentUser.details.idToken, level, 
-            databaseHandler.GetQuestionsInLevel(level, 
-                (questions) => { SetQuestions(questions, false); ResetError(); },
-                (message) => { 
-                    SetError(message, ErrorTypes.LoadQuestions); });
+            databaseHandler.GetQuestionsInLevel(level, OnSuccessGetQuestions, OnFailureGetQuestions);
         }
-        //// Set questions array to contain questions in the given level.
-        //public void SetQuestionsByLevel(string level)
-        //{
-        //   // databaseHandler.GetQuestionsInLevel(currentUser.details.idToken, level, 
-        //    databaseHandler.GetQuestionsInLevel(level, 
-        //        (questions) => { SetQuestions(questions, false); ResetError(); },
-        //        (message) => { 
-        //            SetError(message, ErrorTypes.LoadQuestions); });
-        //}
+
+        // If getting the questions is done successfully, set the questions property and reset the error object.
+        public void OnSuccessGetQuestions(Question[] inputQuestions)
+        {
+            Questions = inputQuestions.OrderBy(x => x.questionNumber).ToArray();
+            ResetError();
+
+        }
+        
+        // If getting the questions failed, set the error object accordingly.
+        public void OnFailureGetQuestions(string message)
+        {
+            SetError(message, ErrorTypes.LoadQuestions);
+        }
+       
+        // Randomize the questions.
+        private void RandQuestions()
+        {
+            System.Random rnd = new System.Random();
+            Questions = Questions.OrderBy(x => rnd.Next()).ToArray();
+        }
 
         // Set questions array to contain questinos in the given category.
         public void SetQuestionsByCategory(string category, bool toRnd)
         {
             // Get all questions of the given category from the database.
-           // databaseHandler.GetQuestionsByCategory(currentUser.details.idToken, category, 
-            databaseHandler.GetQuestionsByCategory(category, 
-                // If getting the questions is done successfully, set the questions property and reset the error object.
-                (questions) => { SetQuestions(questions, toRnd); ResetError(); },
-                (message) => { 
-                    SetError(message, ErrorTypes.LoadQuestions); });
-        }
-
-        // Set the questions array to the given questions array and randomize it accornding to toRnd.
-        private void SetQuestions(Question[] inputQuestions, bool toRnd)
-        {
-            // Randomize the questions.
-            if (toRnd)
+            databaseHandler.GetQuestionsByCategory(category, (inputQuestions) => 
             {
-                System.Random rnd = new System.Random();
-                inputQuestions = inputQuestions.OrderBy(x => rnd.Next()).ToArray();
+                OnSuccessGetQuestions(inputQuestions); 
+                if (toRnd) { RandQuestions(); }
             }
-            else
-            {
-                inputQuestions = inputQuestions.OrderBy(x => x.questionNumber).ToArray();
-            }
-            Questions = inputQuestions;
+            ,OnFailureGetQuestions);
+                
+               
         }
 
         // Save current user to the database.
@@ -324,18 +296,20 @@ namespace Assets.model
         // Get the number of questions in the database of the given category.
         public int GetNumOfQuestionsByCategory(string category)
         {
-            int numOfQuestion = fromQuestionNumToType.Where(pair => 
-            pair.Value == Question.FromCategoryToTypeHebrew(category)).Select(pair => pair.Key).Count();
-            return numOfQuestion;
+            return FromQuestionNumToType.
+                Where(pair => 
+                    pair.Value == Question.FromCategoryToTypeHebrew(category)).
+                    Select(pair => pair.Key).Count();
         }
 
         // Get the number of correct answers the current user answered of the given category.
         public int GetNumOfCorrectAnswersByCategory(string category)
         {
-            int numOfCorrectAnswers = fromQuestionNumToType.Where(pair =>
-            pair.Value == Question.FromCategoryToTypeHebrew(category) &&
-            currentUser.state.correctAnswers.Contains(pair.Key)).Select(pair => pair.Key).Count();
-            return numOfCorrectAnswers;
+            return FromQuestionNumToType.
+                Where(pair =>
+                    pair.Value == Question.FromCategoryToTypeHebrew(category) && currentUser.state.correctAnswers.Contains(pair.Key)).
+                Select(pair => pair.Key).Count();
+            
         }
 
         // Decrease a hint to the current user.

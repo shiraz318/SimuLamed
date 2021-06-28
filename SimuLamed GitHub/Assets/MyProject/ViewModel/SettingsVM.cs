@@ -11,7 +11,7 @@ namespace Assets.ViewModel
     [Binding]
     public class SettingsVM : BaseViewModel
     {
-        // Private fields.
+
         private HashSet<string> keys = new HashSet<string>();
         private static string leftInput = Utils.DEFAULT_LEFT;
         private static string rightInput = Utils.DEFAULT_RIGHT;

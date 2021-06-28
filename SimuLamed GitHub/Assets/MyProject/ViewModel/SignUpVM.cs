@@ -7,7 +7,7 @@ using UnityWeld.Binding;
 [Binding]
 public class SignUpVM : RegisterViewModel
 {
-    // Private fiels.
+
     private string password = "";
     private string username = "";
 

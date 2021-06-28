@@ -17,12 +17,6 @@ namespace Assets
             Correct
         }
 
-
-        //// Delegates.
-        //public delegate void OnSuccessFunc();
-        //public delegate void OnSuccessSignInFunc(User user);
-        //public delegate void OnFailureFunc(string errorMessage);
-
         // Constants.
         public const string SAFETY_HEBREW = "בטיחות";
         public const string TRANSACTION_RULES_HEBREW = "חוקי התנועה";
@@ -63,8 +57,7 @@ namespace Assets
 
         public const string SHOW_QUESTIONS = "ShowQuestions";
         public const string MUTE_SOUND = "MuteSound";
-        //public const string ERROR_IN_KEYS = "KEY ALREADY IN USE"; 
-       // public const string ERROR_IN_KEYS_H =" מקש נמצא בשימוש יותר מפעם אחת"; 
+
 
         // Default settings.
         public const string DEFAULT_FORWARD = "w";
@@ -80,39 +73,14 @@ namespace Assets
         public const int INITIAL_NUMBER_OF_HINTS = 4;
 
 
+        public const string SOUND_MANAGER = "SoundManager";
+        public const string QUESTION_MANAGER = "QuestionsManager";
+        public const string SCENE_LOADER =  "SceneLoader";
+        public const string PLAYER_TAG = "Player";
+        public const string VIEW = "View";
+        public const string SCREENS = "Screens";
 
-        // Statics.
-        //public static Color32 greenColor = new Color32(14, 255, 0, 255);
-        //public static Color32 redColor = new Color32(255, 0, 0, 255);
-        //public static Color32 progress1Color = new Color32(255, 76, 76, 255);
-        //public static Color32 progress2Color = new Color32(255, 166, 61, 255);
-        //public static Color32 progress3Color = new Color32(248, 238, 92, 255);
-        //public static Color32 progress4Color = new Color32(141, 255, 95, 255);
-        
-        //public static Color32 disabledAnsColor = new Color32(217, 177, 83, 255);//125
-
-        //private static Dictionary<int, QuestionType> fromQuestionNumToType;
-
-
-        // Functions.
-        //public static void SetFromQuestionNumToType(Dictionary<int, QuestionType> dic)
-        //{
-        //    fromQuestionNumToType = dic;
-        //}
-
-        //public static QuestionType FromQuestionNumToType(int questionNum)
-        //{
-        //    return fromQuestionNumToType[questionNum];
-        //}
-        //public static void OnClickWithButtonCheck(string buttonWantedName, string buttonName, Action action)
-        //{
-        //    if (buttonName.Equals(buttonWantedName))
-        //    {
-        //        action();
-        //    }
-        //}
-
-
+        public const int MAX_NUMBER_OF_ERRORS = 4;
 
 
     }

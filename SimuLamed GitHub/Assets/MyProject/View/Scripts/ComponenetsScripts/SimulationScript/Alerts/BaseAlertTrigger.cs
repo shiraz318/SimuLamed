@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ public abstract class BaseAlertTrigger : MonoBehaviour
     }
 
     protected abstract string GetAlertMessage();
+    
+    // On trigger alert collided with the player.
     protected virtual void OnTriggerPlayer() 
     {
         alertDisplayer.DisplayAlert(GetAlertMessage());
@@ -22,7 +25,7 @@ public abstract class BaseAlertTrigger : MonoBehaviour
     // On trigger enter event handler.
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag(Utils.PLAYER_TAG))
         {
             otherCollider = other;
             OnTriggerPlayer();

@@ -12,7 +12,7 @@ public class RegisterView : BaseView
     private new void Start()
     {
         base.Start();
-        viewModel = GameObject.Find("View").GetComponent<RegisterViewModel>();
+        viewModel = GameObject.Find(Utils.VIEW).GetComponent<RegisterViewModel>();
         viewModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
             if (this == null) { return; }

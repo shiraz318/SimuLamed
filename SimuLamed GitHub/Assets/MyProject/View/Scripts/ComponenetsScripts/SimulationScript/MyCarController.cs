@@ -11,7 +11,8 @@ using UnityWeld.Binding;
 public class MyCarController : MonoBehaviour, INotifyPropertyChanged
 {
     // Start position variables.
-    public List<Transform> optionalStartPositions; // a list of optional start positions for the car.
+    [SerializeField]
+    private List<Transform> optionalStartPositions; // a list of optional start positions for the car.
     private Vector3 carStartPosition;
     private Vector3 carStartRotation;
 
@@ -21,20 +22,25 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
     private const float topSpeed = 180f;
 
     // Inputs variables.
-    private float m_horizontalInput;
-    private float m_verticalInput;
+    private float horizontalInput;
+    private float verticalInput;
 
     // Physics of the car.
-    public Rigidbody rigidBody;
-    public Transform carT;
-    public WheelCollider frontDriverW, frontPassengerW;
-    public WheelCollider rearDriverW, rearPassengerW;
-    public Transform frontDriverT, frontPassengerT;
-    public Transform rearDriverT, rearPassengerT;
+    [SerializeField]
+    private Rigidbody rigidBody;
+    [SerializeField]
+    private Transform carT;
+    [SerializeField]
+    private WheelCollider frontDriverW, frontPassengerW, rearDriverW, rearPassengerW;
+    [SerializeField]
+    private Transform frontDriverT, frontPassengerT, rearDriverT, rearPassengerT;
 
-    public float maxSteerAngle = 30;
-    private float m_steeringAngle;
-    public float motorForce = 1000;
+    [SerializeField]
+    private float maxSteerAngle = 30;
+    [SerializeField]
+    private float motorForce = 1000;
+    
+    private float steeringAngle;
     private float drive;
     private string speed = "0";
 
@@ -120,6 +126,7 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
       
     }
 
+    // Get the key accordingly to the key.
     private string GetKey(string keyName, string keyDefault)
     {
         return PlayerPrefs.GetString(keyName).Equals("") ? FromStringToASCII(keyDefault) : PlayerPrefs.GetString(keyName);
@@ -131,24 +138,24 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
         float sensitivity = 3f;
         float deadZone = 0.001f;
 
-        m_horizontalInput = Mathf.MoveTowards(m_horizontalInput,
+        horizontalInput = Mathf.MoveTowards(horizontalInput,
                       targetH, sensitivity * Time.unscaledDeltaTime);
 
-        m_verticalInput = Mathf.MoveTowards(m_verticalInput,
+        verticalInput = Mathf.MoveTowards(verticalInput,
                       targetV, sensitivity * Time.unscaledDeltaTime);
 
         return new Vector2(
-               (Mathf.Abs(m_horizontalInput) < deadZone) ? 0f : m_horizontalInput,
-               (Mathf.Abs(m_verticalInput) < deadZone) ? 0f : m_verticalInput);
+               (Mathf.Abs(horizontalInput) < deadZone) ? 0f : horizontalInput,
+               (Mathf.Abs(verticalInput) < deadZone) ? 0f : verticalInput);
     }
 
 
     // Set the front wheels.
     private void Steer()
     {
-        m_steeringAngle = maxSteerAngle * m_horizontalInput;
-        frontDriverW.steerAngle = m_steeringAngle;
-        frontPassengerW.steerAngle = m_steeringAngle;
+        steeringAngle = maxSteerAngle * horizontalInput;
+        frontDriverW.steerAngle = steeringAngle;
+        frontPassengerW.steerAngle = steeringAngle;
     }
 
     // Round the given number with the givem number of digits.
@@ -161,9 +168,10 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
     // Calculate the speed.
     private void Accelerate()
     {
-        frontDriverW.motorTorque = m_verticalInput * motorForce;
-        frontPassengerW.motorTorque = m_verticalInput * motorForce;
-        // calculate speed in km/h
+        frontDriverW.motorTorque = verticalInput * motorForce;
+        frontPassengerW.motorTorque = verticalInput * motorForce;
+        
+        // Calculate speed in km/h.
         drive = rigidBody.velocity.magnitude * 3.6f;
         Speed = Round(drive, 0).ToString();
         UpdateEngineSound(drive, topSpeed);
@@ -174,8 +182,6 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
     {
         Pitch = currentSpeed / topSpeed;
         MuteCar = SoundManager.muteCar;
-         //GetComponent<AudioSource>().pitch = Pitch;
-        //PlaySound(carEngine);
     }
 
     // Set the position of the wheels.
@@ -188,29 +194,26 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
     }
 
     // Set the position of the given wheel.
-    private void UpdateWheelPose(WheelCollider _collider, Transform _transform)
+    private void UpdateWheelPose(WheelCollider collider, Transform transform)
     {
-        Vector3 _pos = _transform.position;
-        Quaternion _quat = _transform.rotation;
+        Vector3 pos = transform.position;
+        Quaternion quat = transform.rotation;
 
-        _collider.GetWorldPose(out _pos, out _quat);
+        collider.GetWorldPose(out pos, out quat);
 
-        _transform.position = _pos;
-        _transform.rotation = _quat;
+        transform.position = pos;
+        transform.rotation = quat;
     }
 
+    // Check if the car is flipped.
     private void IsFlip()
     {
         if (Vector3.Dot(carT.up, Vector3.down) > 0.8)
         {
-            Debug.Log("The car is upside down!");
             carT.transform.Rotate(180f, 0.0f, 0.0f, Space.Self);
-
-
         }
          else if (carT.up.z >  0.8)
         {
-            Debug.Log("The car is on the side!");
             carT.transform.Rotate(0.0f, 0.0f, 90.0f,  Space.Self);
         }
     }

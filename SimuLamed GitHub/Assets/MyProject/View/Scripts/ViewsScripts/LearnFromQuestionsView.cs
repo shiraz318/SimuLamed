@@ -10,7 +10,7 @@ public class LearnFromQuestionsView : BaseView
     private new void Start()
     {
         base.Start();
-        viewModel = GameObject.Find("View").GetComponent<LearnFromQVM>();
+        viewModel = GameObject.Find(Utils.VIEW).GetComponent<LearnFromQVM>();
         viewModel.PropertyChanged += delegate(object sender, PropertyChangedEventArgs eventArgs)
         {
             if (this == null) { return; }

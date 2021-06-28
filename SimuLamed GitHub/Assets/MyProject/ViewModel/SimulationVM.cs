@@ -13,8 +13,7 @@ using UnityWeld.Binding;
 [Binding]
 public class SimulationVM : SaveViewModel
 {
-    // Private fields.
-    private const int MAX_NUMBER_OF_ERRORS = 4;
+    
     private int displayedQuestionsCounter;
     private int lives;
     private string questionNumberText;
@@ -44,21 +43,21 @@ public class SimulationVM : SaveViewModel
     public static int currentLevel = LevelsVM.chosenLevelIdx;
 
 
-    // Convert the index of the current level to the current level name.
-    private string FromIdxToName()
-    {
-        switch (currentLevel)
-        {
-            case 1:
-                return "Level1";
-            case 2:
-                return "Level2";
-            case 3:
-                return "Level3";
-            default:
-                return LevelsVM.chosenLevel;
-        }
-    }
+    //// Convert the index of the current level to the current level name.
+    //private string FromIdxToName()
+    //{
+    //    switch (currentLevel)
+    //    {
+    //        case 1:
+    //            return "Level1";
+    //        case 2:
+    //            return "Level2";
+    //        case 3:
+    //            return "Level3";
+    //        default:
+    //            return LevelsVM.chosenLevel;
+    //    }
+    //}
 
     // Resets the score of the player.
     private void ResetScore()
@@ -154,7 +153,7 @@ public class SimulationVM : SaveViewModel
         currentLevel = LevelsVM.chosenLevelIdx;
         DisplayedQuestionsCounter = 0;
         SetQuestionsManager();
-        Lives = MAX_NUMBER_OF_ERRORS;
+        Lives = Utils.MAX_NUMBER_OF_ERRORS;
         questionsManager.IsQuestionSet = false;
     }
     protected override void SetModel()

@@ -16,8 +16,8 @@ public class LevelIcon : MonoBehaviour
   
     private void Start()
     {
-        viewModel = GameObject.Find("View").GetComponent<LevelsVM>();
-        sceneLoader = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
+        viewModel = GameObject.Find(Utils.VIEW).GetComponent<LevelsVM>();
+        sceneLoader = GameObject.Find(Utils.SCENE_LOADER).GetComponent<SceneLoader>();
 
         /*
          * If the highest open level of the user is bigger than this level index - this level is open. 

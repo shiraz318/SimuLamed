@@ -16,9 +16,9 @@ public class LevelsVM : BaseViewModel
     public bool IsLoadingCircleOn { get { return isLoadingCircleOn; } set { isLoadingCircleOn = value; NotifyPropertyChanged("IsLoadingCircleOn"); } }
 
 
-    public static string chosenLevel;
+    //public static string chosenLevel;
     public static int chosenLevelIdx;
-    public static bool isSet;
+   // public static bool isSet;
 
 
     void Awake()
@@ -32,23 +32,23 @@ public class LevelsVM : BaseViewModel
         //isSet = false;
         IsLoadingCircleOn = true;
         chosenLevelIdx = levelIdx;
-        chosenLevel = FromLevelIdxToName();
+        //chosenLevel = FromLevelIdxToName();
     }
     
-    // Convert the index ot the chosen level to the level name.
-    private string FromLevelIdxToName()
-    {
-        switch (chosenLevelIdx)
-        {
-            case 1:
-                return "Level1";
-            case 2:
-                return "Level2";
-            case 3:
-                return "Level3";
-            default:
-                return "Level1";
-        }
-    }
+    //// Convert the index ot the chosen level to the level name.
+    //private string FromLevelIdxToName()
+    //{
+    //    switch (chosenLevelIdx)
+    //    {
+    //        case 1:
+    //            return "Level1";
+    //        case 2:
+    //            return "Level2";
+    //        case 3:
+    //            return "Level3";
+    //        default:
+    //            return "Level1";
+    //    }
+    //}
 
 }

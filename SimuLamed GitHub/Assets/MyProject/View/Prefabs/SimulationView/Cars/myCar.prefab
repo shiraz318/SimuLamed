@@ -54,7 +54,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  rigidBody: {fileID: 0}
+  rigidBody: {fileID: 1254254932084345509}
+  carT: {fileID: 1254254932084446852}
   frontDriverW: {fileID: 1254254931613098331}
   frontPassengerW: {fileID: 2449534817424709908}
   rearDriverW: {fileID: 2684782866786859085}
@@ -63,7 +64,7 @@ MonoBehaviour:
   frontPassengerT: {fileID: 1254254932077939707}
   rearDriverT: {fileID: 1254254931815099967}
   rearPassengerT: {fileID: 1254254932851087191}
-  maxSteerAngle: 20
+  maxSteerAngle: 30
   motorForce: 1000
 --- !u!82 &5507074150159796221
 AudioSource:

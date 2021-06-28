@@ -9,7 +9,7 @@ using UnityWeld.Binding;
 [Binding]
 public abstract class RegisterViewModel : BaseViewModel {
 
-    // Private fields.
+
     private string email = "";
     private string errorMessage;
     private bool isLoadingCircleOn = false;

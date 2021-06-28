@@ -18,8 +18,9 @@ namespace Assets.model
         void GetQuestionsByCategory(string category, Action<Question[]> onSuccess , Action<string> onFailure);
         //void GetQuestionsByCategory(string userIdToken, string category, Action<Question[]> onSuccess , Action<string> onFailure);
         void PutUser(User user, Action onSuccess, Action<string> onFailure);
-        void SignUp(string email, string password, Action<string,string> onSuccess, Action<string> onFailure);
-        void SaveNewUser(User newUser, Action onSuccess, Action<string> onFailure);
+        void SignUp(string username, string email, string password, Action onSuccess, Action<string> onFailure);
+        //void SignUp(string email, string password, Action<string,string> onSuccess, Action<string> onFailure);
+        //void SaveNewUser(User newUser, Action onSuccess, Action<string> onFailure);
         void GetNumberOfQuestions(Action<int> onSuccess, Action<string> onFailure);
         //void GetNumberOfQuestions(string idToken, Action<int> onSuccess, Action<string> onFailure);
         void GetAllQuestions(Action<Question[]> onSuccess, Action<string> onFailure);

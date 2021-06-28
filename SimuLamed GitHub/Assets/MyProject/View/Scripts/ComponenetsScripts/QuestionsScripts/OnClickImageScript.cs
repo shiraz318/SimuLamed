@@ -5,14 +5,15 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class OnClickImageScript : MonoBehaviour
 {
-    // Private fields.
+
     private Image image;
     private float positionYImage;
     private float originalImageHeight;
     private float originalImageWidth;
     private bool isImageBigger;
 
-    public QuestionsManager questionManager;
+    [SerializeField]
+    private QuestionsManager questionManager;
 
 
     void Start()

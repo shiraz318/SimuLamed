@@ -17,13 +17,17 @@ public enum Lights
 public class LightAnimator : MonoBehaviour
 {
     // Consts.
+    private const string MAIN_TEXTURE = "_MainTex";
+
     private const float RED_LIGHT_OFFSET = 0f;
     private const float YELLOW_LIGHT_OFFSET = 0.34f;
     private const float GREEN_LIGHT_OFFSET = 0.67f;
     private const float YELLOW_RED_OFFSET = 0f;
     private const float EMPTY_OFFSET = 0.34f;
     private const int NUMBER_OF_BLINKS = 4;
+
     
+
     // Textures.
     private static Texture regularLightsTexture;
     private static Texture emptyAndRedYellowTexture;
@@ -33,6 +37,8 @@ public class LightAnimator : MonoBehaviour
     private float GREEN_DURATION_PART = (1f / 3f);
     private float YELLOW_RED_DURATION_PART = (4f / 18f);
     private float RED_DURATION_PART = (1f / 3f);
+    private const float TIME_OFFSET = 0.16f;
+    private const float EMPTY_TIME = 0.3f;
 
     // Total durations.
     private float oneDuration = 16f; // duration of one cycle.
@@ -46,12 +52,20 @@ public class LightAnimator : MonoBehaviour
     private Dictionary<Lights, Tuple<float, float>> lightsOffsetAndDuration 
         = new Dictionary<Lights, Tuple<float, float>>();  // light, offset, duration.
     private Material myMat;
+    
+    
 
-    public int numberOfTrafficLights = 1; // number of traffic lights participate in the cycle.
-    public int trafficLightNumber = 1; // the index of the current traffic light in the cycle it participates in.
-    public bool isBlink = false;
-    public Light[] lights; // the lights in the traffic light.
+    [SerializeField]
+    private int numberOfTrafficLights = 1; // number of traffic lights participate in the cycle.
+    [SerializeField]
+    private int trafficLightNumber = 1; // the index of the current traffic light in the cycle it participates in.
+    [SerializeField]
+    private bool isBlink = false;
+    [SerializeField]
+    private Light[] lights; // the lights in the traffic light.
+
     public Lights currentLight;  // the current light that is lit.
+
 
     void Start()
     {
@@ -87,16 +101,16 @@ public class LightAnimator : MonoBehaviour
          * number of traffic lights that are participating in the cycle.
          * Green light gets a little bit less so that there will be no collisions with other traffic light green light.
          */
-        greenDuration = ((float)numberOfTrafficLights * oneDuration * GREEN_DURATION_PART) - (0.16f * (float)numberOfTrafficLights);
+        greenDuration = ((float)numberOfTrafficLights * oneDuration * GREEN_DURATION_PART) - (TIME_OFFSET * (float)numberOfTrafficLights);
         if (isBlink)
         {
-            emptyDuration = 0.3f;
+            emptyDuration = EMPTY_TIME;
             oneDuration += (emptyDuration * (NUMBER_OF_BLINKS - 1) * 2);
-            greenDuration -= 0.3f;
+            greenDuration -= EMPTY_TIME;
         }
         yellowDuration = (float)numberOfTrafficLights * oneDuration * YELLOW_DURATION_PART;
         yellowRedDuration = (float)numberOfTrafficLights * oneDuration * YELLOW_RED_DURATION_PART;
-        redDuration = (float)numberOfTrafficLights * oneDuration * RED_DURATION_PART + (0.16f * (float)numberOfTrafficLights);
+        redDuration = (float)numberOfTrafficLights * oneDuration * RED_DURATION_PART + (TIME_OFFSET * (float)numberOfTrafficLights);
     }
 
     // Set the dictionary of the offset and duration.
@@ -169,28 +183,28 @@ public class LightAnimator : MonoBehaviour
         {
             case Lights.Red:
                 {
-                    myMat.SetTexture("_MainTex", regularLightsTexture);
+                    myMat.SetTexture(MAIN_TEXTURE, regularLightsTexture);
                     break;
                 }
             case Lights.RedAndYellow:
                 {
-                    myMat.SetTexture("_MainTex", emptyAndRedYellowTexture);
+                    myMat.SetTexture(MAIN_TEXTURE, emptyAndRedYellowTexture);
                     break;
                 }
             case Lights.Yellow:
                 {
-                    myMat.SetTexture("_MainTex", regularLightsTexture);
+                    myMat.SetTexture(MAIN_TEXTURE, regularLightsTexture);
                     break;
 
                 }
             case Lights.Green:
                 {
-                    myMat.SetTexture("_MainTex", regularLightsTexture);
+                    myMat.SetTexture(MAIN_TEXTURE, regularLightsTexture);
                     break;
                 }
             case Lights.Empty:
                 {
-                    myMat.SetTexture("_MainTex", emptyAndRedYellowTexture);
+                    myMat.SetTexture(MAIN_TEXTURE, emptyAndRedYellowTexture);
                     break;
 
                 }
@@ -198,7 +212,7 @@ public class LightAnimator : MonoBehaviour
                 break;
 
         }
-        myMat.SetTextureOffset("_MainTex", new Vector2(lightsOffsetAndDuration[currentLight].Item1, 0f));
+        myMat.SetTextureOffset(MAIN_TEXTURE, new Vector2(lightsOffsetAndDuration[currentLight].Item1, 0f));
 
     }
 

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject firstCamera;
-    public GameObject secondCamera;
+    [SerializeField]
+    private GameObject firstCamera;
+    [SerializeField]
+    private GameObject secondCamera;
 
     void Start()
     {
@@ -14,6 +16,7 @@ public class CameraController : MonoBehaviour
     }
 
 
+    // Get the current active camera.
     public GameObject GetCurrentCamera()
     {
         return firstCamera.activeSelf ? firstCamera : secondCamera;

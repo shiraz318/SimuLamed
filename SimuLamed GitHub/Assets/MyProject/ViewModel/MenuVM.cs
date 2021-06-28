@@ -6,7 +6,7 @@ using UnityWeld.Binding;
 [Binding]
 public class MenuVM : BaseViewModel
 {
-    // Properties.
+
     [Binding]
     public string Username { get { return AppModel.Instance.CurrentUsername; } }
 

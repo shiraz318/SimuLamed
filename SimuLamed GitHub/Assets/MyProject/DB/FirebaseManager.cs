@@ -18,17 +18,24 @@ public sealed class FirebaseManager : IDatabaseHandler
     private const string AUTH_KEY = "AIzaSyBS5WVLpACpe5AbRrZ2KmWcw92FFR65Vs0";
     private static readonly string databaseURL = $"https://{PROJECT_ID}.firebaseio.com/";
     
+    // APIs
     private const string SIGN_UP_API= "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + AUTH_KEY;
     private const string SEND_EMAIL_VER_API = "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=" + AUTH_KEY;
     private const string SIGN_IN_API = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + AUTH_KEY;
     private const string RESET_PASSWORD_API = "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=" + AUTH_KEY;
     private const string CHECK_EMAIL_VER_API = "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=" + AUTH_KEY;
-    private const string EMAIL_FIELD = "email";
-    private const string PASSWORD_FIELD = "password";
-    private const string SIMULATION_LEVEL_FIELD = "simulationLevel";
+    
+    // DB Fields.
+    private const string EMAIL_FIELD = "\"email\"";
+    private const string PASSWORD_FIELD = "\"password\"";
+    private const string SIMULATION_LEVEL_FIELD = "\"simulationLevel\"";
+    private const string QUESTION_CATEGORY_FIELD = "\"questionCategory\"";
+    private const string QUESTION_NUMBER_FIELD = "\"questionNumber\"";
+    
+    // DB Collections names.
     private const string USERS_COLLECTION_NAME = "users";
     private const string QUESTIONS_COLLECTION_NAME = "questions";
-    private const string TIMEOUT_ERROR_MESSAGE = "שגיאה! בדוק את חיבור הרשת שלך";
+
     private const int TIMEOUT = 5;
     
     private string localId;
@@ -59,7 +66,7 @@ public sealed class FirebaseManager : IDatabaseHandler
         }
     }
 
-
+    // Reset the currnt user data.
     public void ResetUser()
     {
         localId = "";
@@ -69,87 +76,38 @@ public sealed class FirebaseManager : IDatabaseHandler
     // Put a given user to the database.
     public void PutUser(User user, Action onSuccess, Action<string> onFailure)
     {
-
-        RestClient.Put<User>(GetRequestHelper($"{databaseURL}users/{localId}.json?auth=" + idToken, user)).
+        RestClient.Put<User>(GetRequestHelper(GetUrlAccessUserByLocalId(), user)).
             Then(response => { onSuccess(); }).
             Catch(error => { onFailure(ExtractErrorMessage(error)); });
     }
 
+    // Get a user from the database according to the given localId and idToken.
+    private void GetUser(Action<User> onSuccess, Action<string> onFailure)
+    {
+        RestClient.Get<User>(GetRequestHelper(GetUrlAccessUserByLocalId())).
+            Then(response => { onSuccess(response); }).
+            Catch(error => { onFailure(error.Message); });
+    }
 
     // A general method for Post a given body to a given url while the response is of SignResponse type.
     public void SignResponsePost(string url, string body, Action<SignResponse> onSuccess, Action<string> onFailure)
     {
-        RestClient.Post<SignResponse>(GetRequestHelper(url, body)).Then(response => onSuccess(response)).
-            Catch(error =>
-            {
-                onFailure(ExtractErrorMessage(error));
-            });
+        RestClient.Post<SignResponse>(GetRequestHelper(url, body)).
+            Then(response => onSuccess(response)).
+            Catch(error => { onFailure(ExtractErrorMessage(error));});
     }
-
-    public RequestHelper GetRequestHelper(string url, object body)
+     
+    /*
+     * A general method for getting an object from the database using the given url 
+     * and act accordingly to the givne onResponse and onFailure.
+     */
+    private void GetRequest(string url, Action<ResponseHelper> onResponse, Action<string> onFailure)
     {
-        RequestHelper request = GetRequestHelper(url);
-        request.Body = body;
-        return request;
-        //return new RequestHelper
-        //{
-        //    Uri = url,
-        //    Params = new Dictionary<string, string> {
-        //    { "key", AUTH_KEY }
-        //},
-        //    Body = body,
-        //    Timeout = TIMEOUT
-        //};
-    }
-    public RequestHelper GetRequestHelper(string url)
-    {
-        return new RequestHelper
-        {
-            Uri = url,
-            Params = new Dictionary<string, string> {
-            { "key", AUTH_KEY }
-        },
-            Timeout = TIMEOUT
-        };
-    }
+        RestClient.Get(GetRequestHelper(url)).
+            Then(response => { onResponse(response); }).
+            Catch(error => { onFailure(error.Message);
+        });
 
-    public RequestHelper GetRequestHelper(string url, string body)
-    {
-        RequestHelper request = GetRequestHelper(url);
-        request.BodyString = body;
-        return request;
-        //return new RequestHelper
-        //{
-        //    Uri = url,
-        //    Params = new Dictionary<string, string> {
-        //        { "key", AUTH_KEY }
-        //    },
-        //    BodyString = body,
-        //    Timeout = TIMEOUT
-        //};
-
-    }
-
-
-    // Sign up.
-    public void SignUp(string email, string password, Action<string,string> onSuccess, Action<string> onFailure)
-    {
-        string userData = "{\"email\":\"" + email + "\",\"password\":\"" + password + "\",\"returnSecureToken\":true}";
-        SignResponsePost(SIGN_UP_API, userData, (response) => onSuccess(response.idToken, response.localId), onFailure);   
-    }
-
-    // Save a new user to the database.
-    public void SaveNewUser(User newUser, Action onSuccess, Action<string> onFailure)
-    {
-        // If Posting the user is done successfully, send an email for verification.
-        PutUser(newUser, () => SendEmailForVerification(onSuccess, onFailure), onFailure);
-    }
-
-    // Send an email for verification.
-    private void SendEmailForVerification(Action onSuccess, Action<string> onFailure)
-    {
-        string emailData = "{\"requestType\":\"VERIFY_EMAIL\",\"idToken\":\"" + idToken + "\"}";
-        SignResponsePost(SEND_EMAIL_VER_API, emailData, response => onSuccess(), onFailure);
     }
 
     // Create a new Error Object and set the Error property.
@@ -164,24 +122,87 @@ public sealed class FirebaseManager : IDatabaseHandler
     // Extract the response message from a given RequestExcetion.
     private string GetResponseError(RequestException exception)
     {
-
         try
         {
             return exception.Response.Split(',')[1].Split(':')[1].Split('\"')[1].Replace('_', ' ');
         }
         catch
         {
-            return TIMEOUT_ERROR_MESSAGE;
+            return ErrorObject.TIMEOUT_ERROR_MESSAGE;
         }
+    }
+
+    public RequestHelper GetRequestHelper(string url, object body)
+    {
+        RequestHelper request = GetRequestHelper(url);
+        request.Body = body;
+        return request;
+    }
+    public RequestHelper GetRequestHelper(string url)
+    {
+        return new RequestHelper
+        {
+            Uri = url,
+            Params = new Dictionary<string, string> {
+            { "key", AUTH_KEY }
+        },
+            Timeout = TIMEOUT
+        };
+    }
+    public RequestHelper GetRequestHelper(string url, string body)
+    {
+        RequestHelper request = GetRequestHelper(url);
+        request.BodyString = body;
+        return request;
+    }
+   
+    // Get the url string to access a user by his local id.
+    private string GetUrlAccessUserByLocalId()
+    {
+        return $"{databaseURL}{USERS_COLLECTION_NAME}/{localId}.json?auth={idToken}";
+    }
+    
+    // Get the url string to access quesitons.
+    private string GetUrlAccessQuestionsCollection()
+    {
+        return $"{databaseURL}{QUESTIONS_COLLECTION_NAME}.json?auth={idToken}";
+    }
+
+    // Get the string for user data.
+    private string GetUserDataStr(string email, string password)
+    {
+        return "{" + $"{EMAIL_FIELD}:\"{email}\",{PASSWORD_FIELD}:\"{password}\",\"returnSecureToken\":true" + "}";
+    }
+
+    // Sign up.
+    public void SignUp(string username, string email, string password, Action onSuccess, Action<string> onFailure)
+    {
+        // Sign up.
+        SignResponsePost(SIGN_UP_API, GetUserDataStr(email, password),
+        (response) =>
+            {
+                idToken = response.idToken;
+                localId = response.localId;
+
+                // Put the new user into the DB and if puting the user is done successfully, send an email for verification.
+                PutUser(new User(username), () => SendEmailForVerification(onSuccess, onFailure), onFailure);
+            }
+        , onFailure);   
+    }
+
+
+    // Send an email for verification.
+    private void SendEmailForVerification(Action onSuccess, Action<string> onFailure)
+    {
+        string emailData = "{\"requestType\":\"VERIFY_EMAIL\",\"idToken\":\"" + idToken + "\"}";
+        SignResponsePost(SEND_EMAIL_VER_API, emailData, response => onSuccess(), onFailure);
     }
 
     // Sign in a given user.
     public void SignInUser(string password, string email, Action<User> onSuccess, Action<string> onFailure)
-    {
-        string userData = "{\"email\":\"" + email + "\",\"password\":\"" + password + "\",\"returnSecureToken\":true}";
-        
+    {       
         // If Signing in is done successfully, check if the user verified his email.
-        SignResponsePost(SIGN_IN_API, userData, response =>
+        SignResponsePost(SIGN_IN_API, GetUserDataStr(email, password), response =>
         {
             CheckEmailVerification(response, onSuccess, onFailure);
         }, onFailure);
@@ -206,7 +227,6 @@ public sealed class FirebaseManager : IDatabaseHandler
                     localId = response.localId;
                     idToken = response.idToken;
                     GetUser(onSuccess, onFailure);
-                    //GetUser(response.idToken, onSuccess, onFailure);
                 }
                 else
                 {
@@ -217,46 +237,22 @@ public sealed class FirebaseManager : IDatabaseHandler
 
     }
 
-    // Get a user from the database according to the given localId and idToken.
-    private void GetUser(Action<User> onSuccess, Action<string> onFailure)
-    //private void GetUser(string idToken, Action<User> onSuccess, Action<string> onFailure)
-    {
-        RestClient.Get<User>(GetRequestHelper($"{databaseURL}users/{localId}.json?auth=" + idToken)).
-            Then(response =>
-            {
-                //response.details.idToken = idToken; //response.details.SetLocalId(localId);
-                onSuccess(response);
-            }).Catch(error =>
-            { onFailure(error.Message); });
-    }
-
     // Reset password.
     public void ResetPassword(string email, Action onSuccess, Action<string> onFailure)
     {
-        string payload = "{\"email\":\"" + email + "\",\"requestType\":\"PASSWORD_RESET\"}";
+        string payload = "{"+ $"{EMAIL_FIELD}:\"{email}\",\"requestType\":\"PASSWORD_RESET\"" + "}";
         // Send to the user an email to reset his password.
         RestClient.Post(GetRequestHelper(RESET_PASSWORD_API, payload)).
-            Then(response => { onSuccess(); }).Catch(error => { onFailure(ExtractErrorMessage(error)); });
+            Then(response => { onSuccess(); }).
+            Catch(error => { onFailure(ExtractErrorMessage(error)); });
 
     }
 
-    /*
-     * A general method for getting an object from the database using the given url 
-     * and act accordingly to the givne onResponse and onFailure.
-     */
-    private void GetRequest(string url, Action<ResponseHelper> onResponse, Action<string> onFailure)
-    {
-        RestClient.Get(GetRequestHelper(url)).Then(response => { onResponse(response); }).
-        Catch(error => { 
-            onFailure(error.Message); });
-
-    }
 
     // Get number of questions in the database.
     public void GetNumberOfQuestions(Action<int> onSuccess, Action<string> onFailure)
-    //public void GetNumberOfQuestions(string idToken, Action<int> onSuccess, Action<string> onFailure)
     {
-        string getRequest = $"{databaseURL}questions.json?auth=" + idToken + "&shallow=true";
+        string getRequest = GetUrlAccessQuestionsCollection()+"&shallow=true";
         GetRequest(getRequest, response =>
         {
             Dictionary<string, bool> questions = new Dictionary<string, bool>();
@@ -268,25 +264,21 @@ public sealed class FirebaseManager : IDatabaseHandler
     
     // Get all the questions in the databae.
     public void GetAllQuestions(Action<Question[]> onSuccess, Action<string> onFailure)
-    //public void GetAllQuestions(string idToken, Action<Question[]> onSuccess, Action<string> onFailure)
     {
-        string getRequest = $"{databaseURL}questions.json?auth=" + idToken + "&orderBy=\"questionNumber\"&startAt=0";
+        string getRequest = GetUrlAccessQuestionsCollection() + $"&orderBy={QUESTION_NUMBER_FIELD}&startAt=0";
         GetQuestions(getRequest, onSuccess, onFailure);
     }
 
     // Set Questions by a given category from the database.
     public void GetQuestionsByCategory(string category, Action<Question[]> onSuccess, Action<string> onFailure)
-    //public void GetQuestionsByCategory(string idToken, string category, Action<Question[]> onSuccess, Action<string> onFailure)
     {
         if (category.Equals(Utils.MIXED_HEBREW))
         {
             GetAllQuestions(onSuccess, onFailure);
-            //GetAllQuestions(idToken, onSuccess, onFailure);
         }
         else
         {
-            string getRequest = $"{databaseURL}questions.json?auth=" + idToken + 
-                "&orderBy=\"questionCategory\"&equalTo=\"" + category + "\"";
+            string getRequest = GetUrlAccessQuestionsCollection() + $"&orderBy={QUESTION_CATEGORY_FIELD}&equalTo=\"{category}\"";
             GetQuestions(getRequest, onSuccess, onFailure);
         }
     }
@@ -305,11 +297,10 @@ public sealed class FirebaseManager : IDatabaseHandler
 
     }
 
-
     // Get all the questions that appears in the given level.
     public void GetQuestionsInLevel(string level, Action<Question[]> onSuccess, Action<string> onFailure)
     {
-        string getRequest = $"{databaseURL}questions.json?auth=" + idToken + "&orderBy=\"simulationLevel\"&equalTo=\"" + level + "\"";
+        string getRequest = GetUrlAccessQuestionsCollection() + $"&orderBy={SIMULATION_LEVEL_FIELD}&equalTo=\"{level}\"";
         GetQuestions(getRequest, onSuccess, onFailure);
     }
 

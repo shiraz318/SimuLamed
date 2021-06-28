@@ -13,6 +13,7 @@ public class SaveViewModel : BaseViewModel
     [Binding]
     public bool IsSaveingFailed { get { return isSaveingFailed; } set { isSaveingFailed = value; NotifyPropertyChanged("IsSaveingFailed"); } }
 
+    
     protected override void AdditionalModelSettings(PropertyChangedEventArgs eventArgs)
     {
 

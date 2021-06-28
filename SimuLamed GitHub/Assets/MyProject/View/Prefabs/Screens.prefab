@@ -1600,10 +1600,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a7df04fb7195b4481b3a776c95255c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  live3: {fileID: 1017074630271358904}
-  live2: {fileID: 1017074629950621104}
-  live1: {fileID: 1017074630794149012}
-  live0: {fileID: 1017074629985817740}
+  lives:
+  - {fileID: 1017074629985817740}
+  - {fileID: 1017074630794149012}
+  - {fileID: 1017074629950621104}
+  - {fileID: 1017074630271358904}
 --- !u!1 &1017074629730057482
 GameObject:
   m_ObjectHideFlags: 0
@@ -7665,10 +7666,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817fd59a362eb484fbd6256eda6daa18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftKey: {fileID: 1628569847797838385}
-  rightKey: {fileID: 5114606744852383380}
-  forwardKey: {fileID: 6953680351067811853}
-  backwardsKey: {fileID: 1153621256116653345}
+  keys:
+  - {fileID: 1628569847797838385}
+  - {fileID: 5114606744852383380}
+  - {fileID: 6953680351067811853}
+  - {fileID: 1153621256116653345}
 --- !u!1 &7405430583131655794
 GameObject:
   m_ObjectHideFlags: 0

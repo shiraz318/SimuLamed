@@ -7,12 +7,12 @@ using UnityEngine;
 
 public class BaseView : MonoBehaviour
 {
-    public static SceneLoader sceneLoader;
-    public static SoundManager soundManager;
+    private static SceneLoader sceneLoader;
+    protected static SoundManager soundManager;
     public void Start()
     {
-        sceneLoader = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
-        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        sceneLoader = GameObject.Find(Utils.SCENE_LOADER).GetComponent<SceneLoader>();
+        soundManager = GameObject.Find(Utils.SOUND_MANAGER).GetComponent<SoundManager>();
     }
 
     // Go to the given scene name scnene while making a sound of a button being clicked.

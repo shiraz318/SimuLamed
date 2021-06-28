@@ -11,7 +11,6 @@ using UnityWeld.Binding;
 [Binding]
 public class QuestionsVM : BaseViewModel
 {
-    // Private fields.
     private int lastHintsNumber;
     private bool isNewHint;
     private bool isHintButtonOn;
@@ -84,7 +83,8 @@ public class QuestionsVM : BaseViewModel
         set { isQuestionSet = value; NotifyPropertyChanged("QuestionNumText"); } 
     }
 
-    public QuestionsManager questionsManager;
+    [SerializeField]
+    private QuestionsManager questionsManager;
 
 
     // Set the propertychanged property of the question manager.
@@ -134,7 +134,6 @@ public class QuestionsVM : BaseViewModel
     public string GetCorrectAns()
     {
         return questionsManager.CurrentQuestion.GetCorrectAns();
-        //return questionsManager.CurrentQuestion.correctAns;
     }
 
     // On click event handler for clicking hint button.
@@ -166,7 +165,11 @@ public class QuestionsVM : BaseViewModel
         model.SetQuestionsByCategory(SelectedSubject, true);
 
         IsHintButtonOn = true;
-        NotifyPropertyChanged("HintsNumber");
+        
+        //########################################
+        IsNewHint = false;
+        //NotifyPropertyChanged("HintsNumber");
+        //########################################
 
         SetQuestionsManager();
 
@@ -188,7 +191,9 @@ public class QuestionsVM : BaseViewModel
         else if (eventArgs.PropertyName.Equals("HintsNumber"))
         {
             IsNewHint = (lastHintsNumber < HintsNumber);
-            NotifyPropertyChanged("HintsNumber");
+            //########################################
+            //NotifyPropertyChanged("HintsNumber");
+            //########################################
         }
 
     }

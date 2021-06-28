@@ -10,7 +10,6 @@ using Assets.MyProject.View;
 public class SliderFill : MonoBehaviour
 {
 
-    // Private fields.
     private float fillSpeed = 0.08f;
     private Slider slider;
     private Text precent;
