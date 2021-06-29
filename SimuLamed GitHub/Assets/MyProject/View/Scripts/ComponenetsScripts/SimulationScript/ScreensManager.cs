@@ -1,4 +1,5 @@
 ﻿using Assets;
+using Assets.MyProject.View.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,13 +10,15 @@ using UnityEngine.UI;
 
 public class ScreensManager : MonoBehaviour
 {
-    public static bool gameIsPaused = false;
-    public static bool isQuitMenu = false;
-    public static bool isQuestionMenu = false;
-    public static bool isEndMenu = false;
+    private static bool gameIsPaused = false;
+    private static bool isQuitMenu = false;
+    private static bool isQuestionMenu = false;
+    private static bool isEndMenu = false;
+    private bool isLastQuestion;
+    private bool isLastLevel;
 
 
-    public static SoundManager soundManager;
+    private static SoundManager soundManager;
 
     private const int PAUSE_MENU_UI_IDX = 0;
     private const int QUIT_MENU_UI_IDX = 1;
@@ -33,24 +36,41 @@ public class ScreensManager : MonoBehaviour
 
     void Start()
     {
-        soundManager = GameObject.Find(Utils.SOUND_MANAGER).GetComponent<SoundManager>();
-       
+        soundManager = GameObject.Find(GameObjectNames.SOUND_MANAGER).GetComponent<SoundManager>();
         SetViewModel();
         isQuitMenu = false;
     }
+
+    // Set the view model.
     private void SetViewModel()
     {
-        simulationVM = GameObject.Find(Utils.VIEW).GetComponent<SimulationVM>();
+        simulationVM = GameObject.Find(GameObjectNames.VIEW).GetComponent<SimulationVM>();
         simulationVM.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
             if (this == null) { return; }
+            
+            // Number of lives has changed. 
             if (eventArgs.PropertyName.Equals(nameof(simulationVM.Lives)))
             {
                 if (simulationVM.Lives < 0)
                 {
                     FailMenu();
                 }
-            } 
+            }
+            
+            // The user opened a new level.
+            else if (eventArgs.PropertyName.Equals(SimulationVM.OPENED_LEVEL))
+            {
+                isLastQuestion = true;
+                isLastLevel = false;
+            }
+            // The user finished the last level.
+            else if (eventArgs.PropertyName.Equals(SimulationVM.FINISHED_LEVEL))
+            {
+                isLastQuestion = true;
+                isLastLevel = true;
+            }
+            // Saving the user state has been failed.
             else if (eventArgs.PropertyName.Equals(nameof(simulationVM.IsSaveingFailed)) && simulationVM.IsSaveingFailed)
             {
                 DiactivateAllMenues();
@@ -62,12 +82,14 @@ public class ScreensManager : MonoBehaviour
 
     }
 
+    // The user does not want to go back with no saving - hide the error screen and continue the game.
     public void Abort()
     {
         simulationVM.IsSaveingFailed = false;
         ActivateMenu(()=> { }, menues[ERROR_SUCCESS_MENU_UI_IDX], false);
     }
 
+    // Diactivate all menues.
     private void DiactivateAllMenues()
     {
         foreach (GameObject menu in menues)
@@ -81,26 +103,17 @@ public class ScreensManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            // Other menues are not active.
             if (!isQuitMenu && !isQuestionMenu && !isEndMenu)
             {
-                if (gameIsPaused)
-                {
-
-                    Resume();
-                }
-                else
-                {
-                    Pause();
-                }
+                if (gameIsPaused) { Resume(); }
+                else { Pause(); }
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!gameIsPaused)
-            {
-                QuitMenu();
-            }
+            if (!gameIsPaused) { QuitMenu(); }
             
         }
     }
@@ -141,32 +154,24 @@ public class ScreensManager : MonoBehaviour
     }
 
     // Display the right finish level menu UI.
-    public void FinishLevel(bool isLastLevel)
+    public void FinishLevel()
     {
-        if (isLastLevel)
-        {
-            LastSuccessMenu();
-        }
-        else
-        {
-            SuccessMenu();
-        }
-        isEndMenu = true;
-        
+        if (isLastLevel) { LastSuccessMenu(); }
+        else { SuccessMenu(); }
+        isEndMenu = true; 
     }
 
     // Continue the game after answering the question.
-    public void OnClickFinishAns()
+    public void OnFinishAns()
     {
         ActivateMenu(() => { soundManager.OnClickButton(); }, menues[QUESTIONS_MENU_UI_IDX], false);
+        if (isLastQuestion) { FinishLevel(); }
 
-        
     }
     // Continue the game.
     private void Resume()
     {
         ActivateMenu(() => { soundManager.PauseSimulation(); }, menues[PAUSE_MENU_UI_IDX], false);
-        
         gameIsPaused = false;
     }
 
@@ -174,12 +179,6 @@ public class ScreensManager : MonoBehaviour
     private void QuitMenu()
     {
         ActivateMenu(()=> { soundManager.QuitSimulation(); }, menues[QUIT_MENU_UI_IDX], true);
-        
-        //if (gameIsPaused)
-        //{
-        //    pauseMenuUI.SetActive(false);
-        //}
-        
         isQuitMenu = true;
     }
 
@@ -187,7 +186,6 @@ public class ScreensManager : MonoBehaviour
     public void OnClickNoButton()
     {
         ActivateMenu(() => { soundManager.OnClickButton(); }, menues[QUIT_MENU_UI_IDX], false);
-       
         isQuitMenu = false;
     }
 
@@ -215,12 +213,9 @@ public class ScreensManager : MonoBehaviour
     public void LastSuccessMenu()
     {
         ActivateMenu(() => { soundManager.PassLevel(); }, menues[LAST_SUCCESS_MENU_UI_IDX], true);
-        
         menues[QUESTIONS_MENU_UI_IDX].SetActive(false);
-        
-    }
 
-    
+    }    
 
     // Display the questions menu UI with the given question.
     public void DisplayQuestion(int questionNumber)

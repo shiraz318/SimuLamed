@@ -25,6 +25,20 @@ namespace Assets.model
     public class Question
     {
 
+        // Constants.
+        public const string SAFETY_HEBREW = "בטיחות";
+        public const string TRANSACTION_RULES_HEBREW = "חוקי התנועה";
+        public const string UNDERSTANDING_VEHICLE_HEBREW = "הכרת הרכב";
+        public const string SIGNS_HEBREW = "תמרורים";
+        public const string MIXED_HEBREW = "כל הנושאים";
+
+        public const string SAFETY_ENGLISH = "Safety";
+        public const string TRANSACTION_RULES_ENGLISH = "TransactionRules";
+        public const string SIGNS_ENGLISH = "Signs";
+        public const string UNDERSTANDING_VEHICLE_ENGLISH = "UnderstandingVehicle";
+        public const string MIXED_ENGLISH = "Mixed";
+
+
         private const int CORRECT_ANS_IDX = 4;
 
         public string question;
@@ -59,15 +73,15 @@ namespace Assets.model
             switch (questionType)
             {
                 case QuestionType.Safety:
-                    return Utils.SAFETY_HEBREW;
+                    return SAFETY_HEBREW;
                 case QuestionType.TransactionRules:
-                    return Utils.TRANSACTION_RULES_HEBREW;
+                    return TRANSACTION_RULES_HEBREW;
                 case QuestionType.Signs:
-                    return Utils.SIGNS_HEBREW;
+                    return SIGNS_HEBREW;
                 case QuestionType.UnderstandingVehicle:
-                    return Utils.UNDERSTANDING_VEHICLE_HEBREW;
+                    return UNDERSTANDING_VEHICLE_HEBREW;
                 default:
-                    return Utils.MIXED_HEBREW;
+                    return MIXED_HEBREW;
             }
 
         }
@@ -77,13 +91,13 @@ namespace Assets.model
         {
             switch (category)
             {
-                case Utils.SAFETY_HEBREW:
+                case SAFETY_HEBREW:
                     return QuestionType.Safety;
-                case Utils.TRANSACTION_RULES_HEBREW:
+                case TRANSACTION_RULES_HEBREW:
                     return QuestionType.TransactionRules;
-                case Utils.SIGNS_HEBREW:
+                case SIGNS_HEBREW:
                     return QuestionType.Signs;
-                case Utils.UNDERSTANDING_VEHICLE_HEBREW:
+                case UNDERSTANDING_VEHICLE_HEBREW:
                     return QuestionType.UnderstandingVehicle;
                 default:
                     return QuestionType.All;
@@ -96,13 +110,13 @@ namespace Assets.model
         {
             switch (category)
             {
-                case Utils.SAFETY_ENGLISH:
+                case SAFETY_ENGLISH:
                     return QuestionType.Safety;
-                case Utils.TRANSACTION_RULES_ENGLISH:
+                case TRANSACTION_RULES_ENGLISH:
                     return QuestionType.TransactionRules;
-                case Utils.SIGNS_ENGLISH:
+                case SIGNS_ENGLISH:
                     return QuestionType.Signs;
-                case Utils.UNDERSTANDING_VEHICLE_ENGLISH:
+                case UNDERSTANDING_VEHICLE_ENGLISH:
                     return QuestionType.UnderstandingVehicle;
                 default:
                     return QuestionType.All;

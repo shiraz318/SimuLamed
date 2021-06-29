@@ -90,7 +90,7 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
 
         string key = "";
 
-        key = GetKey(Utils.FORWARD, Utils.DEFAULT_FORWARD);
+        key = GetKey(SettingsVM.FORWARD, SettingsVM.DEFAULT_FORWARD);
       
         if (Input.GetKey((KeyCode)Enum.Parse(typeof(KeyCode), key)))
         {
@@ -98,21 +98,21 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
         }
 
 
-        key = GetKey(Utils.BACKWARDS, Utils.DEFAULT_BACKWARDS);
+        key = GetKey(SettingsVM.BACKWARDS, SettingsVM.DEFAULT_BACKWARDS);
 
         if (Input.GetKey((KeyCode)Enum.Parse(typeof(KeyCode), key)))
         {
             v = -1f;
         }
 
-        key = GetKey(Utils.LEFT, Utils.DEFAULT_LEFT);
+        key = GetKey(SettingsVM.LEFT, SettingsVM.DEFAULT_LEFT);
         
         if (Input.GetKey((KeyCode)Enum.Parse(typeof(KeyCode), key)))
         {
             h = -1f;
         }
 
-        key = GetKey(Utils.RIGHT, Utils.DEFAULT_RIGHT);
+        key = GetKey(SettingsVM.RIGHT, SettingsVM.DEFAULT_RIGHT);
         if (Input.GetKey((KeyCode)Enum.Parse(typeof(KeyCode), key)))
         {
             h = 1f;

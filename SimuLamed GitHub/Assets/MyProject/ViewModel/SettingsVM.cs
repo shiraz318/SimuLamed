@@ -12,13 +12,31 @@ namespace Assets.ViewModel
     public class SettingsVM : BaseViewModel
     {
 
+        public const string RIGHT = "Right";
+        public const string LEFT = "Left";
+        public const string FORWARD = "Forward";
+        public const string BACKWARDS = "Backwards";
+        public const string SHOW_QUESTIONS = "ShowQuestions";
+        public const string MUTE_SOUND = "MuteSound";
+        public const string SHOW = "show";
+
+
+        // Default settings.
+        public const string DEFAULT_FORWARD = "w";
+        public const string DEFAULT_BACKWARDS = "s";
+        public const string DEFAULT_RIGHT = "d";
+        public const string DEFAULT_LEFT = "a";
+        public const bool DEFAULT_TO_SHOW_QUESTIONS = true;
+        public const bool DEFAULT_TO_MUTE_SOUND = false;
+
+
         private HashSet<string> keys = new HashSet<string>();
-        private static string leftInput = Utils.DEFAULT_LEFT;
-        private static string rightInput = Utils.DEFAULT_RIGHT;
-        private static string forwardInput = Utils.DEFAULT_FORWARD;
-        private static string backwardsInput = Utils.DEFAULT_BACKWARDS;
-        private static bool toShowQuestions = Utils.DEFAULT_TO_SHOW_QUESTIONS;
-        private static bool toMuteSound = Utils.DEFAULT_TO_MUTE_SOUND;
+        private static string leftInput = DEFAULT_LEFT;
+        private static string rightInput = DEFAULT_RIGHT;
+        private static string forwardInput = DEFAULT_FORWARD;
+        private static string backwardsInput = DEFAULT_BACKWARDS;
+        private static bool toShowQuestions = DEFAULT_TO_SHOW_QUESTIONS;
+        private static bool toMuteSound = DEFAULT_TO_MUTE_SOUND;
 
         // Properties.
         [Binding]
@@ -46,12 +64,12 @@ namespace Assets.ViewModel
             if (CheckValidityOfKeys())
             {
                 ErrorMessage = "";
-                SetPlayerKeys(Utils.LEFT, LeftInput);
-                SetPlayerKeys(Utils.RIGHT, RightInput);
-                SetPlayerKeys(Utils.FORWARD, ForwardInput);
-                SetPlayerKeys(Utils.BACKWARDS, BackwardsInput);
-                PlayerPrefs.SetString(Utils.SHOW_QUESTIONS, ToShowQuestions ? Utils.SHOW :string.Empty);
-                PlayerPrefs.SetInt(Utils.MUTE_SOUND, ToMuteSound ? 1 : 0);
+                SetPlayerKeys(LEFT, LeftInput);
+                SetPlayerKeys(RIGHT, RightInput);
+                SetPlayerKeys(FORWARD, ForwardInput);
+                SetPlayerKeys(BACKWARDS, BackwardsInput);
+                PlayerPrefs.SetString(SHOW_QUESTIONS, ToShowQuestions ? SHOW :string.Empty);
+                PlayerPrefs.SetInt(MUTE_SOUND, ToMuteSound ? 1 : 0);
                 
                 // Notify that we finished saving the settings.
                 NotifyPropertyChanged(GetOnFinishActionPropertyName());

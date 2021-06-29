@@ -1,5 +1,6 @@
 ﻿using Assets;
 using Assets.MyProject.View;
+using Assets.MyProject.View.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,16 +20,16 @@ public class QuestionsView : BaseView
 
     private void Awake()
     {
-        image = GameObject.Find("ImageButton").GetComponentInChildren<Image>();
+        image = GameObject.Find(GameObjectNames.IMAGE_BUTTON_NAME).GetComponentInChildren<Image>();
         SetViewModel();
-        GameObject[] answersGameObject = GameObject.FindGameObjectsWithTag("AnsButton");
+        GameObject[] answersGameObject = GameObject.FindGameObjectsWithTag(GameObjectNames.ANS_BUTTON_NAME);
         answers = answersGameObject.ToList();
     }
 
     // Set the view model.
     private void SetViewModel()
     {
-        viewModel = GameObject.Find(Utils.VIEW).GetComponent<QuestionsVM>();
+        viewModel = GameObject.Find(GameObjectNames.VIEW).GetComponent<QuestionsVM>();
         viewModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
             if (this == null) { return; }

@@ -1,4 +1,5 @@
 ﻿using Assets;
+using Assets.MyProject.View.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,7 +15,7 @@ public class AlertDisplayer : MonoBehaviour
 
     void Start()
     {
-        soundManager = GameObject.Find(Utils.SOUND_MANAGER).GetComponent<SoundManager>();
+        soundManager = GameObject.Find(GameObjectNames.SOUND_MANAGER).GetComponent<SoundManager>();
     }
 
     // Display an alert with a given message.

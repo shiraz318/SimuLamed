@@ -13,6 +13,11 @@ public class SceneLoader : MonoBehaviour
     {
         StartCoroutine(LoadLevelAnync(levelName));
     }
+    // Load the given levelidx asyncronusly.
+    public void LoadLevel(int levelIdx)
+    {
+        StartCoroutine(LoadLevelAnync(levelIdx));
+    }
 
     // Load the given levelName.
     IEnumerator LoadLevelAnync(string levelName)
@@ -25,6 +30,16 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
+    // Load the given levelName.
+    IEnumerator LoadLevelAnync(int levelIdx)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(levelIdx);
+        while (operation.progress < 1)
+        {
+            //Debug.Log(operation.progress);
+            yield return new WaitForEndOfFrame();
+        }
+    }
     // Load the given sceneName scene.
     public void LoadNextScene(string sceneName)
     {

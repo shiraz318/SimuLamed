@@ -13,9 +13,7 @@ public class LevelsVM : BaseViewModel
     // Properties.
     public int OpenLevel { get { return AppModel.Instance.OpenLevel; } }
     [Binding]
-    public bool IsLoadingCircleOn { get { return isLoadingCircleOn; } set { isLoadingCircleOn = value; 
-            NotifyPropertyChanged(); } }
-            //NotifyPropertyChanged("IsLoadingCircleOn"); } }
+    public bool IsLoadingCircleOn { get { return isLoadingCircleOn; } set { isLoadingCircleOn = value; NotifyPropertyChanged(); } }
 
 
     public static int chosenLevelIdx;

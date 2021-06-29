@@ -1,4 +1,5 @@
 ﻿using Assets;
+using Assets.ViewModel;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,20 +14,16 @@ public class ShowKeyboards : MonoBehaviour
     private const int FORWARD_KEY = 2;
     private const int BACKWARDS_KEY = 3;
 
-    //[SerializeField]
-    //private TMP_Text leftKey;
     [SerializeField]
     private TMP_Text[] keys;
-    //public TMP_Text rightKey;
-    //public TMP_Text forwardKey;
-    //public TMP_Text backwardsKey;
+
 
     private void Awake()
     {
-        keys[LEFT_KEY].text = GetKey(Utils.LEFT, Utils.DEFAULT_LEFT);
-        keys[RIGHT_KEY].text = GetKey(Utils.RIGHT, Utils.DEFAULT_RIGHT);
-        keys[FORWARD_KEY].text = GetKey(Utils.FORWARD, Utils.DEFAULT_FORWARD);
-        keys[BACKWARDS_KEY].text = GetKey(Utils.BACKWARDS, Utils.DEFAULT_BACKWARDS);
+        keys[LEFT_KEY].text = GetKey(SettingsVM.LEFT, SettingsVM.DEFAULT_LEFT);
+        keys[RIGHT_KEY].text = GetKey(SettingsVM.RIGHT, SettingsVM.DEFAULT_RIGHT);
+        keys[FORWARD_KEY].text = GetKey(SettingsVM.FORWARD, SettingsVM.DEFAULT_FORWARD);
+        keys[BACKWARDS_KEY].text = GetKey(SettingsVM.BACKWARDS, SettingsVM.DEFAULT_BACKWARDS);
     }
     
     // Get the given key name ascii value or if not set - return the default value.

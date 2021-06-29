@@ -1,4 +1,5 @@
 ﻿using Assets;
+using Assets.ViewModel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -77,7 +78,7 @@ public class Video : MonoBehaviour
         //image.texture = videoPlayer.texture;
 
 
-        if (PlayerPrefs.GetInt(Utils.MUTE_SOUND) == 0)
+        if (PlayerPrefs.GetInt(SettingsVM.MUTE_SOUND) == 0)
         {
             //Set Audio Output to AudioSource
             videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;

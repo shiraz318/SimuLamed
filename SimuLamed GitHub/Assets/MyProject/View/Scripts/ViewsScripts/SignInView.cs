@@ -1,4 +1,5 @@
 ﻿using Assets;
+using Assets.ViewModel;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -9,7 +10,7 @@ public class SignInView : RegisterView
     {
         // Reset player prefab.
         PlayerPrefs.DeleteAll();
-        PlayerPrefs.SetString(Utils.SHOW_QUESTIONS, Utils.DEFAULT_TO_SHOW_QUESTIONS == true ? "show" : string.Empty);
+        PlayerPrefs.SetString(SettingsVM.SHOW_QUESTIONS, SettingsVM.DEFAULT_TO_SHOW_QUESTIONS == true ? SettingsVM.SHOW : string.Empty);
     }
 
     // On click quit button.

@@ -18,35 +18,30 @@ public class StatisticsVM : BaseViewModel
     [Binding]
     public float SafetyValue
     {
-        //get { return 1f; }
-        get { return GetValue(Utils.SAFETY_HEBREW); }
+        get { return GetValue(Question.SAFETY_HEBREW); }
     }
 
     [Binding]
     public float TransactionRulesValue
     {
-        //get { return 0.6f; }
-        get { return GetValue(Utils.TRANSACTION_RULES_HEBREW); }
+        get { return GetValue(Question.TRANSACTION_RULES_HEBREW); }
     }
 
     [Binding]
     public float SignsValue
     {
-        //get { return 0.4f; }
-        get { return GetValue(Utils.SIGNS_HEBREW); }
+        get { return GetValue(Question.SIGNS_HEBREW); }
     }
     
     [Binding]
     public float UnderstandingVehicleValue
     {
-        //get { return 0.2f; }
-        get { return GetValue(Utils.UNDERSTANDING_VEHICLE_HEBREW); }
+        get { return GetValue(Question.UNDERSTANDING_VEHICLE_HEBREW); }
     }
 
     [Binding]
     public float MixedValue
     {
-        //get { return 0.58f; }
         get { if(model == null) { return 0; } return (float)totalCorrectAns / (float)totalAns; }
     }
 
@@ -59,16 +54,12 @@ public class StatisticsVM : BaseViewModel
             errorMessage = value;
             if (value != "") { IsLoadingCircleOn = false; }
             NotifyPropertyChanged();
-            //NotifyPropertyChanged("ErrorMessage");
         }
     }
     [Binding]
     public bool IsLoadingCircleOn
     {
-        get { return isLoadingCircleOn; }
-        set { isLoadingCircleOn = value; 
-            NotifyPropertyChanged(); }
-            //NotifyPropertyChanged("IsLoadingCircleOn"); }
+        get { return isLoadingCircleOn; }set { isLoadingCircleOn = value; NotifyPropertyChanged(); }
     }
 
 

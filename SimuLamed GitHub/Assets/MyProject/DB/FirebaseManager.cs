@@ -275,7 +275,7 @@ public sealed class FirebaseManager : IDatabaseHandler
     // Set Questions by a given category from the database.
     public void GetQuestionsByCategory(string category, Action<Question[]> onSuccess, Action<string> onFailure)
     {
-        if (category.Equals(Utils.MIXED_HEBREW))
+        if (category.Equals(Question.MIXED_HEBREW))
         {
             GetAllQuestions(onSuccess, onFailure);
         }

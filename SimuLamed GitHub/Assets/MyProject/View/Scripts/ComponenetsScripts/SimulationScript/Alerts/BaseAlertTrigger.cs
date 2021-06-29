@@ -1,4 +1,5 @@
 ﻿using Assets;
+using Assets.MyProject.View.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,7 @@ public abstract class BaseAlertTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        alertDisplayer = GameObject.Find("Alert").GetComponent<AlertDisplayer>();
+        alertDisplayer = GameObject.Find(GameObjectNames.ALERT).GetComponent<AlertDisplayer>();
     }
 
     protected abstract string GetAlertMessage();
@@ -25,7 +26,7 @@ public abstract class BaseAlertTrigger : MonoBehaviour
     // On trigger enter event handler.
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag(Utils.PLAYER_TAG))
+        if (other.gameObject.CompareTag(GameObjectNames.PLAYER_TAG))
         {
             otherCollider = other;
             OnTriggerPlayer();

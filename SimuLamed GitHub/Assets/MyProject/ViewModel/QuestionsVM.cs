@@ -28,10 +28,7 @@ public class QuestionsVM : BaseViewModel
     [Binding]
     public bool IsNewHint 
     { 
-        get { return isNewHint; } 
-        set { isNewHint = value; 
-            NotifyPropertyChanged(); } 
-            //NotifyPropertyChanged("IsNewHint"); } 
+        get { return isNewHint; } set { isNewHint = value; NotifyPropertyChanged(); } 
     }
 
     [Binding]
@@ -43,12 +40,9 @@ public class QuestionsVM : BaseViewModel
         get { return isHintButtonOn; }
         set
         {
-            if (HintsNumber == 0)
-            { isHintButtonOn = false; }
-            else
-            { isHintButtonOn = value; }
+            if (HintsNumber == 0) { isHintButtonOn = false; }
+            else { isHintButtonOn = value; }
             NotifyPropertyChanged();
-            //NotifyPropertyChanged("IsHintButtonOn");
         }
     }
 
@@ -61,16 +55,12 @@ public class QuestionsVM : BaseViewModel
             errorMessage = value;
             if (value != "") { IsLoadingCircleOn = false; }
             NotifyPropertyChanged();
-            //NotifyPropertyChanged("ErrorMessage");
         }
     }
     [Binding]
     public bool IsLoadingCircleOn
     {
-        get { return isLoadingCircleOn; }
-        set { isLoadingCircleOn = value;
-            NotifyPropertyChanged(); }
-            //NotifyPropertyChanged("IsLoadingCircleOn"); }
+        get { return isLoadingCircleOn; } set { isLoadingCircleOn = value; NotifyPropertyChanged(); }
     }
 
     [Binding]
@@ -81,7 +71,6 @@ public class QuestionsVM : BaseViewModel
         {
             questionNumText = value + " / " + numberOfQuestions.ToString();
             NotifyPropertyChanged(); 
-            //NotifyPropertyChanged("QuestionNumText"); 
         } 
     }
     public bool IsQuestionSet 

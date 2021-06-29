@@ -23,7 +23,6 @@ public class BaseViewModel : MonoBehaviour, INotifyPropertyChanged
         {
             errorMessage = value;
             NotifyPropertyChanged();
-         //   NotifyPropertyChanged("ErrorMessage");
         }
     }
 
@@ -56,7 +55,7 @@ public class BaseViewModel : MonoBehaviour, INotifyPropertyChanged
             model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
             {
                 if (this == null) { return; }
-                if (eventArgs.PropertyName.Equals("Error"))
+                if (eventArgs.PropertyName.Equals(nameof(model.Error)))
                 {
                     foreach (ErrorTypes errorType in errorTypes)
                     {

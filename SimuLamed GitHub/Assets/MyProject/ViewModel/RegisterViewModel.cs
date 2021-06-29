@@ -26,15 +26,12 @@ public abstract class RegisterViewModel : BaseViewModel {
             errorMessage = value;
             if (value != "") { IsLoadingCircleOn = false; }
             NotifyPropertyChanged();
-            //NotifyPropertyChanged("ErrorMessage");
         }
     }
     [Binding]
-    public bool IsLoadingCircleOn { get { return isLoadingCircleOn; }
-        set { isLoadingCircleOn = value;
-            NotifyPropertyChanged();
-            //NotifyPropertyChanged("IsLoadingCircleOn"); 
-        }
+    public bool IsLoadingCircleOn 
+    { 
+        get { return isLoadingCircleOn; } set { isLoadingCircleOn = value; NotifyPropertyChanged(); }
     }
 
     // Called when a registretion action accures.

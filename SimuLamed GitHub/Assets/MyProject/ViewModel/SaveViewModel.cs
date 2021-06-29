@@ -12,12 +12,14 @@ public class SaveViewModel : BaseViewModel
     private bool isUserSaved;
 
     [Binding]
-    public bool IsSaveingFailed { get { return isSaveingFailed; } set { isSaveingFailed = value; 
-            NotifyPropertyChanged(); } }
-            //NotifyPropertyChanged("IsSaveingFailed"); } }
-    public bool IsUserSaved { get { return isUserSaved; } set { isUserSaved = value; 
-            NotifyPropertyChanged(); } }
-            //NotifyPropertyChanged("IsUserSaved"); } }
+    public bool IsSaveingFailed 
+    { 
+        get { return isSaveingFailed; } set { isSaveingFailed = value; NotifyPropertyChanged(); } 
+    }
+    public bool IsUserSaved 
+    { 
+        get { return isUserSaved; } set { isUserSaved = value; NotifyPropertyChanged(); } 
+    }
 
     
     protected override void AdditionalModelSettings(PropertyChangedEventArgs eventArgs)

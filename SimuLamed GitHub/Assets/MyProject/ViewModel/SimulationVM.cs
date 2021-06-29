@@ -31,9 +31,10 @@ public class SimulationVM : SaveViewModel
         set { displayedQuestionsCounter = value; QuestionNumberText = value.ToString(); } 
     }
     [Binding]
-    public int Lives { get { return lives; } set { lives = value; 
-            NotifyPropertyChanged(); } }
-            //NotifyPropertyChanged("Lives"); } }
+    public int Lives 
+    { 
+        get { return lives; } set { lives = value; NotifyPropertyChanged(); } 
+    }
     [Binding]
     public string QuestionNumberText 
     { 
@@ -42,7 +43,6 @@ public class SimulationVM : SaveViewModel
         { 
             questionNumberText = value + "/" + Utils.QUESTIONS_NUM_IN_SIM;
             NotifyPropertyChanged(); 
-            //NotifyPropertyChanged("QuestionNumberText"); 
         }  
     }
 

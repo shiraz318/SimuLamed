@@ -1,4 +1,5 @@
 ﻿using Assets;
+using Assets.MyProject.View.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,8 +12,8 @@ public class BaseView : MonoBehaviour
     protected static SoundManager soundManager;
     public void Start()
     {
-        sceneLoader = GameObject.Find(Utils.SCENE_LOADER).GetComponent<SceneLoader>();
-        soundManager = GameObject.Find(Utils.SOUND_MANAGER).GetComponent<SoundManager>();
+        sceneLoader = GameObject.Find(GameObjectNames.SCENE_LOADER).GetComponent<SceneLoader>();
+        soundManager = GameObject.Find(GameObjectNames.SOUND_MANAGER).GetComponent<SoundManager>();
     }
 
     // Go to the given scene name scnene while making a sound of a button being clicked.

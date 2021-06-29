@@ -1,4 +1,5 @@
 ﻿using Assets;
+using Assets.MyProject.View.Scripts;
 using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +11,7 @@ public class LearnFromQuestionsView : BaseView
     private new void Start()
     {
         base.Start();
-        viewModel = GameObject.Find(Utils.VIEW).GetComponent<LearnFromQVM>();
+        viewModel = GameObject.Find(GameObjectNames.VIEW).GetComponent<LearnFromQVM>();
         viewModel.PropertyChanged += delegate(object sender, PropertyChangedEventArgs eventArgs)
         {
             if (this == null) { return; }
@@ -18,7 +19,7 @@ public class LearnFromQuestionsView : BaseView
             // If the view model finished it's main action - go to the next scene.
             if (eventArgs.PropertyName.Equals(nameof(viewModel.IsUserSaved)))
             {
-                GoToOtherScene(Utils.MENU_SCENE);
+                GoToOtherScene(ScenesNames.MENU_SCENE);
             }
         };
     }

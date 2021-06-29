@@ -1,4 +1,5 @@
 ﻿using Assets;
+using Assets.MyProject.View.Scripts;
 using Assets.ViewModel;
 using System.ComponentModel;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace Assets.View.Scripts.SettingsScripts
 
         private void Awake()
         {
-            viewModel = GameObject.Find(Utils.VIEW).GetComponent<SettingsVM>();
+            viewModel = GameObject.Find(GameObjectNames.VIEW).GetComponent<SettingsVM>();
             viewModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
             {
                 if (this == null) { return; }
@@ -19,7 +20,7 @@ namespace Assets.View.Scripts.SettingsScripts
                 // If the view model finished it's main action - go to the next scene.
                 if (eventArgs.PropertyName.Equals(viewModel.GetOnFinishActionPropertyName()))
                 {
-                    GoToOtherScene(Utils.MENU_SCENE);
+                    GoToOtherScene(ScenesNames.MENU_SCENE);
                 }
             };
 

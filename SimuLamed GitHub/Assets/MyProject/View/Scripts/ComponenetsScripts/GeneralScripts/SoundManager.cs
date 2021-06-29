@@ -1,4 +1,5 @@
 ﻿using Assets;
+using Assets.ViewModel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,7 @@ public class SoundManager : MonoBehaviour
 
 
     public static bool muteCar;
-    public bool IsMute { get { return PlayerPrefs.GetInt(Utils.MUTE_SOUND) != 0; } }
+    public bool IsMute { get { return PlayerPrefs.GetInt(SettingsVM.MUTE_SOUND) != 0; } }
 
     // On click regular button event handler.
     public void OnClickButton()
@@ -92,7 +93,7 @@ public class SoundManager : MonoBehaviour
     // Play the given sound if the user did not mute sounds.
     private void PlaySound(AudioSource sound)
     {
-        if (PlayerPrefs.GetInt(Utils.MUTE_SOUND) == 0)
+        if (PlayerPrefs.GetInt(SettingsVM.MUTE_SOUND) == 0)
         {
             sound.Play();
         }

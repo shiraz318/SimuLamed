@@ -1,4 +1,5 @@
 ﻿using Assets;
+using Assets.MyProject.View.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,8 +17,8 @@ public class LevelIcon : MonoBehaviour
   
     private void Start()
     {
-        viewModel = GameObject.Find(Utils.VIEW).GetComponent<LevelsVM>();
-        sceneLoader = GameObject.Find(Utils.SCENE_LOADER).GetComponent<SceneLoader>();
+        viewModel = GameObject.Find(GameObjectNames.VIEW).GetComponent<LevelsVM>();
+        sceneLoader = GameObject.Find(GameObjectNames.SCENE_LOADER).GetComponent<SceneLoader>();
 
         /*
          * If the highest open level of the user is bigger than this level index - this level is open. 
@@ -48,13 +49,13 @@ public class LevelIcon : MonoBehaviour
         switch (levelIdx)
         {
             case 1:
-                return Utils.SIMULATION_SCENE_1;
+                return ScenesNames.SIMULATION_SCENE_1;
             case 2:
-                return Utils.SIMULATION_SCENE_2;
+                return ScenesNames.SIMULATION_SCENE_2;
             case 3:
-                return Utils.SIMULATION_SCENE_3;
+                return ScenesNames.SIMULATION_SCENE_3;
             default:
-                return Utils.SIMULATION_SCENE_1;
+                return ScenesNames.SIMULATION_SCENE_1;
         }
     }
 

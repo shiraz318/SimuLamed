@@ -1,4 +1,5 @@
 ﻿using Assets;
+using Assets.MyProject.View.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +13,7 @@ public class RegisterView : BaseView
     private new void Start()
     {
         base.Start();
-        viewModel = GameObject.Find(Utils.VIEW).GetComponent<RegisterViewModel>();
+        viewModel = GameObject.Find(GameObjectNames.VIEW).GetComponent<RegisterViewModel>();
         viewModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
             if (this == null) { return; }

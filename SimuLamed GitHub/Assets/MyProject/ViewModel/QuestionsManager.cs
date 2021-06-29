@@ -22,6 +22,12 @@ public class QuestionsManager : BaseViewModel
     private Tuple<int, bool> lastAnswerResults;
     private Question[] questions;
     private static int currentQuestionNumber;
+    private bool isImageEnable;
+    private Sprite imageSprite;
+    private string imageErrorMessag;
+    private bool isLoadingCircleOn;
+    private const string DEFAULT_IMAGE_URL = "https://www.gov.il/BlobFolder/generalpage/tq_pic_02/he/TQ_PIC_3530.jpg";
+
 
     public const string RESET_ANS_COLOR = "ResetAnsColor";
     public const string RESET_IMAGE = "ResetImage";
@@ -30,108 +36,68 @@ public class QuestionsManager : BaseViewModel
     // Properties.
     public Tuple<int, bool> LastAnswerResults 
     { 
-        get { return lastAnswerResults; } 
-        set { lastAnswerResults = value; 
-            NotifyPropertyChanged(); } 
-            //NotifyPropertyChanged(LAST_ANS_RES_PROPERTY_NAME); } 
+        get { return lastAnswerResults; } set { lastAnswerResults = value;  NotifyPropertyChanged(); } 
     }
     [Binding]
     public string QuestionText 
     { 
-        get { return questionText; } 
-        set { questionText = value;
-            NotifyPropertyChanged(); } 
-            //NotifyPropertyChanged("QuestionText"); } 
+        get { return questionText; }  set { questionText = value; NotifyPropertyChanged(); } 
     }
     [Binding]
     public string ErrorText
     {
-        get { return errorText; }
-        set { errorText = value; 
-            NotifyPropertyChanged(); }
-            //NotifyPropertyChanged("ErrorText"); }
+        get { return errorText; } set { errorText = value; NotifyPropertyChanged(); }
     }
 
     [Binding]
     public string Ans1Text 
     {
-        get { return ans1Text; } 
-        set { ans1Text = value; 
-            NotifyPropertyChanged(); } 
-            //NotifyPropertyChanged("Ans1Text"); } 
+        get { return ans1Text; }  set { ans1Text = value;  NotifyPropertyChanged(); } 
     }
     [Binding]
     public string Ans2Text 
     {
-        get { return ans2Text; } 
-        set { ans2Text = value; 
-            NotifyPropertyChanged(); }
-            //NotifyPropertyChanged("Ans2Text"); }
+        get { return ans2Text; } set { ans2Text = value; NotifyPropertyChanged(); }
     }
     
     [Binding]
     public string Ans3Text 
     {
-        get { return ans3Text; } 
-        set { ans3Text = value; 
-            NotifyPropertyChanged(); } 
-            //NotifyPropertyChanged("Ans3Text"); } 
+        get { return ans3Text; } set { ans3Text = value; NotifyPropertyChanged(); } 
     }
     
     [Binding]
     public string Ans4Text 
     {
-        get { return ans4Text; } 
-        set { ans4Text = value; 
-            NotifyPropertyChanged(); } 
-            //NotifyPropertyChanged("Ans4Text"); } 
+        get { return ans4Text; } set { ans4Text = value; NotifyPropertyChanged(); } 
     }
 
     [Binding]
     public bool IsAnsInteractable 
     {
-        get { return isAnsInteractable; } 
-        set { isAnsInteractable = value; 
-            NotifyPropertyChanged(); } 
-            //NotifyPropertyChanged("IsAnsInteractable"); } 
+        get { return isAnsInteractable; } set { isAnsInteractable = value; NotifyPropertyChanged(); } 
     }
-    private bool isImageEnable;
     [Binding]
     public bool IsImageEnable 
     {
-        get { return isImageEnable; } 
-        set { isImageEnable = value;
-            NotifyPropertyChanged(); } 
-            //NotifyPropertyChanged("IsImageEnable"); } 
+        get { return isImageEnable; } set { isImageEnable = value; NotifyPropertyChanged(); } 
     }
 
-    private Sprite imageSprite;
     [Binding]
     public Sprite ImageSprite 
     {
-        get { return imageSprite; } 
-        set { imageSprite = value; 
-            NotifyPropertyChanged(); } 
-            //NotifyPropertyChanged("ImageSprite"); } 
+        get { return imageSprite; } set { imageSprite = value; NotifyPropertyChanged(); } 
     }
 
-    private string imageErrorMessag;
     [Binding]
     public string ImageErrorMessage 
     { 
-        get { return imageErrorMessag; } 
-        set { imageErrorMessag = value; 
-            NotifyPropertyChanged(); } 
-            //NotifyPropertyChanged("ImageErrorMessage"); } 
+        get { return imageErrorMessag; } set { imageErrorMessag = value; NotifyPropertyChanged(); } 
     }
-    private bool isLoadingCircleOn;
     [Binding]
     public bool IsLoadingCircleOn 
     {
-        get { return isLoadingCircleOn; } 
-        set { isLoadingCircleOn = value; 
-            NotifyPropertyChanged(); } 
-            //NotifyPropertyChanged("IsLoadingCircleOn"); } 
+        get { return isLoadingCircleOn; } set { isLoadingCircleOn = value; NotifyPropertyChanged(); } 
     }
     public bool IsQuestionSet { get; set; }
     public Question CurrentQuestion { get { return GetQuestionByQuestionNum(); } }
@@ -143,7 +109,7 @@ public class QuestionsManager : BaseViewModel
     {
         currentQuestionNumber = 0;
         // Get default image.
-        StartCoroutine(GetImage("https://www.gov.il/BlobFolder/generalpage/tq_pic_02/he/TQ_PIC_3530.jpg"));
+        StartCoroutine(GetImage(DEFAULT_IMAGE_URL));
     }
 
     // Display the given nubmer question.

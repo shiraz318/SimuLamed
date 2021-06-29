@@ -1,4 +1,5 @@
 ﻿using Assets;
+using Assets.MyProject.View.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ public class LivesCotroller : MonoBehaviour
 
     void Start()
     {
-        viewModel = GameObject.Find(Utils.VIEW).GetComponent<SimulationVM>();
+        viewModel = GameObject.Find(GameObjectNames.VIEW).GetComponent<SimulationVM>();
         viewModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
             if (eventArgs.PropertyName.Equals(nameof(viewModel.Lives)))

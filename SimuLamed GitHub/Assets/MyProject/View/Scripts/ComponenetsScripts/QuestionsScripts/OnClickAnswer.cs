@@ -1,5 +1,6 @@
 ﻿using Assets;
 using Assets.MyProject.View;
+using Assets.MyProject.View.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,7 +34,7 @@ public class OnClickAnswer : MonoBehaviour
     {
         ansText = GetComponentInChildren<TMP_Text>();
         ansImage = GetComponent<Image>();
-        soundManager = GameObject.Find(Utils.SOUND_MANAGER).GetComponent<SoundManager>();
+        soundManager = GameObject.Find(GameObjectNames.SOUND_MANAGER).GetComponent<SoundManager>();
         SetQuestionManager();
         gameObject.GetComponent<Button>().onClick.AddListener(delegate { OnClickAns(); });
     }
@@ -41,7 +42,7 @@ public class OnClickAnswer : MonoBehaviour
     // Set the question manager.
     private void SetQuestionManager()
     {
-        questionManager = GameObject.Find(Utils.QUESTION_MANAGER).GetComponent<QuestionsManager>();
+        questionManager = GameObject.Find(GameObjectNames.QUESTION_MANAGER).GetComponent<QuestionsManager>();
         questionManager.PropertyChanged += delegate (object sender, PropertyChangedEventArgs eventArgs)
         {
             if (this == null) { return; }
