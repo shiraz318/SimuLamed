@@ -64,7 +64,7 @@ MonoBehaviour:
   frontPassengerT: {fileID: 1254254932077939707}
   rearDriverT: {fileID: 1254254931815099967}
   rearPassengerT: {fileID: 1254254932851087191}
-  maxSteerAngle: 30
+  maxSteerAngle: 25
   motorForce: 1000
 --- !u!82 &5507074150159796221
 AudioSource:
@@ -221,8 +221,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.0723574, y: 1.2132287, z: 4.50346}
-  m_Center: {x: 0.26454294, y: 0.6940448, z: -0.15077305}
+  m_Size: {x: 1.5621355, y: 1.2132287, z: 4.7795215}
+  m_Center: {x: 0.009431958, y: 0.6940448, z: 0.10228324}
 --- !u!114 &3145727415906109584
 MonoBehaviour:
   m_ObjectHideFlags: 0

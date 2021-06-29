@@ -209,7 +209,7 @@ public class MyCarController : MonoBehaviour, INotifyPropertyChanged
         {
             carT.transform.Rotate(180f, 0.0f, 0.0f, Space.Self);
         }
-         else if (carT.up.z >  0.8)
+         else if (carT.up.z >  0.8 || carT.up.z < -0.8)
         {
             carT.transform.Rotate(0.0f, 0.0f, 90.0f,  Space.Self);
         }

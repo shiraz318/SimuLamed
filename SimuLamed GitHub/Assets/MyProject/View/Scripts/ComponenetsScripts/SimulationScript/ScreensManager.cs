@@ -107,7 +107,7 @@ public class ScreensManager : MonoBehaviour
     // Check if space or esc is clicked.
     void Update()
     {
-        if (!menues[ERROR_MENU_UI_IDX].activeSelf)
+        if (!OtherMenuActive())
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -127,6 +127,12 @@ public class ScreensManager : MonoBehaviour
         }
     }
 
+    // Checks if other menu then pause and quit is active.
+    private bool OtherMenuActive()
+    {
+        return menues[ERROR_MENU_UI_IDX].activeSelf || menues[SUCCESS_MENU_UI_IDX].activeSelf ||
+            menues[LAST_SUCCESS_MENU_UI_IDX].activeSelf || menues[FAIL_MENU_UI_IDX].activeSelf;
+    }
     // Reset the screens to false - no screen is displaying right now.
     public static void ResetScreens()
     {
