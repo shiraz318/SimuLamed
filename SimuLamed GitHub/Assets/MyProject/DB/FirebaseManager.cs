@@ -10,6 +10,8 @@ using System.Linq;
 using Assets;
 using System.Threading.Tasks;
 using Assets.Model;
+using System.Timers;
+using Assets.MyProject.DB;
 
 // Singleton FirebaseManager.
 public sealed class FirebaseManager : IDatabaseHandler
@@ -24,7 +26,8 @@ public sealed class FirebaseManager : IDatabaseHandler
     private const string SIGN_IN_API = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + AUTH_KEY;
     private const string RESET_PASSWORD_API = "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=" + AUTH_KEY;
     private const string CHECK_EMAIL_VER_API = "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=" + AUTH_KEY;
-    
+    //private const string REFRESH_ID_TOKEN_API = "https://securetoken.googleapis.com/v1/token?key=" + AUTH_KEY;
+
     // DB Fields.
     private const string EMAIL_FIELD = "\"email\"";
     private const string PASSWORD_FIELD = "\"password\"";
@@ -37,10 +40,14 @@ public sealed class FirebaseManager : IDatabaseHandler
     private const string QUESTIONS_COLLECTION_NAME = "questions";
 
     private const int TIMEOUT = 7;
-    
+    //private const int TIMER_DURTION = 10 * 1000;
+    //private const int TIMER_DURTION = 60 * 60 * 1000;
+
     private string localId;
     private string idToken;
+    //private string refreshToken;
 
+    //private Timer refreshTokenTimer = new Timer(TIMER_DURTION);
 
 
     private static fsSerializer serializer = new fsSerializer();
@@ -66,11 +73,49 @@ public sealed class FirebaseManager : IDatabaseHandler
         }
     }
 
+    //private FirebaseManager()
+    //{
+
+    //    refreshTokenTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+    //}
+
+    //private void OnTimedEvent(object source, ElapsedEventArgs e)
+    //{
+    //    Debug.Log("time up");
+    //    Debug.Log(this.refreshToken);
+    //    string payload = "grant_type=refresh_token&refresh_token=" + this.refreshToken;
+
+    //    RequestHelper rH = GetRequestHelper(REFRESH_ID_TOKEN_API, payload);
+    //    rH.Headers = new Dictionary<string, string> { 
+    //        { "content-type","application/x-www-form-urlencoded" } 
+    //    };
+       
+    //    RestClient.Post<RefreshTokenResponse>(rH).
+    //       Then(response => {
+    //           Debug.Log(this.idToken);
+    //           Debug.Log(this.refreshToken);
+    //           SetUserTokens(this.localId, response.id_token, response.refresh_token);
+    //           Debug.Log(this.idToken);
+    //           Debug.Log(this.refreshToken);
+    //       }).
+    //       Catch(error => { 
+    //           Debug.Log(error.Message); });
+    //}
+
+
+    private void SetUserTokens(string localId, string idToken/*, string inputRefreshToken*/)
+    {
+        this.localId = localId;
+        this.idToken = idToken;
+        //this.refreshToken = inputRefreshToken;
+    }
     // Reset the currnt user data.
     public void ResetUser()
     {
         localId = "";
         idToken = "";
+        //refreshToken = "";
+        //refreshTokenTimer.Stop();
     }
 
     // Put a given user to the database.
@@ -95,7 +140,7 @@ public sealed class FirebaseManager : IDatabaseHandler
     public void SignResponsePost(string url, string body, Action<SignResponse> onSuccess, Action<string> onFailure)
     {
         RestClient.Post<SignResponse>(GetRequestHelper(url, body)).
-            Then(response => onSuccess(response)).
+            Then(response =>  onSuccess(response)).
             Catch(error => { 
                 onFailure(ExtractErrorMessage(error));});
     }
@@ -184,8 +229,11 @@ public sealed class FirebaseManager : IDatabaseHandler
         SignResponsePost(SIGN_UP_API, GetUserDataStr(email, password),
         (response) =>
             {
-                idToken = response.idToken;
-                localId = response.localId;
+                SetUserTokens(response.localId, response.idToken/*, response.refreshToken*/);
+                //idToken = response.idToken;
+                //localId = response.localId;
+                //refreshToken = response.refreshToken;
+                
 
                 // Put the new user into the DB and if puting the user is done successfully, send an email for verification.
                 PutUser(new User(username), () => SendEmailForVerification(onSuccess, onFailure), onFailure);
@@ -227,8 +275,12 @@ public sealed class FirebaseManager : IDatabaseHandler
                 // If the user verified his email he can sign in.
                 if (emailConfirmationInfo.users[0].emailVerified)
                 {
-                    localId = response.localId;
-                    idToken = response.idToken;
+                    //refreshTokenTimer.Start();
+                    //Debug.Log("start timer");
+                    SetUserTokens(response.localId, response.idToken/*, response.refreshToken*/);
+                //localId = response.localId;
+                //    idToken = response.idToken;
+                //    refreshToken = response.refreshToken;
                     GetUser(onSuccess, onFailure);
                 }
                 else

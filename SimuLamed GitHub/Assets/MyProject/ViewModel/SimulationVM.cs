@@ -117,12 +117,13 @@ public class SimulationVM : SaveViewModel
         {
             // Save the user level. 
             NotifyPropertyChanged(OPENED_LEVEL);
+            currentLevel++;
         }
         else
         {
             NotifyPropertyChanged(FINISHED_LEVEL);
         }
-        currentLevel++;
+       
     }
     
     // Get the property name of finishing the main action of the view model.
