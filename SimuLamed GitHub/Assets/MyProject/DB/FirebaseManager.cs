@@ -36,7 +36,7 @@ public sealed class FirebaseManager : IDatabaseHandler
     private const string USERS_COLLECTION_NAME = "users";
     private const string QUESTIONS_COLLECTION_NAME = "questions";
 
-    private const int TIMEOUT = 5;
+    private const int TIMEOUT = 7;
     
     private string localId;
     private string idToken;

@@ -16,7 +16,6 @@ public class ScreensManager : MonoBehaviour
     private static bool isEndMenu = false;
     private bool isLastQuestion;
     private bool isLastLevel;
-    private bool isExited;
 
 
     private static SoundManager soundManager;
@@ -27,7 +26,7 @@ public class ScreensManager : MonoBehaviour
     private const int SUCCESS_MENU_UI_IDX = 3;
     private const int QUESTIONS_MENU_UI_IDX = 4;
     private const int LAST_SUCCESS_MENU_UI_IDX = 5;
-    private const int ERROR_SUCCESS_MENU_UI_IDX = 6;
+    private const int ERROR_MENU_UI_IDX = 6;
 
     [SerializeField]
     private GameObject[] menues;
@@ -75,7 +74,7 @@ public class ScreensManager : MonoBehaviour
             else if (eventArgs.PropertyName.Equals(nameof(simulationVM.IsSaveingFailed)) && simulationVM.IsSaveingFailed)
             {
                 DiactivateAllMenues();
-                ActivateMenu(()=>{ }, menues[ERROR_SUCCESS_MENU_UI_IDX], true);
+                ActivateMenu(()=>{ }, menues[ERROR_MENU_UI_IDX], true);
                 
             }
 
@@ -83,17 +82,17 @@ public class ScreensManager : MonoBehaviour
 
     }
 
-    // Set isExited field.
-    public void SetIsExited(bool toExit)
+    public void SetIsQuitMenu(bool isQuit)
     {
-        isExited = toExit;
+        isQuitMenu = isQuit;
     }
+
 
     // The user does not want to go back with no saving - hide the error screen and continue the game.
     public void Abort()
     {
         simulationVM.IsSaveingFailed = false;
-        ActivateMenu(()=> { }, menues[ERROR_SUCCESS_MENU_UI_IDX], false);
+        ActivateMenu(()=> { }, menues[ERROR_MENU_UI_IDX], false);
     }
 
     // Diactivate all menues.
@@ -108,37 +107,39 @@ public class ScreensManager : MonoBehaviour
     // Check if space or esc is clicked.
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!menues[ERROR_MENU_UI_IDX].activeSelf)
         {
-            // Other menues are not active.
-            if (!isQuitMenu && !isQuestionMenu && !isEndMenu)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (gameIsPaused) { Resume(); }
-                else { Pause(); }
+                // Other menues are not active.
+                if (!isQuitMenu && !isQuestionMenu && !isEndMenu)
+                {
+                    if (gameIsPaused) { Resume(); }
+                    else { Pause(); }
+                }
             }
-        }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (!gameIsPaused) { QuitMenu(); }
-            
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (!gameIsPaused) { QuitMenu(); }
+
+            }
         }
     }
 
     // Reset the screens to false - no screen is displaying right now.
     public static void ResetScreens()
     {
-            gameIsPaused = false;
-            isQuitMenu = false;
-            isQuestionMenu = false;
-            isEndMenu = false;
+        gameIsPaused = false;
+        isQuitMenu = false;
+        isQuestionMenu = false;
+        isEndMenu = false;
     }
 
     // Activate or disactivate the given menu UI and make the given sound action.
     private void ActivateMenu(Action soundAction, GameObject menuUI, bool toActivate)
-    {
-        // User already exited the simulation.
-        if (isExited) { return; }
+    {   
+        if (isQuitMenu && toActivate) { return; }
         
         soundAction();
         menuUI.SetActive(toActivate);
@@ -232,8 +233,11 @@ public class ScreensManager : MonoBehaviour
     {
         
         ActivateMenu(() => { soundManager.DisplayQuestion(); }, menues[QUESTIONS_MENU_UI_IDX], true);
-        isQuestionMenu = true;
-        simulationVM.DisplayQuestion(questionNumber);
+        if (!isQuitMenu)
+        {
+            isQuestionMenu = true;
+            simulationVM.DisplayQuestion(questionNumber);
+        }
     }
 
 }

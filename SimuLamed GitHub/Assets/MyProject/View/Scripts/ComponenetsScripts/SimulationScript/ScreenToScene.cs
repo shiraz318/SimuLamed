@@ -54,9 +54,9 @@ public class ScreenToScene : MonoBehaviour
     // Check time and exit the simulation.
     private void OnClickCheckTimeAndExit(Action onSuccess)
     {
-        OnClickCheckTime(()=> { SetOnSuccessFunc(onSuccess); });
-        ScreensManager.ResetScreens();
+        OnClickCheckTime(()=> { SetOnSuccessFunc(onSuccess); });  
         viewModel.OnExitSimulation();
+        ScreensManager.ResetScreens();
     }
     
 
