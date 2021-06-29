@@ -36,7 +36,7 @@ namespace Assets.ViewModel
         private static string forwardInput = DEFAULT_FORWARD;
         private static string backwardsInput = DEFAULT_BACKWARDS;
         private static bool toShowQuestions = DEFAULT_TO_SHOW_QUESTIONS;
-        private static bool toMuteSound = DEFAULT_TO_MUTE_SOUND;
+        public static bool toMuteSound = DEFAULT_TO_MUTE_SOUND;
 
         // Properties.
         [Binding]
@@ -92,6 +92,7 @@ namespace Assets.ViewModel
             * Hash set - contains every key only once.
             * Therefore if there are more than one key value - the length will be less than 4.
             */
+            keys.Clear();
             keys.Add(LeftInput);
             keys.Add(RightInput);
             keys.Add(ForwardInput);
@@ -111,7 +112,21 @@ namespace Assets.ViewModel
             int ascii = System.Convert.ToInt32(character);
             PlayerPrefs.SetString(keyName, ascii.ToString());
         }
+        public static void ResetSettings()
+        {
+            // Reset player prefab.
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.SetString(SettingsVM.SHOW_QUESTIONS, SettingsVM.DEFAULT_TO_SHOW_QUESTIONS == true ? SettingsVM.SHOW : string.Empty);
+
+            leftInput = DEFAULT_LEFT;
+            rightInput = DEFAULT_RIGHT;
+            forwardInput = DEFAULT_FORWARD;
+            backwardsInput = DEFAULT_BACKWARDS;
+            toShowQuestions = DEFAULT_TO_SHOW_QUESTIONS;
+            toMuteSound = DEFAULT_TO_MUTE_SOUND;
 
     }
+
+}
 
 }

@@ -16,6 +16,7 @@ public class ScreensManager : MonoBehaviour
     private static bool isEndMenu = false;
     private bool isLastQuestion;
     private bool isLastLevel;
+    private bool isExited;
 
 
     private static SoundManager soundManager;
@@ -82,6 +83,12 @@ public class ScreensManager : MonoBehaviour
 
     }
 
+    // Set isExited field.
+    public void SetIsExited(bool toExit)
+    {
+        isExited = toExit;
+    }
+
     // The user does not want to go back with no saving - hide the error screen and continue the game.
     public void Abort()
     {
@@ -130,6 +137,9 @@ public class ScreensManager : MonoBehaviour
     // Activate or disactivate the given menu UI and make the given sound action.
     private void ActivateMenu(Action soundAction, GameObject menuUI, bool toActivate)
     {
+        // User already exited the simulation.
+        if (isExited) { return; }
+        
         soundAction();
         menuUI.SetActive(toActivate);
         Time.timeScale = toActivate? 0f: 1f;
@@ -220,6 +230,7 @@ public class ScreensManager : MonoBehaviour
     // Display the questions menu UI with the given question.
     public void DisplayQuestion(int questionNumber)
     {
+        
         ActivateMenu(() => { soundManager.DisplayQuestion(); }, menues[QUESTIONS_MENU_UI_IDX], true);
         isQuestionMenu = true;
         simulationVM.DisplayQuestion(questionNumber);

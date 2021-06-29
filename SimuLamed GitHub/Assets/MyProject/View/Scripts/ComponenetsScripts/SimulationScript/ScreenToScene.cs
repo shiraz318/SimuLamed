@@ -14,7 +14,6 @@ public class ScreenToScene : MonoBehaviour
     private SimulationVM viewModel;
 
 
-
     private void Start()
     {
         sceneLoader = GameObject.Find(GameObjectNames.SCENE_LOADER).GetComponent<SceneLoader>();

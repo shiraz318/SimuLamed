@@ -8,9 +8,7 @@ public class SignInView : RegisterView
 
     public void Awake()
     {
-        // Reset player prefab.
-        PlayerPrefs.DeleteAll();
-        PlayerPrefs.SetString(SettingsVM.SHOW_QUESTIONS, SettingsVM.DEFAULT_TO_SHOW_QUESTIONS == true ? SettingsVM.SHOW : string.Empty);
+        SettingsVM.ResetSettings();
     }
 
     // On click quit button.

@@ -37,6 +37,7 @@ public class OnClickSound : MonoBehaviour
             PlayerPrefs.SetInt(SettingsVM.MUTE_SOUND, 0);
             voliumImage.sprite = soundImage;
         }
+        SettingsVM.toMuteSound = isMuteNow;
         SoundManager.muteCar = isMuteNow;
     }
 
