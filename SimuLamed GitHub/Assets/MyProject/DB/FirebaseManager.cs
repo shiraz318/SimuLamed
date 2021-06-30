@@ -11,7 +11,7 @@ using Assets;
 using System.Threading.Tasks;
 using Assets.Model;
 using System.Timers;
-using Assets.MyProject.DB;
+
 
 // Singleton FirebaseManager.
 public sealed class FirebaseManager : IDatabaseHandler
