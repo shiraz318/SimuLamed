@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using Assets.MyProject.View.Scripts;
 
 public enum Lights
 {
@@ -86,7 +87,7 @@ public class LightAnimator : MonoBehaviour
     // Set the textures.
     private void SetTextures()
     {
-        MyTrafficLightTextures textures = GameObject.Find("MyTextures").GetComponent<MyTrafficLightTextures>();
+        MyTrafficLightTextures textures = GameObject.Find(GameObjectNames.MY_TEXTURES).GetComponent<MyTrafficLightTextures>();
         emptyAndRedYellowTexture = textures.emptyAndRedYellowTexture;
         regularLightsTexture = textures.regularLightsTexture;
     }
